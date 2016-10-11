@@ -11,6 +11,7 @@ Car::Car()
 	width = 85;
 	oversized = false;
 	model = MIDSIZE;
+	activeEmergency = false;
 }
 
 Car::Car(bool emergency)		//JG optional, defaults to false
