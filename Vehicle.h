@@ -8,7 +8,7 @@ Change Log Location: bottom of this file.
 class Vehicle
 {
 private:
-	CARTYPES vehicleModel;  //enum, FOUND IN: Inclueds.h
+	enum CARTYPES vehicleModel;  //enum, FOUND IN: Inclueds.h
 	int minSpeed;				//minimum speed the car is allowed to go
 	int maxSpeed;				//maximum speed the car can go (speed limit on current rode)
 	double currentSpeed;		//the current speed of vehicle

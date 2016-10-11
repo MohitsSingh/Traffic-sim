@@ -9,7 +9,7 @@ const int TIME_INCREMENT = 1;
 const enum CARTYPES {MIDSIZE, SEMI, TRUCK, SPORTSCAR};
 
 //proposed additions by spencemw.  These will be used to range bound the city as well notated the proper positions of things
-#include "TrafficSignal.h"
+//#include "TrafficSignal.h"
 const double MAXLONG = -105.153185;			//western city limit    40.569385, -105.153185 Longitude is vertical
 const double MINLONG = -104.982092;			//eastern city limit	40.567903, -104.982092
 const double MAXLAT = 40.639270;			//northern city limit	40.639270, -105.038198 Latitidue is horizontal
