@@ -3,10 +3,16 @@
 #include <iostream>
 #include <Math.h>
 using namespace std;
+
+#include "Location.h"
+#include "TransportMode.h"
 #include "Vehicle.h"
+#include "Car.h"
+#include "Van.h"
+
 const double PI = 3.14159265359;
 const int TIME_INCREMENT = 1;
-const enum CARTYPES {MIDSIZE, SEMI, TRUCK, SPORTSCAR};
+const enum CARTYPES {MIDSIZE, VAN, TRUCK, SEMI, BUS, SPORT};
 
 //proposed additions by spencemw.  These will be used to range bound the city as well notated the proper positions of things
 //#include "TrafficSignal.h"
