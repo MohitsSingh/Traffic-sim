@@ -4,24 +4,28 @@
 //constructers
 Vehicle::Vehicle()
 {
-	Location(spot);
+	//JG see Includes.h
+#if TSIM_CONSTRUCTOR_OUTPUT == 1
+	cout << "Default constructor for Vehicle called.\n";
+#endif
+	model = UNDEFINED;		//JG
 	traction = 0;
 	weight = 0;
 	brakingPower = 0;
 	acceleration = 0.0;
 	oversized = false;
+	activeEmergency = false;
 	emergencyVehicle = false;
-	cout << "Default constructor for Vehicle called.\n";
 }
 
 //operator overloads
 ostream &operator<<(ostream &output, Vehicle inputVehicle)
 {
-	output << "Model:\t\t\t" << inputVehicle.getModel() << endl;
+	output << "Model:\t\t\t" << inputVehicle.getModel() << endl;		//JG will output an int from the enum, but das ist ok
 	output << "Latitude:\t\t" << inputVehicle.getLatitude() << endl;
 	output << "Longitude:\t\t" << inputVehicle.getLongitude() << endl;
 	output << "Current Speed:\t\t" << inputVehicle.getCurrentSpeed() << endl;
-	//output << "Acceleration:\t\t" << inputVechicle.getAcceleration() << endl;
+	output << "Acceleration:\t\t" << inputVehicle.getAcceleration() << endl;
 	output << "Maximum Speed:\t\t" << inputVehicle.getMaxSpeed() << endl;
 	output << "Weight:\t\t\t" << inputVehicle.getWeight() << endl;
 	output << "Length:\t\t\t" << inputVehicle.getLength() << endl; 
@@ -31,20 +35,22 @@ ostream &operator<<(ostream &output, Vehicle inputVehicle)
 	output << endl << endl;
 	return output;
 }
+/*	JG: in-class example, not going to be used
 Vehicle Vehicle::operator++()
 {
 	setCurrentSpeed(getCurrentSpeed() + acceleration / 3600); //why / by 3600 are we not storing acceleration in seconds?
 	setLongitude(getLongitude() + 0.001);
 	return *this;
 }
+*/
 
 //************************************************
 //Getters
 //************************************************
+//JG: compiler issues resolved
 CARTYPES Vehicle::getModel()
 {
-	return MIDSIZE;
-	//return vehicleModel;
+	return model;
 }
 double Vehicle::getMaxAcceleration()
 {
@@ -74,6 +80,10 @@ bool Vehicle::getEmergencyVehicle()
 {
 	return emergencyVehicle;
 }
+bool Vehicle::isActiveEmergency()		//JG
+{
+	return activeEmergency;
+}
 
 //************************************************
 //Setters
@@ -82,9 +92,10 @@ void Vehicle::setMaxAcceleration(double inputSpeed)
 {
 	maxAcceleration = inputSpeed;
 }
+//JG: compiler issues resolved
 void Vehicle::setModel(CARTYPES inputModel)
 {
-	//vehicleModel = inputModel;
+	model = inputModel;
 }
 void Vehicle::setTraction(int inputTraction)
 {
@@ -106,9 +117,17 @@ void Vehicle::setOversized(bool inputOversized)
 {
 	oversized = inputOversized;
 }
+
 void Vehicle::setEmergencyVehicle(bool inputEmergencyVehicle)
 {
 	emergencyVehicle = inputEmergencyVehicle;
+}
+void Vehicle::setActiveEmergency(bool input)		//JG
+{
+	if (emergencyVehicle)	//JG only allow setting active emergency for emergency vehicles
+	{
+		activeEmergency = input;
+	}		
 }
 
 //**************************************

@@ -3,6 +3,7 @@
 
 class Pedestrian : public TransportMode
 {
+protected:
 public:
 	Pedestrian();
 	~Pedestrian();

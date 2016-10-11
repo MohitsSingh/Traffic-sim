@@ -11,8 +11,7 @@ Change Log Location: bottom of this file.
 
 class TransportMode
 {
-private:
-	Location spot();            /*where on x y grid*/
+protected:
 	int minSpeed;				//minimum speed mode is allowed to go
 	int maxSpeed;				//maximum speed mode can go (speed limit on current rode)
 	double currentSpeed;		//the current speed of mode

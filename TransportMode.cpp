@@ -3,6 +3,10 @@
 
 TransportMode::TransportMode()
 {
+	//JG: See includes.h
+#if TSIM_CONSTRUCTOR_OUTPUT == 1
+	cout << "Default constructor for Transportation Mode called.\n";
+#endif
 	minSpeed = 0;
 	maxSpeed = 0;
 	currentSpeed = 0;
@@ -12,7 +16,6 @@ TransportMode::TransportMode()
 	latitude = 0.0;
 	longitude = 0.0;
 	direction = PI / 2;
-	cout << "Default constructor for Transportation Mode called.\n";
 }
 
 

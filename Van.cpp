@@ -1,29 +1,39 @@
 #include "Van.h"
 
-
-Van::Van()
+Van::Van(bool emergency) //JG optional, defaults to false
 {
-	cout << "Default constructor for Van called.\n";
+#if TSIM_CONSTRUCTOR_OUTPUT == 1
+	if (emergency)
+	{
+		cout << "\"Emergency\" constructor for Van called.\n";
+	}
+	else
+		cout << "Default constructor for Van called.\n";
+#endif
 
-	setAcceleration(10.2);
-	setMaxSpeed(94);
-	setWeight(4700);
-	setLength(200); // inches
-	setWidth(80); // inches
-	setOversized(false);
-}
+	//JG ambulance specs
+	if (emergency)
+	{
+		acceleration = 5.5;
+		maxSpeed = 100;
+		weight = 4700;
+		length = 180;			//inches
+		width = 80;				//inches
+	}
+	//JG normal van specs
+	else
+	{
+		acceleration = 10.2;
+		maxSpeed = 94;
+		weight = 4700;
+		length = 200;			//inches
+		width = 80;				//inches
+	}
 
-Van::Van(bool emergency) // ambulance constructor
-{
-	cout << "\"Emergency\" constructor for Van called.\n";
-
-	setAcceleration(5.5);
-	setMaxSpeed(100);
-	setWeight(4700);
-	setLength(180); // inches
-	setWidth(80); // inches
-	setOversized(false);
-	setEmergencyVehicle(((emergency = true) ? true : false));
+	model = VAN;
+	oversized = false;
+	activeEmergency = false;
+	emergencyVehicle = emergency;
 }
 
 

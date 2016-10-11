@@ -1,29 +1,41 @@
 #include "Car.h"
 
 
-Car::Car()
+Car::Car(bool emergency)		//JG optional, defaults to false
 {
-	cout << "Default constructor for Car called.\n";
-	
-	setAcceleration(7.5); 
-	setMaxSpeed(150); 
-	setWeight(4000);
-	setLength(200); // inches
-	setWidth(85); // inches
-	setOversized(false);
-}
+	//JG: see includes.h
+#if TSIM_CONSTRUCTOR_OUTPUT == 1
+	if (emergency)
+	{
+		cout << "\"Emergency\" constructor for Car called.\n";
+	}
+	else
+		cout << "Default constructor for Car called.\n";
+#endif
 
-Car::Car(bool emergency) // Police car constructor
-{
-	cout << "\"Emergency\" constructor for Car called.\n";
+	//JG police car specs (probably needs tweaking)
+	if (emergency)
+	{
+		acceleration = 4.5;
+		maxSpeed = 180;
+		weight = 4000;
+		length = 200;			//inches
+		width = 85;				//inches
+	}
+	//JG normal car specs
+	else
+	{
+		acceleration = 7.5;
+		maxSpeed = 150;
+		weight = 4000;
+		length = 200;			//inches
+		width = 85;				//inches
+	}
 
-	setAcceleration(4.5);
-	setMaxSpeed(180);
-	setWeight(4000);
-	setLength(200); // inches
-	setWidth(85); // inches
-	setOversized(false);
-	setEmergencyVehicle(((emergency = true) ? true:false));
+	model = MIDSIZE;
+	oversized = false;
+	activeEmergency = false;
+	emergencyVehicle = emergency;
 }
 
 Car::~Car()

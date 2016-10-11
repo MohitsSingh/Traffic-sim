@@ -3,11 +3,9 @@
 
 class Van : public Vehicle
 {
-private:
-	string model;
+protected:
 public:
-	Van();
-	Van(bool emergency);
+	Van(bool emergency = false);
 	~Van();
 };
 

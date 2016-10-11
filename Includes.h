@@ -4,16 +4,13 @@
 #include <Math.h>
 using namespace std;
 
-#include "Location.h"
-#include "TransportMode.h"
-#include "Vehicle.h"
-#include "Car.h"
-#include "Van.h"
-#include "Pedestrian.h"
+//JG: Preprocessor directive for whether we want to output constructor calls for debugging
+//		0 is no output, 1 is output
+#define TSIM_CONSTRUCTOR_OUTPUT 1
 
+enum CARTYPES { UNDEFINED, MIDSIZE, VAN, TRUCK, SEMI, BUS, SPORT };
 const double PI = 3.14159265359;
 const int TIME_INCREMENT = 1;
-const enum CARTYPES {MIDSIZE, VAN, TRUCK, SEMI, BUS, SPORT};
 
 //proposed additions by spencemw.  These will be used to range bound the city as well notated the proper positions of things
 //#include "TrafficSignal.h"
@@ -25,3 +22,11 @@ const int COMPASSMIN = 1;             //North 360, East 090, South 180, West 270
 const int COMPASSMAX = 360;            //North 360, East 090, South 180, West 270 (avoids 0 being used as North)
 const double DELTA_GPS_TO_METERS = 1.1;   //when the GPS long lat position has changed 0.00001 the item has moved 1.1meters
 const double DELTA_METERS_TO_GPS = 0.00001;  //when the meters change 1.1 the long lat position has changed 0.00001
+
+#include "TransportMode.h"
+#include "Vehicle.h"
+#include "Pedestrian.h"
+#include "Car.h"
+#include "Van.h"
+#include "Sportscar.h"
+#include "Bus.h"
