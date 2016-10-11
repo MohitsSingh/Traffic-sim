@@ -217,7 +217,7 @@ void Vehicle::setEmergencyVehicle(bool inputEmergencyVehicle)
 //**************************************
 //Test functions
 //**************************************
-void Vehicle::applyAcceleration(double time)
+double Vehicle::applyAcceleration(double time)
 {
 	//d(t) = 0.5at^2 + vt + k
 
@@ -225,4 +225,5 @@ void Vehicle::applyAcceleration(double time)
 
 	distance = 0.5 * acceleration * time * time + currentSpeed * time;
 	currentSpeed += acceleration * time;
+	return distance;
 }
