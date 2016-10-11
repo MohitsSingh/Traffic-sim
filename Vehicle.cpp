@@ -1,72 +1,40 @@
-#pragma once
+//#pragma once
 #include "Includes.h"
 
 //constructers
 Vehicle::Vehicle()
 {
-	minSpeed = 0;
-	maxSpeed = 0;
-	currentSpeed = 0;
+	Location(spot);
 	traction = 0;
 	weight = 0;
 	brakingPower = 0;
-	length = 0;
-	width = 0;
-	hazardRating = 0;
-	latitude = 0.0;
-	longitude = 0.0;
 	acceleration = 0.0;
 	oversized = false;
 	emergencyVehicle = false;
-	direction = PI / 2;
-}
-Vehicle::Vehicle(enum CARTYPES inputCARTYPE)
-{
-	switch (inputCARTYPE)
-	{
-	case MIDSIZE:
-		//** FILL ME
-		break;
-	case SEMI:
-		break;
-	case TRUCK:
-		break;
-	case SPORTSCAR:
-		break;
-	default:
-		minSpeed = 0;
-		maxSpeed = 0;
-		currentSpeed = 0;
-		traction = 0;
-		weight = 0;
-		brakingPower = 0;
-		length = 0;
-		width = 0;
-		hazardRating = 0;
-		latitude = 0.0;
-		longitude = 0.0;
-		acceleration = 0.0;
-		oversized = false;
-		emergencyVehicle = false;
-		direction = PI / 2;
-		break;
-	}
+	cout << "Default constructor for Vehicle called.\n";
 }
 
 //operator overloads
 ostream &operator<<(ostream &output, Vehicle inputVehicle)
 {
-	output << "Model:\t\t" << inputVehicle.getModel() << endl;
-	output << "Latitude:\t" << inputVehicle.getlatitude() << endl;
-	output << "Longitude:\t" << inputVehicle.getLongitude() << endl;
-	output << "Current Speed:\t" << inputVehicle.getCurrentSpeed() << endl;
+	output << "Model:\t\t\t" << inputVehicle.getModel() << endl;
+	output << "Latitude:\t\t" << inputVehicle.getLatitude() << endl;
+	output << "Longitude:\t\t" << inputVehicle.getLongitude() << endl;
+	output << "Current Speed:\t\t" << inputVehicle.getCurrentSpeed() << endl;
+	//output << "Acceleration:\t\t" << inputVechicle.getAcceleration() << endl;
+	output << "Maximum Speed:\t\t" << inputVehicle.getMaxSpeed() << endl;
+	output << "Weight:\t\t\t" << inputVehicle.getWeight() << endl;
+	output << "Length:\t\t\t" << inputVehicle.getLength() << endl; 
+	output << "Width:\t\t\t" << inputVehicle.getWidth() << endl; 
+	output << "Oversized:\t\t" << ((inputVehicle.getOversized()) == 1 ? "True":"False")  << endl;
+	output << "Emergency Vehicle:\t" << ((inputVehicle.getEmergencyVehicle()) == 1 ? "True" : "False") << endl;
 	output << endl << endl;
 	return output;
 }
 Vehicle Vehicle::operator++()
 {
-	currentSpeed = currentSpeed + acceleration / 3600; //why / by 3600 are we not storing acceleration in seconds?
-	longitude += 0.001;
+	setCurrentSpeed(getCurrentSpeed() + acceleration / 3600); //why / by 3600 are we not storing acceleration in seconds?
+	setLongitude(getLongitude() + 0.001);
 	return *this;
 }
 
@@ -75,27 +43,12 @@ Vehicle Vehicle::operator++()
 //************************************************
 CARTYPES Vehicle::getModel()
 {
-	return vehicleModel;
-}
-double Vehicle::getDirection()
-{
-	return direction;
+	return MIDSIZE;
+	//return vehicleModel;
 }
 double Vehicle::getMaxAcceleration()
 {
 	return maxAcceleration;
-}
-int Vehicle::getMinSpeed()
-{
-	return minSpeed;
-}
-int Vehicle::getMaxSpeed()
-{
-	return maxSpeed;
-}
-double Vehicle::getCurrentSpeed()
-{
-	return currentSpeed;
 }
 int Vehicle::getTraction()
 {
@@ -108,26 +61,6 @@ int Vehicle::getWeight()
 double Vehicle::getbrakingPower()
 {
 	return brakingPower;
-}
-int Vehicle::getLength()
-{
-	return length;
-}
-int Vehicle::getWidth()
-{
-	return width;
-}
-int Vehicle::getHazardRating()
-{
-	return hazardRating;
-}
-double Vehicle::getlatitude()
-{
-	return latitude;
-}
-double Vehicle::getLongitude()
-{
-	return longitude;
 }
 double Vehicle::getAcceleration()
 {
@@ -149,25 +82,9 @@ void Vehicle::setMaxAcceleration(double inputSpeed)
 {
 	maxAcceleration = inputSpeed;
 }
-void Vehicle::setDirection(double inputDirection)
-{
-	direction = inputDirection;
-}
 void Vehicle::setModel(CARTYPES inputModel)
 {
-	vehicleModel = inputModel;
-}
-void Vehicle::setMinSpeed(int inputSpeed)
-{
-	minSpeed = inputSpeed;
-}
-void Vehicle::setMaxSpeed(int inputSpeed)
-{
-	maxSpeed = inputSpeed;
-}
-void Vehicle::setCurrentSpeed(double inputSpeed)
-{
-	currentSpeed = inputSpeed;
+	//vehicleModel = inputModel;
 }
 void Vehicle::setTraction(int inputTraction)
 {
@@ -180,26 +97,6 @@ void Vehicle::setWeight(int inputWeight)
 void Vehicle::setbrakingPower(double inputbrakingPower)
 {
 	brakingPower = inputbrakingPower;
-}
-void Vehicle::setLength(int inputLength)
-{
-	length = inputLength;
-}
-void Vehicle::setWidth(int inputWidth)
-{
-	width = inputWidth;
-}
-void Vehicle::setHazardRating(int inputHazardRating)
-{
-	hazardRating = inputHazardRating;
-}
-void Vehicle::setlatitude(double inputlatitude)
-{
-	latitude = inputlatitude;
-}
-void Vehicle::setLongitude(double inputLongitude)
-{
-	longitude = inputLongitude;
 }
 void Vehicle::setAcceleration(double inputAcceleration)
 {
@@ -223,6 +120,6 @@ void Vehicle::applyAcceleration(double time)
 
 	double distance;
 
-	distance = 0.5 * acceleration * time * time + currentSpeed * time;
-	currentSpeed += acceleration * time;
+	distance = 0.5 * acceleration * time * time + getCurrentSpeed() * time;
+	setCurrentSpeed(getCurrentSpeed() + acceleration * time);
 }
