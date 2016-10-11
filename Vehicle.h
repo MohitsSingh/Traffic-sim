@@ -22,7 +22,7 @@ private:
 
 	bool oversized;			//not being used at the moment
 	bool emergencyVehicle;	//not being used at the moment
-	int tracktion;				//not being used at the moment
+	int traction;				//not being used at the moment
 	int weight;					//not being used at the moment
 	int length;					//not being used at the moment
 	int width;					//not being used at the moment
@@ -42,7 +42,7 @@ public:
 	CARTYPES getModel();
 	int getMinSpeed();
 	int getMaxSpeed();
-	int getTracktion();
+	int getTraction();
 	int getWeight();
 	int getLength();
 	int getWidth();
@@ -63,7 +63,7 @@ public:
 	void setMinSpeed(int inputSpeed);
 	void setMaxSpeed(int inputSpeed);
 	void setCurrentSpeed(double inputSpeed);
-	void setTracktion(int inputTraction);
+	void setTraction(int inputTraction);
 	void setWeight(int inputWeight);
 	void setbrakingPower(double inputbrakingPower);
 	void setLength(int inputLength);

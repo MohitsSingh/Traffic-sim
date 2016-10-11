@@ -7,7 +7,7 @@ Vehicle::Vehicle()
 	minSpeed = 0;
 	maxSpeed = 0;
 	currentSpeed = 0;
-	tracktion = 0;
+	traction = 0;
 	weight = 0;
 	brakingPower = 0;
 	length = 0;
@@ -37,7 +37,7 @@ Vehicle::Vehicle(enum CARTYPES inputCARTYPE)
 		minSpeed = 0;
 		maxSpeed = 0;
 		currentSpeed = 0;
-		tracktion = 0;
+		traction = 0;
 		weight = 0;
 		brakingPower = 0;
 		length = 0;
@@ -97,9 +97,9 @@ double Vehicle::getCurrentSpeed()
 {
 	return currentSpeed;
 }
-int Vehicle::getTracktion()
+int Vehicle::getTraction()
 {
-	return tracktion;
+	return traction;
 }
 int Vehicle::getWeight()
 {
@@ -169,9 +169,9 @@ void Vehicle::setCurrentSpeed(double inputSpeed)
 {
 	currentSpeed = inputSpeed;
 }
-void Vehicle::setTracktion(int inputTraction)
+void Vehicle::setTraction(int inputTraction)
 {
-	tracktion = inputTraction;
+	traction = inputTraction;
 }
 void Vehicle::setWeight(int inputWeight)
 {
