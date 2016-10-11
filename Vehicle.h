@@ -36,13 +36,18 @@ public:
 
 	//operator overloads
 	friend ostream &operator<<(ostream &output, Vehicle inputCar);
+
+	//10/11 spencemw added these friends for the programing in output.cpp 
+	friend void simplePrint(Vehicle lorry);			//outputs current speed, acceleration, direction, long, lat
+	friend void directionPrint(Vehicle lorry);
+	
 	Vehicle operator++();
 
 	//GETTERS
 	CARTYPES getModel();
 	int getMinSpeed();
 	int getMaxSpeed();
-	int getTraction();
+	int getTracktion();
 	int getWeight();
 	int getLength();
 	int getWidth();
@@ -63,7 +68,7 @@ public:
 	void setMinSpeed(int inputSpeed);
 	void setMaxSpeed(int inputSpeed);
 	void setCurrentSpeed(double inputSpeed);
-	void setTraction(int inputTraction);
+	void setTracktion(int inputTraction);
 	void setWeight(int inputWeight);
 	void setbrakingPower(double inputbrakingPower);
 	void setLength(int inputLength);

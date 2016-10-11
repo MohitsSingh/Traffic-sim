@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <iomanip>			//10/11 spencemw for setprecision and fixed in output
 #include <Math.h>
 using namespace std;
 #include "Vehicle.h"
@@ -8,6 +9,7 @@ const double PI = 3.14159265359;
 const int TIME_INCREMENT = 1;
 const enum CARTYPES {MIDSIZE, SEMI, TRUCK, SPORTSCAR};
 
+/*10/11 spencemw added iomanip for output*/
 //proposed additions by spencemw.  These will be used to range bound the city as well notated the proper positions of things
 //#include "TrafficSignal.h"
 const double MAXLONG = -105.153185;			//western city limit    40.569385, -105.153185 Longitude is vertical
