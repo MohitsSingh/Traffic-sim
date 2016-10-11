@@ -4,10 +4,12 @@
 //constructers
 Vehicle::Vehicle()
 {
+	cout << "Vehicle" << endl;
+	Location(spot);
 	minSpeed = 0;
 	maxSpeed = 0;
 	currentSpeed = 0;
-	traction = 0;
+	tracktion = 0;
 	weight = 0;
 	brakingPower = 0;
 	length = 0;
@@ -37,7 +39,7 @@ Vehicle::Vehicle(enum CARTYPES inputCARTYPE)
 		minSpeed = 0;
 		maxSpeed = 0;
 		currentSpeed = 0;
-		traction = 0;
+		tracktion = 0;
 		weight = 0;
 		brakingPower = 0;
 		length = 0;
@@ -53,29 +55,77 @@ Vehicle::Vehicle(enum CARTYPES inputCARTYPE)
 	}
 }
 
+Vehicle::Vehicle(int xStartCoordinate, int yStartCoordinate)
+{
+	spot = Location(xStartCoordinate, yStartCoordinate);
+	minSpeed = 0;
+	maxSpeed = 0;
+	currentSpeed = 0;
+	tracktion = 0;
+	weight = 0;
+	brakingPower = 0;
+	length = 0;
+	width = 0;
+	hazardRating = 0;
+	latitude = 0.0;
+	longitude = 0.0;
+	acceleration = 0.0;
+	oversized = false;
+	emergencyVehicle = false;
+	direction = 0;
+
+}
+
 //operator overloads
 ostream &operator<<(ostream &output, Vehicle inputVehicle)
 {
-	output << "Model:\t\t" << inputVehicle.getModel() << endl;
-	output << "Latitude:\t" << inputVehicle.getlatitude() << endl;
-	output << "Longitude:\t" << inputVehicle.getLongitude() << endl;
+	//output << "Model:\t\t" << inputVehicle.getModel() << endl;
+	//output << "Latitude:\t" << inputVehicle.getlatitude() << endl;
+	//output << "Longitude:\t" << inputVehicle.getLongitude() << endl;
+	output << "Direction:\t" << inputVehicle.direction * 180 / PI  << endl;
 	output << "Current Speed:\t" << inputVehicle.getCurrentSpeed() << endl;
+	output << "acceleration:\t" << inputVehicle.acceleration << endl;
+	output << "x coordinate:\t" << inputVehicle.spot.getXCoord() << endl;
+	output << "y coordinate:\t" << inputVehicle.spot.getYCoord() << endl;
+
 	output << endl << endl;
 	return output;
 }
+//Vehicle Vehicle::operator++()
+//{
+//	currentSpeed = currentSpeed + acceleration / 3600; //why / by 3600 are we not storing acceleration in seconds?
+//	longitude += 0.001;
+//	return *this;
+//}
+
 Vehicle Vehicle::operator++()
 {
-	currentSpeed = currentSpeed + acceleration / 3600; //why / by 3600 are we not storing acceleration in seconds?
-	longitude += 0.001;
+	double distance;
+	currentSpeed += acceleration * TIME_INCREMENT;
+	distance = currentSpeed * TIME_INCREMENT;
+	spot.move(distance, direction);
+	
 	return *this;
 }
+
+void Vehicle::update()
+{
+	double distance;
+	currentSpeed += acceleration * TIME_INCREMENT;
+	distance = currentSpeed * TIME_INCREMENT;
+	spot.move(distance, direction);
+}
+
+
+
 
 //************************************************
 //Getters
 //************************************************
 CARTYPES Vehicle::getModel()
 {
-	return vehicleModel;
+	return MIDSIZE;
+	//return vehicleModel;
 }
 double Vehicle::getDirection()
 {
@@ -97,9 +147,9 @@ double Vehicle::getCurrentSpeed()
 {
 	return currentSpeed;
 }
-int Vehicle::getTraction()
+int Vehicle::getTracktion()
 {
-	return traction;
+	return tracktion;
 }
 int Vehicle::getWeight()
 {
@@ -155,7 +205,7 @@ void Vehicle::setDirection(double inputDirection)
 }
 void Vehicle::setModel(CARTYPES inputModel)
 {
-	vehicleModel = inputModel;
+	//vehicleModel = inputModel;
 }
 void Vehicle::setMinSpeed(int inputSpeed)
 {
@@ -169,9 +219,9 @@ void Vehicle::setCurrentSpeed(double inputSpeed)
 {
 	currentSpeed = inputSpeed;
 }
-void Vehicle::setTraction(int inputTraction)
+void Vehicle::setTracktion(int inputTraction)
 {
-	traction = inputTraction;
+	tracktion = inputTraction;
 }
 void Vehicle::setWeight(int inputWeight)
 {

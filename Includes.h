@@ -2,19 +2,18 @@
 #include <string>
 #include <iostream>
 #include <Math.h>
+#include<vector>
+#include<fstream>
 using namespace std;
-#include "Vehicle.h"
-const double PI = 3.14159265359;
-const int TIME_INCREMENT = 1;
-const enum CARTYPES {MIDSIZE, SEMI, TRUCK, SPORTSCAR};
 
-//proposed additions by spencemw.  These will be used to range bound the city as well notated the proper positions of things
-//#include "TrafficSignal.h"
-const double MAXLONG = -105.153185;			//western city limit    40.569385, -105.153185 Longitude is vertical
-const double MINLONG = -104.982092;			//eastern city limit	40.567903, -104.982092
-const double MAXLAT = 40.639270;			//northern city limit	40.639270, -105.038198 Latitidue is horizontal
-const double MINLAT = 40.474082;			//southern city limit	40.474082, -105.127653
-const int COMPASSMIN = 1;             //North 360, East 090, South 180, West 270
-const int COMPASSMAX = 360;            //North 360, East 090, South 180, West 270 (avoids 0 being used as North)
-const double DELTA_GPS_TO_METERS = 1.1;   //when the GPS long lat position has changed 0.00001 the item has moved 1.1meters
-const double DELTA_METERS_TO_GPS = 0.00001;  //when the meters change 1.1 the long lat position has changed 0.00001
+#include "Location.h"
+#include "Vehicle.h"
+#include "Car.h"
+
+class Location;
+class Vehicle;
+
+#define PI 3.14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196442881097566593344612847564823378678316527120190914564856692346034861045432664821339360726024914127372458700660631558817488152092096282925409171536436789259036001133053054882046652138414695194151160943305727036575959195309218611738193261179310511854807446237996274956735188575272489122793818301194912983367336244065664308602139494639522473719070217986094370277053921717629317675238467481846766940513200
+//const double PI = 3.141592653589793;
+const int TIME_INCREMENT = 1;  //second
+const enum CARTYPES {MIDSIZE, SEMI, TRUCK, SPORTSCAR};

@@ -1,23 +1,25 @@
 #pragma once
+//#include "Location.h"
 #include "Includes.h"
+
 /***********************************************************************
 Commented by: Michael Ritter
 Change Log Location: bottom of this file.
 ************************************************************************/
-
+class Location;
 class Vehicle
 {
 private:
-	enum CARTYPES vehicleModel;  //enum, FOUND IN: Inclueds.h
+	Location spot;  /*where on x y grid*/
 	int minSpeed;				//minimum speed the car is allowed to go
 	int maxSpeed;				//maximum speed the car can go (speed limit on current rode)
 	double currentSpeed;		//the current speed of vehicle
 	double acceleration;		//current acceleration 
 	double maxAcceleration;	//current acceleration
 	double brakingPower;		//Vehicle spec of breaking power
-	double latitude;			//vehicle position
-	double longitude;			//vehicle position
-	double direction;			//radians east is zero
+	double latitude;			//vehicle position North/South: relates to the y axis
+	double longitude;			//vehicle position East/West: relates to the x axis
+	double direction;			//radians: east is zero
 	
 
 	bool oversized;			//not being used at the moment
@@ -29,20 +31,42 @@ private:
 	int hazardRating;			//not being used at the moment
 
 public:
+
 	
 	//constructers
 	Vehicle();
 	Vehicle(enum CARTYPES inputCARTYPE);
+	Vehicle(int xStartCoordinate, int yStartCoordinate);
+	Vehicle(ifstream &fin)
+	{
+	//	fin >> kind;
+		fin >> maxSpeed;
+		fin >> minSpeed;
+		fin >> traction;
+		fin >> weight;
+		fin >> brakingPower;
+		fin >> length;
+		fin >> width;
+		fin >> currentSpeed;
+		fin >> direction;
+		fin >> longitude;
+		spot.setXCoord(longitude);
+		fin >> latitude;
+		spot.setYCoord(latitude);
+		fin >> acceleration;
+	}
+
 
 	//operator overloads
 	friend ostream &operator<<(ostream &output, Vehicle inputCar);
 	Vehicle operator++();
+	void update();
 
 	//GETTERS
 	CARTYPES getModel();
 	int getMinSpeed();
 	int getMaxSpeed();
-	int getTraction();
+	int getTracktion();
 	int getWeight();
 	int getLength();
 	int getWidth();
@@ -63,7 +87,7 @@ public:
 	void setMinSpeed(int inputSpeed);
 	void setMaxSpeed(int inputSpeed);
 	void setCurrentSpeed(double inputSpeed);
-	void setTraction(int inputTraction);
+	void setTracktion(int inputTraction);
 	void setWeight(int inputWeight);
 	void setbrakingPower(double inputbrakingPower);
 	void setLength(int inputLength);
@@ -76,8 +100,12 @@ public:
 	void setEmergencyVehicle(bool inputEmergencyVehicle);
 	void setDirection(double inputDirection);
 
-	//unknow functions
-	void applyAcceleration(double time); //no idea what this is for
+	Location getLocation()
+	{
+		return spot;
+	}
+
+	void applyAcceleration(double time);
 };
 
 
