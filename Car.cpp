@@ -1,5 +1,17 @@
 #include "Car.h"
 
+Car::Car()
+{
+	cout << "Default constructor for Car called.\n";
+	
+	acceleration = 7.5;		// seconds to 60mph
+	maxSpeed = 150;
+	weight = 4000;
+	length = 200;			//inches
+	width = 85;
+	oversized = false;
+	model = MIDSIZE;
+}
 
 Car::Car(bool emergency)		//JG optional, defaults to false
 {
@@ -16,7 +28,7 @@ Car::Car(bool emergency)		//JG optional, defaults to false
 	//JG police car specs (probably needs tweaking)
 	if (emergency)
 	{
-		acceleration = 4.5;
+		acceleration = 4.5;  // seconds to 60mph
 		maxSpeed = 180;
 		weight = 4000;
 		length = 200;			//inches
