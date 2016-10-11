@@ -124,10 +124,7 @@ void Vehicle::setEmergencyVehicle(bool inputEmergencyVehicle)
 }
 void Vehicle::setActiveEmergency(bool input)		//JG
 {
-	if (emergencyVehicle)	//JG only allow setting active emergency for emergency vehicles
-	{
-		activeEmergency = input;
-	}		
+	activeEmergency = input;  //AG All vehicles react to active emergency
 }
 
 //**************************************
