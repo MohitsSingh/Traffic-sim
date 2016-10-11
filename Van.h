@@ -5,6 +5,7 @@ class Van : public Vehicle
 {
 protected:
 public:
+	Van();
 	Van(bool emergency = false);
 	~Van();
 };
