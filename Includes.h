@@ -9,6 +9,7 @@ using namespace std;
 #include "Vehicle.h"
 #include "Car.h"
 #include "Van.h"
+#include "Pedestrian.h"
 
 const double PI = 3.14159265359;
 const int TIME_INCREMENT = 1;
