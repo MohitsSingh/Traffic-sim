@@ -53,22 +53,24 @@ Vehicle::Vehicle(enum CARTYPES inputCARTYPE)
 	}
 }
 
-//operator overloads
-ostream &operator<<(ostream &output, Vehicle inputVehicle)
-{
-	output << "Model:\t\t" << inputVehicle.getModel() << endl;
-	output << "Latitude:\t" << inputVehicle.getlatitude() << endl;
-	output << "Longitude:\t" << inputVehicle.getLongitude() << endl;
-	output << "Current Speed:\t" << inputVehicle.getCurrentSpeed() << endl;
-	output << endl << endl;
-	return output;
-}
-Vehicle Vehicle::operator++()
-{
-	currentSpeed = currentSpeed + acceleration / 3600; //why / by 3600 are we not storing acceleration in seconds?
-	longitude += 0.001;
-	return *this;
-}
+
+//10/11 spencemw commented out with the creation of output.cpp file
+////operator overloads
+//ostream &operator<<(ostream &output, Vehicle inputVehicle)
+//{
+//	output << "Model:\t\t" << inputVehicle.getModel() << endl;
+//	output << "Latitude:\t" << inputVehicle.getlatitude() << endl;
+//	output << "Longitude:\t" << inputVehicle.getLongitude() << endl;
+//	output << "Current Speed:\t" << inputVehicle.getCurrentSpeed() << endl;
+//	output << endl << endl;
+//	return output;
+//}
+//Vehicle Vehicle::operator++()
+//{
+//	currentSpeed = currentSpeed + acceleration / 3600; //why / by 3600 are we not storing acceleration in seconds?
+//	longitude += 0.001;
+//	return *this;
+//}
 
 //************************************************
 //Getters
