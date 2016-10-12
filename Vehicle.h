@@ -47,7 +47,7 @@ public:
 	CARTYPES getModel();
 	int getMinSpeed();
 	int getMaxSpeed();
-	int getTracktion();
+	int getTraction();
 	int getWeight();
 	int getLength();
 	int getWidth();
@@ -68,7 +68,7 @@ public:
 	void setMinSpeed(int inputSpeed);
 	void setMaxSpeed(int inputSpeed);
 	void setCurrentSpeed(double inputSpeed);
-	void setTracktion(int inputTraction);
+	void setTraction(int inputTraction);
 	void setWeight(int inputWeight);
 	void setbrakingPower(double inputbrakingPower);
 	void setLength(int inputLength);
