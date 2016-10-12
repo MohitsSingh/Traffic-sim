@@ -99,7 +99,7 @@ double Vehicle::getCurrentSpeed()
 {
 	return currentSpeed;
 }
-int Vehicle::getTracktion()
+int Vehicle::getTraction()
 {
 	return traction;
 }
@@ -171,7 +171,7 @@ void Vehicle::setCurrentSpeed(double inputSpeed)
 {
 	currentSpeed = inputSpeed;
 }
-void Vehicle::setTracktion(int inputTraction)
+void Vehicle::setTraction(int inputTraction)
 {
 	traction = inputTraction;
 }
