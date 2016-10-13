@@ -5,8 +5,7 @@ class Van : public Vehicle
 {
 protected:
 public:
-	Van();
-	Van(bool emergency = false);
+	Van(bool emergency = false);  // doubles as default constructor if no bool is entered
 	~Van();
 };
 
