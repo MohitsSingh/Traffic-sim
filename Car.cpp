@@ -1,20 +1,6 @@
 #include "Car.h"
 
-Car::Car()
-{
-	cout << "Default constructor for Car called.\n";
-	
-	acceleration = 7.5;		// seconds to 60mph
-	maxSpeed = 150;
-	weight = 4000;
-	length = 200;			//inches
-	width = 85;
-	oversized = false;
-	model = MIDSIZE;
-	activeEmergency = false;
-}
-
-Car::Car(bool emergency)		//JG optional, defaults to false
+Car::Car(bool emergency)		//JG bool input optional, defaults to false if default constructor called
 {
 	//JG: see includes.h
 #if TSIM_CONSTRUCTOR_OUTPUT == 1
