@@ -1,3 +1,4 @@
+
 #pragma once
 #include <string>
 #include <iostream>
@@ -30,3 +31,5 @@ const double DELTA_METERS_TO_GPS = 0.00001;  //when the meters change 1.1 the lo
 #include "Van.h"
 #include "Sportscar.h"
 #include "Bus.h"
+#include "Truck.h"
+#include "Semi.h"
