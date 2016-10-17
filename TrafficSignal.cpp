@@ -78,3 +78,4 @@ bool twoWayTraffic;						//true on two way streets
 Signal::~Signal()
 {
 }
+//
