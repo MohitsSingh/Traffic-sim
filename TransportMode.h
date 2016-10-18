@@ -15,8 +15,8 @@ protected:
 	int minSpeed;				//minimum speed mode is allowed to go
 	int maxSpeed;				//maximum speed mode can go (speed limit on current rode)
 	double currentSpeed;		//the current speed of mode
-	double latitude;			//vehicle position
-	double longitude;			//vehicle position
+	double xPos;				//meters eastward from southwest corner
+	double yPos;				//meters northward from southwest corner
 	double direction;			//radians east is zero
 	
 	int length;					//not being used at the moment
@@ -30,8 +30,8 @@ public:
 	int getMinSpeed();
 	int getMaxSpeed();
 	double getCurrentSpeed();
-	double getLatitude();
-	double getLongitude();
+	double getX();
+	double getY();
 	double getDirection();
 
 	int getLength();
@@ -42,8 +42,8 @@ public:
 	void setMinSpeed(int inputSpeed);
 	void setMaxSpeed(int inputSpeed);
 	void setCurrentSpeed(double inputSpeed);
-	void setLatitude(double inputlatitude);
-	void setLongitude(double inputLongitude);
+	void setX(double inputX);
+	void setY(double inputY);
 	void setDirection(double inputDirection);
 
 	void setLength(int inputLength);

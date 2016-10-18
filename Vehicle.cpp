@@ -22,8 +22,8 @@ Vehicle::Vehicle()
 ostream &operator<<(ostream &output, Vehicle inputVehicle)
 {
 	output << "Model:\t\t\t" << inputVehicle.getModel() << endl;		//JG will output an int from the enum, but das ist ok
-	output << "Latitude:\t\t" << inputVehicle.getLatitude() << endl;
-	output << "Longitude:\t\t" << inputVehicle.getLongitude() << endl;
+	output << "X Position:\t\t" << inputVehicle.getX() << endl;
+	output << "Y Position:\t\t" << inputVehicle.getY() << endl;
 	output << "Current Speed:\t\t" << inputVehicle.getCurrentSpeed() << endl;
 	output << "Acceleration:\t\t" << inputVehicle.getAcceleration() << endl;
 	output << "Maximum Speed:\t\t" << inputVehicle.getMaxSpeed() << endl;
@@ -136,6 +136,14 @@ void Vehicle::applyAcceleration(double time)
 
 	double distance;
 
-	distance = 0.5 * acceleration * time * time + getCurrentSpeed() * time;
-	setCurrentSpeed(getCurrentSpeed() + acceleration * time);
+	distance = 0.5 * acceleration * time * time + currentSpeed * time;
+	xPos += distance * cos(direction);
+	yPos += distance * sin(direction);
+
+	if (xPos < 0)
+		xPos = 0;
+	if (yPos < 0)
+		yPos = 0;
+
+	currentSpeed += acceleration * time;
 }

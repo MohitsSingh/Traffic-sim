@@ -13,8 +13,8 @@ TransportMode::TransportMode()
 	length = 0;
 	width = 0;
 	hazardRating = 0;
-	latitude = 0.0;
-	longitude = 0.0;
+	xPos = 0.0;
+	yPos = 0.0;
 	direction = PI / 2;
 }
 
@@ -51,13 +51,13 @@ int TransportMode::getHazardRating()
 {
 	return hazardRating;
 }
-double TransportMode::getLatitude()
+double TransportMode::getX()
 {
-	return latitude;
+	return xPos;
 }
-double TransportMode::getLongitude()
+double TransportMode::getY()
 {
-	return longitude;
+	return yPos;
 }
 double TransportMode::getDirection()
 {
@@ -92,13 +92,13 @@ void TransportMode::setHazardRating(int inputHazardRating)
 {
 	hazardRating = inputHazardRating;
 }
-void TransportMode::setLatitude(double inputlatitude)
+void TransportMode::setX(double inputX)
 {
-	latitude = inputlatitude;
+	xPos = inputX;
 }
-void TransportMode::setLongitude(double inputLongitude)
+void TransportMode::setY(double inputY)
 {
-	longitude = inputLongitude;
+	yPos = inputY;
 }
 void TransportMode::setDirection(double inputDirection)
 {
