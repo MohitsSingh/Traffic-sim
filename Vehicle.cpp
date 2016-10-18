@@ -5,9 +5,7 @@
 Vehicle::Vehicle()
 {
 	//JG see Includes.h
-#if TSIM_CONSTRUCTOR_OUTPUT == 1
-	cout << "Default constructor for Vehicle called.\n";
-#endif
+
 	model = UNDEFINED;		//JG
 	traction = 0;
 	weight = 0;
