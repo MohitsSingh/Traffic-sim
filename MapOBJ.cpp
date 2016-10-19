@@ -2,6 +2,10 @@
 
 
 //getters
+enum CARDINAL MapOBJ::getCardinalD()
+{
+	return cardinalD;
+}
 double MapOBJ::getMaxAcceleration()
 {
 	return maxAcceleration;
@@ -44,6 +48,10 @@ int MapOBJ::getHazardRating()
 }
 
 //setters
+void MapOBJ::setCardinalD(enum CARDINAL inputCardinalD)
+{
+	cardinalD = inputCardinalD;
+}
 void MapOBJ::setbrakingPower(double inputbrakingPower)
 {
 	brakingPower = inputbrakingPower;

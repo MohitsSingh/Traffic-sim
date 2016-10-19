@@ -40,6 +40,7 @@ public:
 	virtual double getDirection();
 	virtual int getX();
 	virtual int getY();
+	virtual enum CARDINAL getCardinalD();
 	
 	
 
@@ -54,4 +55,5 @@ public:
 	virtual void setDirection(double inputDirection);
 	virtual void setX(int inputX);
 	virtual void setY(int inputY);
+	virtual void setCardinalD(enum CARDINAL inputCardinalD);
 };
