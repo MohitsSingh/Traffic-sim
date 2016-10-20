@@ -1,0 +1,2 @@
+The data group has created a copy of the Master dataset sent by the city. 
+We have also created separate sheets for the five different sets of intersection data: Network Settings, Node Data, Link Data, Lane Data, Timing Plan Settings, Phasing Data. As we work through the data, the variables that we understand and/or is relevant is highlighted in bold. Other data may be relevant as well. We will contact the city to clarify the other variables.
