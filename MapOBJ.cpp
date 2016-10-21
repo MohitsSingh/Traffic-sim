@@ -1,34 +1,74 @@
 #include "Includes.h"
 
+//Constructors
+MapOBJ::MapOBJ(int xStartCoordinate, int yStartCoordinate)
+{
+	xPos = xStartCoordinate;
+	yPos = yStartCoordinate;
+}
 
-//getters
+MapOBJ::MapOBJ()
+{
+	xPos = -1;
+	yPos = -1;
+}
+
+
+//Getters
+int MapOBJ::getLength()
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return -1;
+}
+int MapOBJ::getWidth()
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return -1;
+}
+int MapOBJ::getWeight()
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return -1;
+}
+int MapOBJ::getTraction()
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return -1;
+}
 enum CARDINAL MapOBJ::getCardinalD()
 {
-	return cardinalD;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return ERROR;
 }
 double MapOBJ::getMaxAcceleration()
 {
-	return maxAcceleration;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return -1;
 }
 double MapOBJ::getbrakingPower()
 {
-	return brakingPower;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return -1;
 }
 double MapOBJ::getAcceleration()
 {
-	return acceleration;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return -1;
 }
 int MapOBJ::getMinSpeed()
 {
-	return minSpeed;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return -1;
 }
 int MapOBJ::getMaxSpeed()
 {
-	return maxSpeed;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return -1;
 }
 double MapOBJ::getCurrentSpeed()
 {
-	return currentSpeed;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return -1;
 }
 int MapOBJ::getX()
 {
@@ -40,41 +80,44 @@ int MapOBJ::getY()
 }
 double MapOBJ::getDirection()
 {
-	return direction;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return -1;
 }
 int MapOBJ::getHazardRating()
 {
-	return hazardRating;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return -1;
 }
 
-//setters
+
+//Setters
 void MapOBJ::setCardinalD(enum CARDINAL inputCardinalD)
 {
-	cardinalD = inputCardinalD;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
 }
 void MapOBJ::setbrakingPower(double inputbrakingPower)
 {
-	brakingPower = inputbrakingPower;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
 }
 void MapOBJ::setAcceleration(double inputAcceleration)
 {
-	acceleration = inputAcceleration;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
 }
 void MapOBJ::setMaxAcceleration(double inputSpeed)
 {
-	maxAcceleration = inputSpeed;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
 }
 void MapOBJ::setMinSpeed(int inputSpeed)
 {
-	minSpeed = inputSpeed;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
 }
 void MapOBJ::setMaxSpeed(int inputSpeed)
 {
-	maxSpeed = inputSpeed;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
 }
 void MapOBJ::setCurrentSpeed(double inputSpeed)
 {
-	currentSpeed = inputSpeed;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
 }
 void MapOBJ::setX(int inputX)
 {
@@ -86,9 +129,25 @@ void MapOBJ::setY(int inputY)
 }
 void MapOBJ::setDirection(double inputDirection)
 {
-	direction = inputDirection;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
 }
 void MapOBJ::setHazardRating(int inputHazardRating)
 {
-	hazardRating = inputHazardRating;
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+}
+void MapOBJ::setLength(int inputLength)
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+}
+void MapOBJ::setWidth(int inputWidth)
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+}
+void MapOBJ::setTraction(int inputTraction)
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+}
+void MapOBJ::setOversized(bool inputOversized)
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
 }

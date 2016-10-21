@@ -5,30 +5,17 @@
 class MapOBJ
 {
 protected:
-
-	
-	int minSpeed;				//minimum speed the car is allowed to go
-	int maxSpeed;				//maximum speed the car can go (speed limit on current rode)
 	int xPos;					//x position of object
 	int yPos;					//y position of object
-	double currentSpeed;		//the current speed of vehicle
-	double acceleration;		//current acceleration 
-	double maxAcceleration;		//maximum acceleration
-	double brakingPower;		//Vehicle spec of breaking power
 	double latitude;			//vehicle position North/South: relates to the y axis
 	double longitude;			//vehicle position East/West: relates to the x axis
-	double direction;			//radians: east is zero
-	enum CARDINAL cardinalD;	//direction of car for simple cardinal directions
-	
-
-
-	
-	int hazardRating;			//not being used at the moment
 
 public:
-	
 
-	
+	//Constructors
+	MapOBJ();
+	MapOBJ(int xStartCoordinate, int yStartCoordinate);
+
 	//GETTERS
 	virtual int getMinSpeed();
 	virtual int getMaxSpeed();
@@ -41,9 +28,11 @@ public:
 	virtual int getX();
 	virtual int getY();
 	virtual enum CARDINAL getCardinalD();
+	virtual int getLength();
+	virtual int getWidth();
+	virtual int getWeight();
+	virtual int getTraction();
 	
-	
-
 	//SETTERS
 	virtual void setMaxAcceleration(double inputSpeed);
 	virtual void setMinSpeed(int inputSpeed);
@@ -56,4 +45,8 @@ public:
 	virtual void setX(int inputX);
 	virtual void setY(int inputY);
 	virtual void setCardinalD(enum CARDINAL inputCardinalD);
+	virtual void setLength(int inputLength);
+	virtual void setWidth(int inputWidth);
+	virtual void setTraction(int inputTraction);
+	virtual void setOversized(bool inputOversized);
 };
