@@ -1,4 +1,3 @@
-
 #pragma once
 #include <string>
 #include <iostream>
@@ -11,7 +10,7 @@ using namespace std;
 
 
 enum CARTYPES { UNDEFINED, MIDSIZE, VAN, TRUCK, SEMI, BUS, SPORT };
-enum CARDINAL { NORTH, SOUTH, EAST, WEST };
+enum CARDINAL { ERROR, NORTH, SOUTH, EAST, WEST };
 const double PI = 3.14159265359;
 const int TIME_INCREMENT = 1;
 

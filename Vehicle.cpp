@@ -5,16 +5,22 @@
 //constructers
 Vehicle::Vehicle()
 {
-	//JG see Includes.h
-
+	TransportMode();
 	model = UNDEFINED;		//JG
 	traction = 0;
-	weight = 0;
-	brakingPower = 0;
-	acceleration = 0.0;
 	oversized = false;
 	activeEmergency = false;
 	emergencyVehicle = false;
+}
+
+Vehicle::Vehicle(int inputX, int inputY)
+{
+	TransportMode(inputX, inputY);
+	model = CARTYPES::UNDEFINED;
+	emergencyVehicle = false;
+	activeEmergency = false;
+	oversized = false;
+	traction = 0;
 }
 
 //operator overloads
@@ -51,6 +57,14 @@ bool Vehicle::isActiveEmergency()		//JG
 {
 	return activeEmergency;
 }
+int Vehicle::getTraction()
+{
+	return traction;
+}
+bool Vehicle::getOversized()
+{
+	return oversized;
+}
 
 //************************************************
 //Setters
@@ -67,4 +81,12 @@ void Vehicle::setEmergencyVehicle(bool inputEmergencyVehicle)
 void Vehicle::setActiveEmergency(bool input)		//JG
 {
 	activeEmergency = input;  //AG All vehicles react to active emergency
+}
+void Vehicle::setTraction(int inputTraction)
+{
+	traction = inputTraction;
+}
+void Vehicle::setOversized(bool inputOversized)
+{
+	oversized = inputOversized;
 }
