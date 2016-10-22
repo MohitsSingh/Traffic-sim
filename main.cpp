@@ -75,6 +75,8 @@ vector<TransportMode*> fillVector()
 
 	cout << "(in computer voice) Enter number of vehicles for start of simulation ";
 	cin >> sizeOfList;
+	//declare the vector here so it already has the right size, then change the lines in the case to be just templist[count] = new Bus()
+	//pushback is slow so if we know the starting size already then lets just put it at that. - Mike
 
 	// 6 types of vehicles: bus, car, semi, sport, truck, and van
 	while (count < sizeOfList)
@@ -175,5 +177,10 @@ void printVector(vector<TransportMode*> tempList)
 /*
 I would like to add a way to stop acceleration, start acceleration, change direction,
 and apply brakes for all of the vehicles during the simulation.
+
+For starting out pretty sure we are just going to have our "world" be able to have instantaneous changes in acceleration and velocity so
+screw physics for now. And for changing direction we can just have a simple random funtion that passes the car into a random lane in the intersection OBJ.
+So like the car is 1 square down from the intersection and then it wants to move so it gets passed into the "through", "left", or "right" lane. -Mike
+
 
 */
