@@ -53,5 +53,18 @@ public:
 	void setCardinalD(enum CARDINAL inputCardinalD);
 	void setDirection(double inputDirection);
 	void setHazardRating(int inputHazardRating);
+
+	void move(int distance, double direction)
+	{
+		xPos += distance * cos(direction);
+		yPos += distance * sin(direction);
+	}
+	void update()
+	{
+		int distance;
+		currentSpeed += acceleration * TIME_INCREMENT;
+		distance = currentSpeed * TIME_INCREMENT;
+		move(distance, direction);
+	}
 };
 

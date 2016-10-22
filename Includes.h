@@ -5,6 +5,7 @@
 #include <Math.h>
 #include <vector>
 #include <fstream>
+#include <cmath>	//added by Isaac Haas
 using namespace std;
 
 
@@ -25,6 +26,8 @@ const double DELTA_GPS_TO_METERS = 1.1;   //when the GPS long lat position has c
 const double DELTA_METERS_TO_GPS = 0.00001;  //when the meters change 1.1 the long lat position has changed 0.00001
 const int MAX_CITY_X = 100;
 const int MAX_CITY_Y = 100;
+
+//typedef int myTime;
 
 #include "MapOBJ.h"
 #include "TransportMode.h"

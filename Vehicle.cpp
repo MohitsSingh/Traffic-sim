@@ -6,7 +6,7 @@
 Vehicle::Vehicle()
 {
 	TransportMode();
-	model = UNDEFINED;		//JG
+	model = UNDEFINED;		
 	traction = 0;
 	oversized = false;
 	activeEmergency = false;

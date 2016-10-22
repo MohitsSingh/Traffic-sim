@@ -15,6 +15,22 @@ MapOBJ::MapOBJ()
 
 
 //Getters
+int MapOBJ::getX()
+{
+	return xPos;
+}
+int MapOBJ::getY()
+{
+	return yPos;
+}
+double MapOBJ::getLatitude()
+{
+	return latitude;
+}
+double MapOBJ::getLongitude()
+{
+	return longitude;
+}
 int MapOBJ::getLength()
 {
 	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
@@ -70,14 +86,6 @@ double MapOBJ::getCurrentSpeed()
 	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
 	return -1;
 }
-int MapOBJ::getX()
-{
-	return xPos;
-}
-int MapOBJ::getY()
-{
-	return yPos;
-}
 double MapOBJ::getDirection()
 {
 	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
@@ -88,9 +96,45 @@ int MapOBJ::getHazardRating()
 	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
 	return -1;
 }
+CARTYPES MapOBJ::getModel()
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return CARTYPES::UNDEFINED;
+}
+bool MapOBJ::getEmergencyVehicle()
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return nullptr;
+}
+bool MapOBJ::isActiveEmergency()		
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return nullptr;
+}
+bool MapOBJ::getOversized()
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+	return nullptr;
+}
 
 
 //Setters
+void MapOBJ::setX(int inputX)
+{
+	xPos = inputX;
+}
+void MapOBJ::setY(int inputY)
+{
+	yPos = inputY;
+}
+void MapOBJ::setLatitude(double input)
+{
+	latitude = input;
+}
+void MapOBJ::setLongitude(double input)
+{
+	longitude = input;
+}
 void MapOBJ::setCardinalD(enum CARDINAL inputCardinalD)
 {
 	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
@@ -119,14 +163,6 @@ void MapOBJ::setCurrentSpeed(double inputSpeed)
 {
 	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
 }
-void MapOBJ::setX(int inputX)
-{
-	xPos = inputX;
-}
-void MapOBJ::setY(int inputY)
-{
-	yPos = inputY;
-}
 void MapOBJ::setDirection(double inputDirection)
 {
 	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
@@ -150,4 +186,21 @@ void MapOBJ::setTraction(int inputTraction)
 void MapOBJ::setOversized(bool inputOversized)
 {
 	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+}
+void MapOBJ::setModel(CARTYPES inputModel)
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+}
+void MapOBJ::setEmergencyVehicle(bool inputEmergencyVehicle)
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+}
+void MapOBJ::setActiveEmergency(bool input)	
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+}
+void MapOBJ::setWeight(int input)
+{
+	cout << "\nyou somehow called a empty funcion in MapOBJ\n";
+
 }
