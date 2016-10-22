@@ -1,62 +1,179 @@
 /***************************************************************************************
-Isaac Haas
-Spence Wilson
 David Sant
-Last submitted on: 10/11/16
-Uses: Car, Vehicle, Location, and includes
-Creates a vector of Vehicels, reads in values from txt file
-Moves through the origin.
+Spence Wilson
+Isaac Haas
+Last submitted on: 10/22/16
+Uses: all of the files
+Creates a vector of TransportMode, and then moves them around
 ***************************************************************************************/
 
+
+/* Approximate conversions:
+
+75 mph (approx)= 35 meters/sec or 35 m/s
+60 mph (approx)= 25 m/s
+35 mph (approx)= 15 m/s
+
+an average acceleration is 3 to 4 m/s,
+which translates to approximately 7 to 9 mph/s
+
+*/
+
+
+
 #include "Includes.h"
-int time = 0;
+
+int simTime = 0;	// I think this should be inside of "includes.h", but it's not working for me
+						// this could also be it's own data type. typedef int simTime;
+
+vector<TransportMode*> fillVector();	//
+void initializeDirection(vector<TransportMode*> tempList);	// sets every object's direction to one of the cardinal directions
+void initializeAcceleration(vector<TransportMode*> tempList);	// sets every object's acceleration to 0, 3, or 4 m/s/s
+void initializeCurrentSpeed(vector<TransportMode*> tempList);	// sets every object's speed to 10 m/s
+void printVector(vector<TransportMode*> tempList);	// just a temporary output function
 
 int main()
 {
-	//cout << "cos(PI/2) = " << cos(PI / 2) << "/tsin(PI/2) = " << sin(PI / 2) << endl;
-	//cout << "cos(0) = " << cos(0) << "/tsin(0) = " << sin(0) << endl;
+	int count = 0;
+	int randType;
 
-	ifstream fin;
-	vector <Vehicle> vehicleList;
+	srand(time(NULL));
 
-	fin.open("sampleVehilces.txt");
+	vector <TransportMode*> transportList = fillVector();
+	initializeDirection(transportList);
+	initializeAcceleration(transportList);
+	initializeCurrentSpeed(transportList);
+	
+	cout << "\n\nBefore updates:\n--------------------------------------------"
+		<<"-------------------------------------------------------------\n";
+	printVector(transportList);
+	cout << "--------------------------------------------"
+		<< "-------------------------------------------------------------\n";
 
-	while (!fin.fail())
+	while (simTime < 5)
 	{
-		Vehicle x = Vehicle(fin);
-		vehicleList.push_back(x);
-	}
+		simTime += TIME_INCREMENT;
 
-
-
-	Car myFirstCar(-20, 2, 0.0), mySecondCar(15, -2, PI);
-	myFirstCar.setCurrentSpeed(3); mySecondCar.setCurrentSpeed(5);
-	cout << endl;
-	for (int i = 0; i < 9; i++)
-	{
-		time++;
-		
-		cout << "Car1:\t" << endl << myFirstCar << "Car2:\t" << endl << mySecondCar << endl;
-		myFirstCar.update();
-		mySecondCar.update();
-
-		if (mySecondCar.getLocation().getXCoord() == 0)
+		for (int i = 0; i < transportList.size(); i++)
 		{
-			cout << "Car2 is in the intersection at " << time << " seconds" << endl << endl;
+			transportList[i]->update();	// changes speed and location
 		}
-		if (myFirstCar.getLocation().getXCoord() >= 0)
-		{
-			cout << "Car1 is in the intersection at " << time << " seconds" << endl << endl;
-			break;
-		}
+		printVector(transportList);
 	}
-
-
-
-
-
-
-	cout << endl;
+	cout << endl << endl;
 	system("pause");
 	return 0;
 }
+
+
+vector<TransportMode*> fillVector()
+{
+	vector <TransportMode*> tempList;
+	int sizeOfList;
+	int count = 0;
+	int randType;
+
+	cout << "(in computer voice) Enter number of vehicles for start of simulation ";
+	cin >> sizeOfList;
+
+	// 6 types of vehicles: bus, car, semi, sport, truck, and van
+	while (count < sizeOfList)
+	{
+
+		randType = rand() % 6 + 1;
+		switch (randType)
+		{
+		case 1:
+			tempList.push_back(new Bus());
+			break;
+		case 2:
+			tempList.push_back(new Car());
+			break;
+		case 3:
+			tempList.push_back(new Semi());
+			break;
+		case 4:
+			tempList.push_back(new Sportscar());
+			break;
+		case 5:
+			tempList.push_back(new Truck());
+			break;
+		default:
+			tempList.push_back(new Van());
+		}
+		count++;
+	}
+	return tempList;
+}
+void initializeDirection(vector<TransportMode*> tempList)
+{
+	double startDirection;
+	int randType;
+	for (int i = 0; i < tempList.size(); i++)
+	{
+		randType = rand() % 3;
+		switch (randType)
+		{
+		case 0:
+			startDirection = 3 * PI / 2;
+			break;
+		case 1:
+			startDirection = 0;
+			break;
+		case 2:
+			startDirection = PI / 2;
+			break;
+		case 3:
+			startDirection = PI;
+			break;
+		}
+		tempList[i]->setDirection(startDirection);
+	}
+}
+void initializeAcceleration(vector<TransportMode*> tempList)
+{
+	int randType;
+	for (int i = 0; i < tempList.size(); i++)
+	{
+		randType = rand() % 5;	// a number between 0 and 4
+
+										// only setting acceleration to 0, 3, or 4
+		if (randType != 1 && randType != 2)
+		{
+			tempList[i]->setAcceleration(randType);
+		}
+		else
+		{
+			tempList[i]->setAcceleration(randType);
+		}
+	}
+
+}
+void initializeCurrentSpeed(vector<TransportMode*> tempList)
+{
+	int randType;
+	for (int i = 0; i < tempList.size(); i++)
+	{
+		tempList[i]->setCurrentSpeed(10);
+	}
+}
+void printVector(vector<TransportMode*> tempList)
+{
+	for (int i = 0; i < tempList.size(); i++)
+	{
+		cout << "model num: " << tempList[i]->getModel();
+		cout << "\tDIRECTION: " << tempList[i]->getDirection() * 180 / PI;
+		cout << "\tACCELERATION: " << tempList[i]->getAcceleration();
+		cout << "\tCURRENT SPEED: " << tempList[i]->getCurrentSpeed();
+		cout << endl;
+	}
+	cout << endl << endl;
+}
+
+
+
+/*
+I would like to add a way to stop acceleration, start acceleration, change direction,
+and apply brakes for all of the vehicles during the simulation.
+
+*/

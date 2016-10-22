@@ -1,13 +1,11 @@
 #pragma once
-#include "includes.h"
+#include "Includes.h"
 
 class Car : public Vehicle
 {
-private: 
-	string model;
+protected:
 public:
-	Car();
-	Car(int x, int y, double directionData);
+	Car(bool emergency = false); // doubles as default constructor if no bool value is entered
 	~Car();
 };
 
