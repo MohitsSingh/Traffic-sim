@@ -4,28 +4,28 @@
 using namespace std;
 
 
-class IntersectionData
+class DataClasses
 {
-private:			//making public now...will probably change
+public:			//making public now...will probably change
 
 
 
 	int ID;	//intersection ID number
-	//Get from Link Data set row/column  4,2  (+20)
+	//Get from Link Data set row/column  532,2  (+20)
 
 
 	string nameNB;			//Name of northbound street
 	string nameSB;			//Name of southbound street
 	string nameEB;			//Name of eastbound street
 	string nameWB;			//Name of westbound street
-	//Get frpom Link Data set (6, (3,4,5,6))
+	//Get frpom Link Data set (534, (3,4,5,6))
 
 
 	int lanesNB;			//Number of lanes in northbound street
 	int lanesSB;			//Number of lanes in southbound street
 	int lanesEB;			//Number of lanes in eastbound street
 	int lanesWB;			//Number of lanes in westbound street
-	//Get from Link Data set (5,(3,4,5,6))
+	//Get from Link Data set (533,(3,4,5,6))
 
 
 	int distanceNB;		//Distance to the intersection id of the road previous to this intersection

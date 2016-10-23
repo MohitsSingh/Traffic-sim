@@ -62,7 +62,7 @@ void DataReader::createArray(string inFileName)
 	string chunk;									//creates the chunk to read in
 	int size = 0;									//holds the size of row and column as its counted
 	getline(inFile, chunk);							//read in the first line
-	for (int i = 0; i < chunk.size(); i++)			//read through a line of the string
+	for (unsigned int i = 0; i < chunk.size(); i++)			//read through a line of the string
 		if (chunk[i] == ',')						//if there is a comma then add one to size
 			size++;
 	column = size + 1;								//set the number of columns to the number of commas in the code
