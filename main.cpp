@@ -1,25 +1,34 @@
-//@author Wesley Stutzman
+/******************
+Contributors
+Wesley Stutzman
+
+********************/
 #pragma once
 #include "Includes.h"
 
-//place the .csv file in the same location as the exicutable for the program
+//This main now can create an list of all the intersections data and is able to be called based on its id number
+//In this example i have created and array of five values
+//based on those five values i do five loops and print out all direcitons of and intersection in that data location
 int main()
 {
 	cout << "Testing" << endl;
 	IntersectionData myIntersectionData;
-	
-	cout << myIntersectionData.getNbName(5) << endl;
 
+	cout << "Intersection Number:\t" << 1 << endl;
+	cout << "NB Name:\t" << myIntersectionData.getNbName(1) << endl;
+	cout << "SB Name:\t" << myIntersectionData.getSbName(1) << endl;
+	cout << "EB Name:\t" << myIntersectionData.getEbName(1) << endl;
+	cout << "WB Name:\t" << myIntersectionData.getWbName(1) << endl;
+
+	int intersectionsToTest[5] {2, 3, 50, 345, 995};
+	for (unsigned int i = 0; i < 5; i++)
+	{
+		cout << "Intersection Number:\t" << intersectionsToTest[i] << endl;
+		cout << "NB Name:\t" << myIntersectionData.getNbName(intersectionsToTest[i]) << endl;
+		cout << "SB Name:\t" << myIntersectionData.getSbName(intersectionsToTest[i]) << endl;
+		cout << "EB Name:\t" << myIntersectionData.getEbName(intersectionsToTest[i]) << endl;
+		cout << "WB Name:\t" << myIntersectionData.getWbName(intersectionsToTest[i]) << endl;
+	}
 	system("pause");
-
-	////DataReader myDataReader("TraficData.csv");								//same as next 2 lines
-	//DataReader myDataReader;													//create the class
-	//myDataReader.readData("TraficData.csv");									//input in the csv file
-	//cout << "Rows:\t\t" << myDataReader.getRowSize() << endl;					//number of rows
-	//cout << "Columns:\t" << myDataReader.getColumnSize() << endl;				//number of columns
-	//cout << myDataReader.getDataCell(0, 0) << endl;								//invalid location
-	//cout << myDataReader.getDataCell(1, 1) << endl;								//first line
-	//cout << myDataReader.getDataCell(myDataReader.getRowSize(), 1) << endl;		//last line
-	//system("pause");
 	return 0;
 }

@@ -22,6 +22,8 @@ string DataReader::getDataCell(int inRow, int inColumn)
 {
 	if (inRow < 1 || inColumn < 1 || inRow > row + 1 || inColumn > column + 1)
 		return "INVALID CELL";						//FIXME throw an exception here later
+	if (data[inRow - 1][inColumn - 1] == "")
+		return "0";
 	return data[inRow - 1][inColumn - 1];			//furns the number zero based
 }
 //return the number of rows
@@ -39,7 +41,9 @@ int DataReader::getColumnSize()
 //then fills it with all the information
 void DataReader::readData(string inFileName)
 {
+	
 	createArray(inFileName);						//create the array to hold all data
+	cout << "Reading Data" << endl;
 	ifstream inFile(inFileName);					//open the file
 	string line;									//create a string to hold in the line ur going to read in
 	int curRow = 0;									//keep track of ur location
@@ -54,10 +58,12 @@ void DataReader::readData(string inFileName)
 		curRow++;									//move to the next row
 	}
 	inFile.close();									//always close the file when you are done
+	cout << "Finished Reading Data" << endl;
 }
 //creates a 2d array of the spread sheat storing each item as a string
 void DataReader::createArray(string inFileName)
 {
+	cout << "Creating Array To Hold Data" << endl;
 	ifstream inFile(inFileName);					//opens a file
 	string chunk;									//creates the chunk to read in
 	int size = 0;									//holds the size of row and column as its counted

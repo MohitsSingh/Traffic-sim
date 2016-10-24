@@ -6,6 +6,5 @@
 #include <fstream>
 using namespace std;
 #include "DataReader.h"
-#include "DataClasses.h"
 #include "IntersectionData.h"
 
