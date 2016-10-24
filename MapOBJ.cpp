@@ -5,16 +5,22 @@ MapOBJ::MapOBJ(int xStartCoordinate, int yStartCoordinate)
 {
 	xPos = xStartCoordinate;
 	yPos = yStartCoordinate;
+	classType = MAPOBJ;
 }
 
 MapOBJ::MapOBJ()
 {
 	xPos = -1;
 	yPos = -1;
+	classType = MAPOBJ;
 }
 
 
 //Getters
+CLASSTYPES MapOBJ::getClassType()
+{
+	return classType;
+}
 int MapOBJ::getX()
 {
 	return xPos;
@@ -119,6 +125,10 @@ bool MapOBJ::getOversized()
 
 
 //Setters
+void MapOBJ::setClassType(CLASSTYPES input)
+{
+	classType = input;
+}
 void MapOBJ::setX(int inputX)
 {
 	xPos = inputX;

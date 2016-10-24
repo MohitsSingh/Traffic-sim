@@ -24,13 +24,64 @@ which translates to approximately 7 to 9 mph/s
 #include "Includes.h"
 
 int simTime = 0;	// I think this should be inside of "includes.h", but it's not working for me
-						// this could also be it's own data type. typedef int simTime;
+const int SIM_DURATION = 10;						// this could also be it's own data type. typedef int simTime;
 
-vector<TransportMode*> fillVector();	//
-void initializeDirection(vector<TransportMode*> tempList);	// sets every object's direction to one of the cardinal directions
-void initializeAcceleration(vector<TransportMode*> tempList);	// sets every object's acceleration to 0, 3, or 4 m/s/s
-void initializeCurrentSpeed(vector<TransportMode*> tempList);	// sets every object's speed to 10 m/s
-void printVector(vector<TransportMode*> tempList);	// just a temporary output function
+
+//leaving these up here because changes will prolly need to be made. -Mike
+MapOBJ* findClosest(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], int x, int y, CARDINAL direction)
+{
+	switch (direction)
+	{
+	case NORTH:
+		for (int i = y - 1; i > 0; i--)
+		{
+			if (y > 0 && map[i][x]->getClassType() == TRANSPORTMODE)
+			{
+				return map[i][x];
+			}
+		}
+		break;
+	case SOUTH:
+		for (int i = y + 1; i < MAX_CITY_Y; i++)
+		{
+			if (y < MAX_CITY_Y && map[i][x]->getClassType() == TRANSPORTMODE)
+			{
+				return map[i][x];
+			}
+		}
+		break;
+	case EAST:
+		for (int i = x + 1; i < MAX_CITY_X; i++)
+		{
+			if (x < MAX_CITY_X && map[y][i]->getClassType() == TRANSPORTMODE)
+			{
+				return map[y][i];
+			}
+		}
+		break;
+	case WEST:
+		for (int i = x - 1; i > 0; i--)
+		{
+			if (x > 0 && map[y][i]->getClassType() == TRANSPORTMODE)
+			{
+				return map[y][i];
+			}
+		}
+		break;
+	default:
+		cout << "\nError in defualt of findClosest\n";
+		break;
+	}
+	return nullptr;
+}
+int calcDistance(MapOBJ *start, MapOBJ *end)
+{
+	int totalDis;
+	totalDis += start->getX() - end->getX();
+	totalDis += start->getY() - end->getY();
+	totalDis = abs(totalDis);
+	return totalDis;
+}
 
 int main()
 {
@@ -39,27 +90,33 @@ int main()
 
 	srand(time(NULL));
 
-	vector <TransportMode*> transportList = fillVector();
+	MapOBJ *map[MAX_CITY_Y][MAX_CITY_X];
+	vector <TransportMode*> transportList;
+	transportList.push_back(new Vehicle(0, 0));
+	transportList.push_back(new Vehicle(0, 20));
+	initializeMap(map, transportList);
 	initializeDirection(transportList);
 	initializeAcceleration(transportList);
 	initializeCurrentSpeed(transportList);
+
+
 	
-	cout << "\n\nBefore updates:\n--------------------------------------------"
-		<<"-------------------------------------------------------------\n";
-	printVector(transportList);
-	cout << "--------------------------------------------"
-		<< "-------------------------------------------------------------\n";
+	//cout << "\n\nBefore updates:\n--------------------------------------------"
+	//	<<"-------------------------------------------------------------\n";
+	//printVector(transportList);
+	//cout << "--------------------------------------------"
+	//	<< "-------------------------------------------------------------\n";
 
-	while (simTime < 5)
-	{
-		simTime += TIME_INCREMENT;
+	//while (simTime < 5)
+	//{
+	//	simTime += TIME_INCREMENT;
 
-		for (int i = 0; i < transportList.size(); i++)
-		{
-			transportList[i]->update();	// changes speed and location
-		}
-		printVector(transportList);
-	}
+	//	for (int i = 0; i < transportList.size(); i++)
+	//	{
+	//		transportList[i]->update();	// changes speed and location
+	//	}
+	//	printVector(transportList);
+	//}
 	cout << endl << endl;
 	system("pause");
 	return 0;
@@ -107,6 +164,21 @@ vector<TransportMode*> fillVector()
 	}
 	return tempList;
 }
+void initializeMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], vector<TransportMode*> tempList)
+{
+	for (int i = 0; i < MAX_CITY_Y; i++)
+	{
+		for (int j = 0; j < MAX_CITY_X; j++)
+		{
+			map[i][j] = nullptr;
+		}
+	}
+
+	for (int i = 0; i < tempList.size(); i++)
+	{
+		map[tempList[i]->getX()][tempList[i]->getY()] = tempList[i];
+	}
+}
 void initializeDirection(vector<TransportMode*> tempList)
 {
 	double startDirection;
@@ -118,15 +190,19 @@ void initializeDirection(vector<TransportMode*> tempList)
 		{
 		case 0:
 			startDirection = 3 * PI / 2;
+			tempList[i]->setCardinalD(SOUTH);
 			break;
 		case 1:
 			startDirection = 0;
+			tempList[i]->setCardinalD(EAST);
 			break;
 		case 2:
 			startDirection = PI / 2;
+			tempList[i]->setCardinalD(NORTH);
 			break;
 		case 3:
 			startDirection = PI;
+			tempList[i]->setCardinalD(WEST);
 			break;
 		}
 		tempList[i]->setDirection(startDirection);

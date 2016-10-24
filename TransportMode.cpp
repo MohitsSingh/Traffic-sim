@@ -3,6 +3,7 @@
 
 TransportMode::TransportMode()
 {
+	classType = TRANSPORTMODE;
 	minSpeed = 0;
 	maxSpeed = 0;
 	currentSpeed = 0;
@@ -16,6 +17,7 @@ TransportMode::TransportMode()
 
 TransportMode::TransportMode(int xStartCoordinate, int yStartCoordinate)
 {
+	classType = TRANSPORTMODE;
 	xPos = xStartCoordinate;
 	yPos = yStartCoordinate;
 	minSpeed = 0;

@@ -20,7 +20,6 @@ Car::Car(bool emergency)		//JG bool input optional, defaults to false if default
 		length = 200;			//inches
 		width = 85;				//inches
 	}
-
 	model = MIDSIZE;
 	oversized = false;
 	activeEmergency = false;

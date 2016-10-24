@@ -9,7 +9,7 @@ protected:
 	int yPos;					//y position of object
 	double latitude;			//vehicle position North/South: relates to the y axis
 	double longitude;			//vehicle position East/West: relates to the x axis
-
+	CLASSTYPES classType;
 public:
 
 	//Constructors
@@ -17,6 +17,7 @@ public:
 	MapOBJ(int xStartCoordinate, int yStartCoordinate);
 
 	//GETTERS
+	virtual CLASSTYPES getClassType();
 	virtual int getMinSpeed();
 	virtual int getMaxSpeed();
 	virtual int getX();
@@ -40,6 +41,7 @@ public:
 	virtual CARDINAL getCardinalD();
 	
 	//SETTERS
+	virtual void setClassType(CLASSTYPES input);
 	virtual void setMinSpeed(int inputSpeed);
 	virtual void setMaxSpeed(int inputSpeed);
 	virtual void setX(int inputX);
