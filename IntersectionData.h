@@ -10,6 +10,7 @@ class IntersectionData {
 
 public:
 	IntersectionData();
+	~IntersectionData();
 	string getNbName(int inputId);
 	string getSbName(int inputId);
 	string getEbName(int inputId);
