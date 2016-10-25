@@ -11,6 +11,7 @@ class DataReader
 public:
 	DataReader();								//default constructor
 	DataReader(string inFileName);				//create class and read in all information from the file on create
+	~DataReader();
 	string getDataCell(int row, int column);	//this is in y/x format
 	int getRowSize();							//returns row size
 	int getColumnSize();						//returns column size
