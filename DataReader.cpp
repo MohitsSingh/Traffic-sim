@@ -16,6 +16,10 @@ DataReader::DataReader(string inFileName)
 {
 	readData(inFileName);
 }
+DataReader::~DataReader()
+{
+	delete []data;
+}
 //get data from an y/x cell
 //will not take numbers less then zero and the max size of the grid
 string DataReader::getDataCell(int inRow, int inColumn)
