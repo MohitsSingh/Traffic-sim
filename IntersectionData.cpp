@@ -127,7 +127,126 @@ void IntersectionData::setPointers()
 	yieldD7 = new int[numberOfIntersections];				//? seconds for  yeild light
 	yieldD8 = new int[numberOfIntersections];				//? seconds for  yeild light
 }
+IntersectionData::~IntersectionData()
+{
+	delete[]myDataReader;	
 
+	delete []nameNB;			//Name of northbound street
+	delete []nameSB;			//Name of southbound street
+	delete []nameEB;			//Name of eastbound street
+	delete []nameWB;			//Name of westbound street
+							//Get frpom Link Data set (534, (3,4,5,6))
+
+	delete []lanesNB;			//Number of lanes in northbound street
+	delete []lanesSB;			//Number of lanes in southbound street
+	delete []lanesEB;			//Number of lanes in eastbound street
+	delete []lanesWB;			//Number of lanes in westbound street
+							//Get from Link Data set (533,(3,4,5,6))
+
+
+	delete []distanceNB;		//Distance to the intersection id of the road previous to this intersection
+	delete []distanceSB;		//Distance to the intersection id of the road previous to this intersection
+	delete []distanceEB;		//Distance to the intersection id of the road previous to this intersection
+	delete []distanceWB;		//Distance to the intersection id of the road previous to this intersection
+							//Get from Link Data set (7,(3,4,5,6))
+
+	delete []speedLimitNB;		//Speed limit in this intersection going NB
+	delete []speedLimitSB;		//Speed limit in this intersection going SB
+	delete []speedLimitEB;		//Speed limit in this intersection going EB
+	delete []speedLimitWB;		//Speed limit in this intersection going WB
+							//Get from Link Data set (8,3-6)
+
+	delete []upIDNB;				//Id of intersection prior to current one
+	delete []upIDSB;				//Id of intersection prior to current one
+	delete []upIDEB;				//Id of intersection prior to current one
+	delete []upIDWB;				//Id of intersection prior to current one
+								//Get from Link Data Set (4,3-6)
+
+
+
+								//Get from Phasing Data set (5,(3 - 11))
+	delete []minGreenD1;			// ? minimum seconds for a green light
+	delete []minGreenD2;			// ? minimum seconds for a green light
+	delete []minGreenD3;			// ? minimum seconds for a green light
+	delete []minGreenD4;			// ? minimum seconds for a green light
+	delete []minGreenD5;			// ? minimum seconds for a green light
+	delete []minGreenD6;			// ? minimum seconds for a green light
+	delete []minGreenD7;			// ? minimum seconds for a green light
+	delete []minGreenD8;			// ? minimum seconds for a green light
+	delete []minGreenD9;			// ? minimum seconds for a green light
+	delete []minGreenD10;			// ? minimum seconds for a green light
+	delete []minGreenD14;			// ? minimum seconds for a green light
+
+
+								//Get from Phasing Data set (6,(3 - 11))
+	delete []maxGreenD1;			// ? maximum seconds for a green light
+	delete []maxGreenD2;			// ? maximum seconds for a green light
+	delete []maxGreenD3;			// ? maximum seconds for a green light
+	delete []maxGreenD4;			// ? maximum seconds for a green light
+	delete []maxGreenD5;			// ? maximum seconds for a green light
+	delete []maxGreenD6;			// ? maximum seconds for a green light
+	delete []maxGreenD7;			// ? maximum seconds for a green light
+	delete []maxGreenD8;			// ? maximum seconds for a green light
+	delete []maxGreenD9;			// ? maximum seconds for a green light
+	delete []maxGreenD10;			// ? maximum seconds for a green light
+	delete []maxGreenD14;			// ? maximum seconds for a green light
+
+								//Get from Phasing Data set (11,(3 - 8))
+	delete []yellowD1;				// ? seconds for a yellow light
+	delete []yellowD2;				// ? seconds for a yellow light
+	delete []yellowD3;				// ? seconds for a yellow light
+	delete []yellowD4;				// ? seconds for a yellow light
+	delete []yellowD5;				// ? seconds for a yellow light
+	delete []yellowD6;				// ? seconds for a yellow light
+	delete []yellowD7;				// ? seconds for a yellow light
+	delete []yellowD8;				// ? seconds for a yellow light
+
+
+								//Get from Phasing Data set (12,(3 - 8))
+	delete []allRedD1;				// ? seconds for a red light in all directions
+	delete []allRedD2;				// ? seconds for a red light in all directions
+	delete []allRedD3;				// ? seconds for a red light in all directions
+	delete []allRedD4;				// ? seconds for a red light in all directions
+	delete []allRedD5;				// ? seconds for a red light in all directions
+	delete []allRedD6;				// ? seconds for a red light in all directions
+	delete []allRedD7;				// ? seconds for a red light in all directions
+	delete []allRedD8;				// ? seconds for a red light in all directions
+
+
+								//Get from Phasing Data set (14,(3 - 8))
+	delete []walkD1;				// ? seconds for a walk light 
+	delete []walkD2;				// ? seconds for a walk light 
+	delete []walkD3;				// ? seconds for a walk light 
+	delete []walkD4;				// ? seconds for a walk light 
+	delete []walkD5;				// ? seconds for a walk light 
+	delete []walkD6;				// ? seconds for a walk light
+	delete []walkD7;				// ? seconds for a walk light 
+	delete []walkD8;				// ? seconds for a walk light 
+	delete []walkD9;				// ? seconds for a walk light 
+	delete []walkD10;				// ? seconds for a walk light 
+	delete []walkD14;				// ? seconds for a walk light 
+
+								//Get from Phasing Data set (15,(3 - 8))
+	delete []dontwalkD1;			//? seconds for don't walk light
+	delete []dontwalkD2;			//? seconds for don't walk light
+	delete []dontwalkD3;			//? seconds for don't walk light
+	delete []dontwalkD4;			//? seconds for don't walk light
+	delete []dontwalkD5;			//? seconds for don't walk light
+	delete []dontwalkD6;			//? seconds for don't walk light
+	delete []dontwalkD7;			//? seconds for don't walk light
+	delete []dontwalkD8;			//? seconds for don't walk light
+
+
+								//Get from Phasing Data set (22,(3 - 8))
+	delete []yieldD1;			//? seconds for  yeild light
+	delete []yieldD2;			//? seconds for  yeild light
+	delete []yieldD3;			//? seconds for  yeild light
+	delete []yieldD4;			//? seconds for  yeild light
+	delete []yieldD5;			//? seconds for  yeild light
+	delete []yieldD6;			//? seconds for  yeild light
+	delete []yieldD7;			//? seconds for  yeild light
+	delete []yieldD8;			//? seconds for  yeild light
+}
 //now all we need to do when we want information is call an information type and return an array location inside that type based on the itesm id number
 string IntersectionData::getNbName(int inputId)
 {
