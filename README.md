@@ -136,6 +136,4 @@ PHASING DATA
 	double getYieldD5(int inputId);
 	double getYieldD6(int inputId);
 	double getYieldD7(int inputId);
-	double getYieldD8(int inputId);
-
-Contibutors: Andrew and Jackie
+	double getYieldD8(int inputId);  
