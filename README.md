@@ -1,4 +1,4 @@
-	# Instructions to access the Fort Collins city data inside your code
+	# Instructions to access the Fort Collins city data in your code
 
 	Here are the getters you can use to access the data.  They reside in the class IntersectionData.  To get a particular intersection’s data, call these getters with the inputId of that intersection number.
 
