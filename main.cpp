@@ -15,20 +15,31 @@ int main()
 	IntersectionData myIntersectionData;
 
 	cout << "Intersection Number:\t" << 1 << endl;
-	cout << "NB Name:\t" << myIntersectionData.getNbName(1) << endl;
-	cout << "SB Name:\t" << myIntersectionData.getSbName(1) << endl;
-	cout << "EB Name:\t" << myIntersectionData.getEbName(1) << endl;
-	cout << "WB Name:\t" << myIntersectionData.getWbName(1) << endl;
+	cout << "NB Name:\t" << myIntersectionData.getNameNB(1) << endl;
+	cout << "SB Name:\t" << myIntersectionData.getNameSB(1) << endl;
+	cout << "EB Name:\t" << myIntersectionData.getNameEB(1) << endl;
+	cout << "WB Name:\t" << myIntersectionData.getNameWB(1) << endl;
 
-	int intersectionsToTest[5] {2, 3, 50, 345, 995};
+	int intersectionsToTest[5] {1, 2, 15, 998,51};
 	for (unsigned int i = 0; i < 5; i++)
 	{
 		cout << "Intersection Number:\t" << intersectionsToTest[i] << endl;
-		cout << "NB Name:\t" << myIntersectionData.getNbName(intersectionsToTest[i]) << endl;
-		cout << "SB Name:\t" << myIntersectionData.getSbName(intersectionsToTest[i]) << endl;
-		cout << "EB Name:\t" << myIntersectionData.getEbName(intersectionsToTest[i]) << endl;
-		cout << "WB Name:\t" << myIntersectionData.getWbName(intersectionsToTest[i]) << endl;
+		cout << "NB Name:\t" << myIntersectionData.getNameNB(intersectionsToTest[i]) << endl;
+		cout << "SB Name:\t" << myIntersectionData.getNameSB(intersectionsToTest[i]) << endl;
+		cout << "EB Name:\t" << myIntersectionData.getNameEB(intersectionsToTest[i]) << endl;
+		cout << "WB Name:\t" << myIntersectionData.getNameWB(intersectionsToTest[i]) << endl;
+		cout << "allred: \t" << myIntersectionData.getAllRedD4(intersectionsToTest[i]) << endl;
 	}
+	cout << "end";
+	
+	//for (i = 0; i(not end of file); i++)
+	//{
+	//	myintersectionData.get(eachfile)
+	//}
+
+
+
+
 	system("pause");
 	return 0;
 }
