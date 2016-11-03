@@ -677,15 +677,13 @@ void IntersectionData::setLinkData()
 
 void IntersectionData::setPhasingData()
 {
-	int count = 0;
+	
 	int lineToRead = 23246;
-	while (lineToRead < 27734)
+	while (lineToRead < 27759)
 	{
 		int itemNumber = stoi(myDataReader->getDataCell(lineToRead, 2));
 
-		cout << count;
-		count++;
-
+		
 		minGreenD1[itemNumber] = stod(myDataReader->getDataCell(lineToRead, 3));
 		minGreenD2[itemNumber] = stod(myDataReader->getDataCell(lineToRead, 4));
 		minGreenD3[itemNumber] = stod(myDataReader->getDataCell(lineToRead, 5));
