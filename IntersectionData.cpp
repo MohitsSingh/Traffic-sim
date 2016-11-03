@@ -11,7 +11,7 @@ Danni
 
 IntersectionData::IntersectionData()
 {
-	numberOfIntersections = 1000;
+	numberOfIntersections = 10000;
 	setPointers();
 	myDataReader = new DataReader;
 	myDataReader->readData("traficData.csv");
