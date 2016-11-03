@@ -14,6 +14,8 @@ int main()
 	cout << "Testing" << endl;
 	IntersectionData myIntersectionData;
 
+
+
 	cout << "Intersection Number:\t" << 1 << endl;
 	cout << "NB Name:\t" << myIntersectionData.getNameNB(1) << endl;
 	cout << "SB Name:\t" << myIntersectionData.getNameSB(1) << endl;

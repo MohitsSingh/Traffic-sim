@@ -677,9 +677,9 @@ void IntersectionData::setLinkData()
 
 void IntersectionData::setPhasingData()
 {
-	
+	int count = 0;
 	int lineToRead = 23246;
-	while (lineToRead < 27759)
+	while (lineToRead <= 27759)
 	{
 		int itemNumber = stoi(myDataReader->getDataCell(lineToRead, 2));
 
