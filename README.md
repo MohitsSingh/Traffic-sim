@@ -13,27 +13,27 @@ For example:
   
 This sequence call would result in the string “College” being placed in the variable name.
 
-------------------
+
 LINK DATA 
 //Data from the Link Section of the csv file
 
 //UpId is the intersection number prior to current intersection in the given direction
-	int getUpIdNB(int inputId);
-	int getUpIdSB(int inputId);		
-	int getUpIdEB(int inputId);
-	int getUpIdWB(int inputId);
+	int getUpIdNB(int inputId);					
+	int getUpIdSB(int inputId);					
+	int getUpIdEB(int inputId);					
+	int getUpIdWB(int inputId);					
 
 //Number of lanes in the given direction
-	int getLanesNB(int inputID);
-	int getLanesSB(int inputID)
+	int getLanesNB(int inputID);			
+	int getLanesSB(int inputID);				
 	int getLanesEB(int inputID);			
-	int getLanesWB(int inputID);
+	int getLanesWB(int inputID);				
 
 // Name of the streets in the given direction	
-  string getNameNB(int inputId);
-	string getNameSB(int inputId);
-	string getNameEB(int inputId);
-	string getNameWB(int inputId);
+  string getNameNB(int inputId);			
+	string getNameSB(int inputId);			
+	string getNameEB(int inputId);			
+	string getNameWB(int inputId);				
 
 //Distance in feet from the prior intersection to the current intersection in the given direction
 	int getDistanceNB(int inputId);		
@@ -47,17 +47,17 @@ LINK DATA
 	int getSpeedLimitEB(int inputId);		
 	int getSpeedLimitWB(int inputId);		
 
--------------------
+
 PHASING DATA
 //Data from the Phasing Section of the csv file
-  D1 – Northbound Left Turn
-	D2 – Southbound Thru/Right
-	D3 – Westbound Left Turn
-	D4 – Eastbound Thru
-	D5 – Southbound Left Turn
-	D6 – Northbound Thru
-	D7 – Eastbound Left Turn
-	D8 – Westbound Thru
+  D1 – Northbound Left Turn					
+	D2 – Southbound Thru/Right				
+	D3 – Westbound Left Turn				
+	D4 – Eastbound Thru					
+	D5 – Southbound Left Turn					
+	D6 – Northbound Thru					
+	D7 – Eastbound Left Turn					
+	D8 – Westbound Thru					
 
 // minimum seconds for a green light in the given direction
 	double getMinGreenD1(int inputId);			
@@ -106,17 +106,17 @@ PHASING DATA
 	double getAllRedD8(int inputId);
 
 // seconds for a walk light in a given direction
-  double getWalkD1(int inputId);				
-	double getWalkD2(int inputId); 
-	double getWalkD3(int inputId); 
-	double getWalkD4(int inputId); 
-	double getWalkD5(int inputId); 
-	double getWalkD6(int inputId);
-	double getWalkD7(int inputId); 
-	double getWalkD8(int inputId); 
-	double getWalkD9(int inputId); 
-	double getWalkD10(int inputId); 
-	double getWalkD14(int inputId); 
+  	double getWalkD1(int inputId);				
+	double getWalkD2(int inputId); 			
+	double getWalkD3(int inputId); 					
+	double getWalkD4(int inputId); 				
+	double getWalkD5(int inputId); 				
+	double getWalkD6(int inputId);				
+	double getWalkD7(int inputId); 				
+	double getWalkD8(int inputId); 			
+	double getWalkD9(int inputId); 				
+	double getWalkD10(int inputId);			 
+	double getWalkD14(int inputId);				 
 
 // seconds for don't walk light in a given direction
 	double getDontWalkD1(int inputId);			
@@ -136,4 +136,4 @@ PHASING DATA
 	double getYieldD5(int inputId);
 	double getYieldD6(int inputId);
 	double getYieldD7(int inputId);
-	double getYieldD8(int inputId);  
+	double getYieldD8(int inputId);  	
