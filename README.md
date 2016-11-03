@@ -18,16 +18,16 @@ LINK DATA
 //Data from the Link Section of the csv file
 
 //UpId is the intersection number prior to current intersection in the given direction
-	int getUpIdNB(int inputId);	
-	int getUpIdSB(int inputId);	
-	int getUpIdEB(int inputId);	
-	int getUpIdWB(int inputId);	
+	int getUpIdNB(int inputId);
+	int getUpIdSB(int inputId);		
+	int getUpIdEB(int inputId);
+	int getUpIdWB(int inputId);
 
-//Number of lanes in the given direction	
-	int getLanesNB(int inputID);	
-	int getLanesSB(int inputID);	
+//Number of lanes in the given direction
+	int getLanesNB(int inputID);
+	int getLanesSB(int inputID)
 	int getLanesEB(int inputID);			
-	int getLanesWB(int inputID);	
+	int getLanesWB(int inputID);
 
 // Name of the streets in the given direction	
   string getNameNB(int inputId);
