@@ -23,11 +23,11 @@ int getUpIdSB(int inputId);
 int getUpIdEB(int inputId);
 int getUpIdWB(int inputId);
 
-//Number of lanes in the given direction
-	int getLanesNB(int inputID);
-	int getLanesSB(int inputID)
+//Number of lanes in the given direction	
+	int getLanesNB(int inputID);	
+	int getLanesSB(int inputID);	
 	int getLanesEB(int inputID);			
-	int getLanesWB(int inputID);
+	int getLanesWB(int inputID);	
 
 // Name of the streets in the given direction	
   string getNameNB(int inputId);
