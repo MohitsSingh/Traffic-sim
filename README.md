@@ -3,11 +3,11 @@
 Here are the getters you can use to access the data.  They reside in the class IntersectionData.  To get a particular intersection’s data, call these getters with the inputId of that intersection number.
 
 For example:    
-1.Define an instance of IntersectionData, say myIntersectionData in main.   
+1. Define an instance of IntersectionData, say myIntersectionData in main.   
 
 IntersectionData myIntersectionData;    
 
-2.The following statement will get intersection #1 data into the variable "identity" for the northbound street name,  
+2. The following statement will get intersection #1 data into the variable "identity" for the northbound street name,  
 
 identity = myIntersectionData.getNameNB(1);   
 
