@@ -2,21 +2,21 @@
 
 Here are the getters you can use to access the data.  They reside in the class IntersectionData.  To get a particular intersection’s data, call these getters with the inputId of that intersection number.
 
-For example: 
-1.Define an instance of IntersectionData, say myIntersectionData in main.
+For example:    
+1.Define an instance of IntersectionData, say myIntersectionData in main.   
 
-IntersectionData myIntersectionData;
+IntersectionData myIntersectionData;    
 
-2.The following statement will get intersection #1 data into the variable "identity" for the northbound street name, 
+2.The following statement will get intersection #1 data into the variable "identity" for the northbound street name,  
 
-identity = myIntersectionData.getNameNB(1);
+identity = myIntersectionData.getNameNB(1);   
 
-This sequence call would result in the string “College” being placed in the variable name.
+This sequence call would result in the string “College” being placed in the variable name.    
 
-LINK DATA 
+LINK DATA   
 //Data from the Link Section of the csv file
 
-//UpId is the intersection number prior to current intersection in the given direction	
+//UpId is the intersection number prior to current intersection in the given direction
 int getUpIdNB(int inputId);					
 int getUpIdSB(int inputId);					
 int getUpIdEB(int inputId);					
