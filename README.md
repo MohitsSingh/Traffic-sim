@@ -16,7 +16,7 @@ This sequence call would result in the string “College” being placed in the 
 ----------------
 LINK DATA // Data from the Link Section of the csv file  
 
-// UpId is the intersection number prior to current intersection in the given direction 
+// UpId is the intersection number prior to current intersection in the given direction   
 int getUpIdNB(int inputId);					
 int getUpIdSB(int inputId);					
 int getUpIdEB(int inputId);					
