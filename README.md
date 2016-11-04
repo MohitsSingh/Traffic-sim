@@ -14,9 +14,7 @@ identity = myIntersectionData.getNameNB(1);
 This sequence call would result in the string “College” being placed in the variable name.    
 
 ----------------
-
-//Data from the Link Section of the csv file  
-LINK DATA
+LINK DATA // Data from the Link Section of the csv file  
 
 //UpId is the intersection number prior to current intersection in the given direction
 int getUpIdNB(int inputId);					
@@ -49,9 +47,7 @@ int getSpeedLimitEB(int inputId);
 int getSpeedLimitWB(int inputId);		
 
 ------------
-
-// Data from the Phasing Section of the csv file		
-PHASING DATA  
+PHASING DATA // Data from the Phasing Section of the csv file		
 
 // columns  
 D1 – Northbound Left Turn					
