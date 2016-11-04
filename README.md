@@ -15,8 +15,8 @@ This sequence call would result in the string “College” being placed in the 
 
 ----------------
 
-LINK DATA   
-//Data from the Link Section of the csv file
+//Data from the Link Section of the csv file  
+LINK DATA
 
 //UpId is the intersection number prior to current intersection in the given direction
 int getUpIdNB(int inputId);					
@@ -50,8 +50,10 @@ int getSpeedLimitWB(int inputId);
 
 ------------
 
-PHASING DATA  
 // Data from the Phasing Section of the csv file		
+PHASING DATA  
+
+// columns  
 D1 – Northbound Left Turn					
 D2 – Southbound Thru/Right				
 D3 – Westbound Left Turn				
