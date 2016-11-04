@@ -13,6 +13,8 @@ identity = myIntersectionData.getNameNB(1);
 
 This sequence call would result in the string “College” being placed in the variable name.    
 
+----------------
+
 LINK DATA   
 //Data from the Link Section of the csv file
 
@@ -45,6 +47,8 @@ int getSpeedLimitNB(int inputId);
 int getSpeedLimitSB(int inputId);		
 int getSpeedLimitEB(int inputId);		
 int getSpeedLimitWB(int inputId);		
+
+------------
 
 PHASING DATA
 // Data from the Phasing Section of the csv file		
@@ -135,5 +139,7 @@ double getYieldD5(int inputId);
 double getYieldD6(int inputId);		
 double getYieldD7(int inputId);		
 double getYieldD8(int inputId);  	
+
+---------------------
 
 contributers: Andrew, Jackie
