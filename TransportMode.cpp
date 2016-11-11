@@ -3,34 +3,21 @@
 
 TransportMode::TransportMode()
 {
+	//JG: See includes.h
+#if TSIM_CONSTRUCTOR_OUTPUT == 1
+	// cout << "Default constructor for Transportation Mode called.\n";
+#endif
 	minSpeed = 0;
 	maxSpeed = 0;
 	currentSpeed = 0;
-	length = 0;
-	width = 0;
-	hazardRating = 0;
-	xPos = 0.0;
-	yPos = 0.0;
-	direction = PI / 2;
-}
-
-TransportMode::TransportMode(int xStartCoordinate, int yStartCoordinate)
-{
-	xPos = xStartCoordinate;
-	yPos = yStartCoordinate;
-	minSpeed = 0;
-	maxSpeed = 0;
-	currentSpeed = 0;
-	weight = 0;
-	brakingPower = 0;
 	length = 0;
 	width = 0;
 	hazardRating = 0;
 	latitude = 0.0;
 	longitude = 0.0;
-	acceleration = 0.0;
-	direction = 0;
+	direction = PI / 2;
 }
+
 
 TransportMode::~TransportMode()
 {
@@ -39,6 +26,7 @@ TransportMode::~TransportMode()
 //************************************************
 //Getters
 //************************************************
+
 int TransportMode::getMinSpeed()
 {
 	return minSpeed;
@@ -50,26 +38,6 @@ int TransportMode::getMaxSpeed()
 double TransportMode::getCurrentSpeed()
 {
 	return currentSpeed;
-}
-double TransportMode::getMaxAcceleration()
-{
-	return maxAcceleration;
-}
-double TransportMode::getbrakingPower()
-{
-	return brakingPower;
-}
-double TransportMode::getAcceleration()
-{
-	return acceleration;
-}
-double TransportMode::getDirection()
-{
-	return direction;
-}
-enum CARDINAL TransportMode::getCardinalD()
-{
-	return cardinalD;
 }
 int TransportMode::getLength()
 {
@@ -83,31 +51,23 @@ int TransportMode::getHazardRating()
 {
 	return hazardRating;
 }
-int TransportMode::getWeight()
+double TransportMode::getLatitude()
 {
-	return weight;
+	return latitude;
 }
-
+double TransportMode::getLongitude()
+{
+	return longitude;
+}
+double TransportMode::getDirection()
+{
+	return direction;
+}
 
 //************************************************
 //Setters
 //************************************************
-void TransportMode::setLength(int inputLength)
-{
-	length = inputLength;
-}
-void TransportMode::setWidth(int inputWidth)
-{
-	width = inputWidth;
-}
-void TransportMode::setHazardRating(int inputHazardRating)
-{
-	hazardRating = inputHazardRating;
-}
-void TransportMode::setWeight(int inputWeight)
-{
-	weight = inputWeight;
-}
+
 void TransportMode::setMinSpeed(int inputSpeed)
 {
 	minSpeed = inputSpeed;
@@ -120,21 +80,25 @@ void TransportMode::setCurrentSpeed(double inputSpeed)
 {
 	currentSpeed = inputSpeed;
 }
-void TransportMode::setMaxAcceleration(double inputSpeed)
+void TransportMode::setLength(int inputLength)
 {
-	maxAcceleration = inputSpeed;
+	length = inputLength;
 }
-void TransportMode::setbrakingPower(double inputbrakingPower)
+void TransportMode::setWidth(int inputWidth)
 {
-	brakingPower = inputbrakingPower;
+	width = inputWidth;
 }
-void TransportMode::setAcceleration(double inputAcceleration)
+void TransportMode::setHazardRating(int inputHazardRating)
 {
-	acceleration = inputAcceleration;
+	hazardRating = inputHazardRating;
 }
-void TransportMode::setCardinalD(enum CARDINAL inputCardinalD)
+void TransportMode::setLatitude(double inputlatitude)
 {
-	cardinalD = inputCardinalD;
+	latitude = inputlatitude;
+}
+void TransportMode::setLongitude(double inputLongitude)
+{
+	longitude = inputLongitude;
 }
 void TransportMode::setDirection(double inputDirection)
 {

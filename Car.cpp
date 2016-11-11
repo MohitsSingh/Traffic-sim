@@ -1,7 +1,18 @@
+#pragma once
 #include "Car.h"
 
 Car::Car(bool emergency)		//JG bool input optional, defaults to false if default constructor called
 {
+	//JG: see includes.h
+#if TSIM_CONSTRUCTOR_OUTPUT == 1
+	if (emergency)
+	{
+		cout << "\"Emergency\" constructor for Car called.\n";
+	}
+	else
+		//cout << "Default constructor for Car called.\n";
+#endif
+
 	//JG police car specs (probably needs tweaking)
 	if (emergency)
 	{
