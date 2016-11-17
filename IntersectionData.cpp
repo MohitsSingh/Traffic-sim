@@ -286,11 +286,11 @@ int IntersectionData::getUpIdSB(int inputId)
 }
 int IntersectionData::getUpIdWB(int inputId)
 {
-	return upIdNB[inputId];
+	return upIdWB[inputId];
 }
 int IntersectionData::getUpIdEB(int inputId)
 {
-	return upIdSB[inputId];
+	return upIdEB[inputId];
 }
 
 int IntersectionData::getLanesNB(int inputId)
