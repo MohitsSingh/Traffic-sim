@@ -2,6 +2,7 @@
 #include "includes.h"
 
 
+
 class MapOBJ
 {
 protected:
@@ -9,14 +10,19 @@ protected:
 	int yPos;					//y position of object
 	double latitude;			//vehicle position North/South: relates to the y axis
 	double longitude;			//vehicle position East/West: relates to the x axis
-
+	CLASSTYPES classType;
 public:
 
 	//Constructors
 	MapOBJ();
 	MapOBJ(int xStartCoordinate, int yStartCoordinate);
 
+	virtual void interPush(MapOBJ* modes);
+	virtual vector <MapOBJ*> interPop();
+
 	//GETTERS
+	virtual CLASSTYPES getClassType();
+	virtual CARDINAL getDesieredD();
 	virtual int getMinSpeed();
 	virtual int getMaxSpeed();
 	virtual int getX();
@@ -38,8 +44,11 @@ public:
 	virtual bool getOversized();
 	virtual CARTYPES getModel();
 	virtual CARDINAL getCardinalD();
+	int getId();
 	
 	//SETTERS
+	virtual void setClassType(CLASSTYPES input);
+	virtual void setDesieredD(CARDINAL value);
 	virtual void setMinSpeed(int inputSpeed);
 	virtual void setMaxSpeed(int inputSpeed);
 	virtual void setX(int inputX);

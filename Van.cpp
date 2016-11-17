@@ -20,7 +20,6 @@ Van::Van(bool emergency) //JG bool input optional, set to false if default const
 		length = 200;			//inches
 		width = 80;				//inches
 	}
-
 	model = VAN;
 	oversized = false;
 	activeEmergency = false;

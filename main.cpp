@@ -22,15 +22,119 @@ which translates to approximately 7 to 9 mph/s
 
 
 #include "Includes.h"
+#include "MapOBJ.h"
+#include "main.h"
+#include "TransportMode.h"
+#include "Vehicle.h"
+#include "Bus.h"
+#include "Car.h"
+#include "Semi.h"
+#include "Sportscar.h"
+#include "Truck.h"
+#include "Van.h"
+#include "Intersection.h"
 
-int simTime = 0;	// I think this should be inside of "includes.h", but it's not working for me
-						// this could also be it's own data type. typedef int simTime;
 
-vector<TransportMode*> fillVector();	//
-void initializeDirection(vector<TransportMode*> tempList);	// sets every object's direction to one of the cardinal directions
-void initializeAcceleration(vector<TransportMode*> tempList);	// sets every object's acceleration to 0, 3, or 4 m/s/s
-void initializeCurrentSpeed(vector<TransportMode*> tempList);	// sets every object's speed to 10 m/s
-void printVector(vector<TransportMode*> tempList);	// just a temporary output function
+
+int simTime = 9;	// I think this should be inside of "includes.h", but it's not working for me
+const int SIM_DURATION = 10;						// this could also be it's own data type. typedef int simTime;
+
+
+
+void moveCarsWaiting(vector <MapOBJ*> icw, MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
+{
+	for (int i = 0; i < icw.size(); i++)
+	{
+		int tempX = icw[i]->getX();
+		int tempY = icw[i]->getY();
+
+		switch (icw[i]->getCardinalD())
+		{
+		case NORTH:
+			switch (icw[i]->getDesieredD())
+			{
+			case NORTH:
+				icw[i]->setY(tempY - 3);
+				break;
+			case WEST:
+				icw[i]->setX(tempX - 2);
+				icw[i]->setY(tempY - 2);
+				break;
+			case EAST:
+				icw[i]->setX(tempX + 1);
+				icw[i]->setY(tempY - 1);
+				break;
+			default:
+				break;
+			}
+			break;
+		case SOUTH:
+			switch (icw[i]->getDesieredD())
+			{
+			case SOUTH:
+				icw[i]->setY(tempY + 3);
+				break;
+			case WEST:
+				icw[i]->setX(tempX - 1);
+				icw[i]->setY(tempY + 1);
+				break;
+			case EAST:
+				icw[i]->setX(tempX + 2);
+				icw[i]->setY(tempY + 2);
+				break;
+			default:
+				break;
+			}
+			break;
+		case EAST:
+			switch (icw[i]->getDesieredD())
+			{
+			case SOUTH:
+				icw[i]->setY(tempY + 1);
+				icw[i]->setX(tempX + 1);
+				break;
+			case NORTH:
+				icw[i]->setX(tempX + 2);
+				icw[i]->setY(tempY - 2);
+				break;
+			case EAST:
+				icw[i]->setX(tempX + 3);
+				break;
+			default:
+				break;
+			}
+			break;
+		case WEST:
+			switch (icw[i]->getDesieredD())
+			{
+			case SOUTH:
+				icw[i]->setY(tempY + 2);
+				icw[i]->setX(tempX - 2);
+				break;
+			case NORTH:
+				icw[i]->setX(tempX - 1);
+				icw[i]->setY(tempY - 1);
+				break;
+			case WEST:
+				icw[i]->setX(tempX - 3);
+				break;
+			default:
+				break;
+			}
+		default:
+			break;
+		}
+	}
+}
+void updateMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], vector <TransportMode*> transportList)
+{
+	for (int i = 0; i < transportList.size(); i++)
+	{
+		map[transportList[i]->getY()][transportList[i]->getX()] = transportList[i];
+	}
+}
+
+int TransportMode::id = 0;
 
 int main()
 {
@@ -39,27 +143,74 @@ int main()
 
 	srand(time(NULL));
 
-	vector <TransportMode*> transportList = fillVector();
-	initializeDirection(transportList);
-	initializeAcceleration(transportList);
-	initializeCurrentSpeed(transportList);
+	MapOBJ *map[MAX_CITY_Y][MAX_CITY_X];
+	vector <TransportMode*> transportList;
+	vector <Intersection*> intersectionList;
+	vector <MapOBJ*> intersectionCarsWaiting;
+
+	initializeMap(map, transportList);
 	
-	cout << "\n\nBefore updates:\n--------------------------------------------"
-		<<"-------------------------------------------------------------\n";
-	printVector(transportList);
-	cout << "--------------------------------------------"
-		<< "-------------------------------------------------------------\n";
+	intersectionList.push_back(new Intersection());
+	transportList.push_back(new TransportMode(6, 7));	//N,E,S,W
+	cout << transportList[0]->getX() << ", " << transportList[0]->getY();
+	transportList[0]->setCardinalD(NORTH);
+	transportList[0]->setDesieredD(NORTH);
+	//transportList.push_back(new Vehicle(6, 4));
+	//transportList.push_back(new Vehicle(4, 5));
+	//transportList.push_back(new Vehicle(5, 7));
+	map[5][5] = intersectionList[0];
+	map[5][6] = intersectionList[0];
+	map[6][6] = intersectionList[0];
+	map[6][5] = intersectionList[0];
+	updateMap(map, transportList);
 
-	while (simTime < 5)
+	while (simTime < SIM_DURATION)
 	{
-		simTime += TIME_INCREMENT;
-
+		//update cars
 		for (int i = 0; i < transportList.size(); i++)
 		{
-			transportList[i]->update();	// changes speed and location
+			transportList[i]->smartMove(map);
 		}
-		printVector(transportList);
+		//update intersections
+		for (int i = 0; i < intersectionList.size(); i++)
+		{
+			intersectionCarsWaiting = intersectionList[i]->interPop();
+		}
+		//update intersectionCarsWaiting
+		moveCarsWaiting(intersectionCarsWaiting, map);
+		simTime++;
 	}
+
+	cout << transportList[0]->getX() << ", " << transportList[0]->getY();
+
+
+
+
+
+
+
+	/*initializeDirection(transportList);
+	initializeAcceleration(transportList);
+	initializeCurrentSpeed(transportList);*/
+
+
+	
+	//cout << "\n\nBefore updates:\n--------------------------------------------"
+	//	<<"-------------------------------------------------------------\n";
+	//printVector(transportList);
+	//cout << "--------------------------------------------"
+	//	<< "-------------------------------------------------------------\n";
+
+	//while (simTime < 5)
+	//{
+	//	simTime += TIME_INCREMENT;
+
+	//	for (int i = 0; i < transportList.size(); i++)
+	//	{
+	//		transportList[i]->update();	// changes speed and location
+	//	}
+	//	printVector(transportList);
+	//}
 	cout << endl << endl;
 	system("pause");
 	return 0;
@@ -107,6 +258,21 @@ vector<TransportMode*> fillVector()
 	}
 	return tempList;
 }
+void initializeMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], vector<TransportMode*> tempList)
+{
+	for (int i = 0; i < MAX_CITY_Y; i++)
+	{
+		for (int j = 0; j < MAX_CITY_X; j++)
+		{
+			map[i][j] = nullptr;
+		}
+	}
+
+	for (int i = 0; i < tempList.size(); i++)
+	{
+		map[tempList[i]->getX()][tempList[i]->getY()] = tempList[i];
+	}
+}
 void initializeDirection(vector<TransportMode*> tempList)
 {
 	double startDirection;
@@ -118,15 +284,19 @@ void initializeDirection(vector<TransportMode*> tempList)
 		{
 		case 0:
 			startDirection = 3 * PI / 2;
+			tempList[i]->setCardinalD(SOUTH);
 			break;
 		case 1:
 			startDirection = 0;
+			tempList[i]->setCardinalD(EAST);
 			break;
 		case 2:
 			startDirection = PI / 2;
+			tempList[i]->setCardinalD(NORTH);
 			break;
 		case 3:
 			startDirection = PI;
+			tempList[i]->setCardinalD(WEST);
 			break;
 		}
 		tempList[i]->setDirection(startDirection);

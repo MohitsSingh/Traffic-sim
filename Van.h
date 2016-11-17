@@ -1,5 +1,6 @@
 #pragma once
 #include "Includes.h"
+#include "Vehicle.h"
 
 class Van : public Vehicle
 {

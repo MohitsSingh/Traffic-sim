@@ -1,4 +1,5 @@
 #include "Includes.h"
+#include "Bus.h"
 
 Bus::Bus()
 {

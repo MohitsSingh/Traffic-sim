@@ -1,20 +1,46 @@
 #include "Includes.h"
+#include "MapOBJ.h"
+
 
 //Constructors
 MapOBJ::MapOBJ(int xStartCoordinate, int yStartCoordinate)
 {
 	xPos = xStartCoordinate;
 	yPos = yStartCoordinate;
+	classType = MAPOBJ;
 }
 
 MapOBJ::MapOBJ()
 {
 	xPos = -1;
 	yPos = -1;
+	classType = MAPOBJ;
+}
+
+void MapOBJ::interPush(MapOBJ* modes)
+{
+
+}
+vector <MapOBJ*> MapOBJ::interPop()
+{
+	vector <MapOBJ*> empty;
+	return empty;
 }
 
 
 //Getters
+int MapOBJ::getId()
+{
+	return -1;
+}
+CLASSTYPES MapOBJ::getClassType()
+{
+	return classType;
+}
+CARDINAL MapOBJ::getDesieredD()
+{
+	return CARDINAL();
+}
 int MapOBJ::getX()
 {
 	return xPos;
@@ -119,6 +145,14 @@ bool MapOBJ::getOversized()
 
 
 //Setters
+void MapOBJ::setClassType(CLASSTYPES input)
+{
+	classType = input;
+}
+void MapOBJ::setDesieredD(CARDINAL value)
+{
+	
+}
 void MapOBJ::setX(int inputX)
 {
 	xPos = inputX;
