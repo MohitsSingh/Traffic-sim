@@ -5,7 +5,7 @@
 class StopSign : public Intersection
 {
 private:
-	deque <TransportMode*> cars;
+	deque <MapOBJ*> cars;
 
 public:
 	StopSign()
@@ -16,7 +16,7 @@ public:
 		wLanes = 1;
 		intersectionSize = nLanes + sLanes + eLanes + wLanes;
 	}
-	void interPush(TransportMode* modes)  // put on queue and 
+	void interPush(MapOBJ* modes)  // put on queue and 
 	{
 		bool duplicate = false;
 		if (cars.size() == 0)
@@ -38,12 +38,12 @@ public:
 			}
 		}
 	}
-	vector <TransportMode*> interPop()
+	vector <MapOBJ*> interPop()
 	{
-		vector <TransportMode*> carGo;
+		vector <MapOBJ*> carGo;
 		if (cars.size() > 0)
 		{
-			TransportMode* hold = cars[0];
+			MapOBJ* hold = cars[0];
 			cars.pop_front();
 			carGo.push_back(hold);
 		}

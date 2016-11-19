@@ -1,4 +1,3 @@
-#pragma once
 #include "Includes.h"
 #include "MapOBJ.h"
 
@@ -6,14 +5,30 @@
 
 MapOBJ::MapOBJ()
 {
-
 	road1 = false;
 	road2 = false;
 	inter = nullptr;
 	motor = nullptr;
-
 }
 
+MapOBJ::MapOBJ(bool road)  //use if your laying road btwn intersections in the array spencemw 11-19-16
+{
+	road1 = road;
+	road2 = false;
+	inter = nullptr;
+	motor = nullptr;
+}
+
+
+void MapOBJ::interPush(MapOBJ* modes)
+{
+
+}
+vector <MapOBJ*> MapOBJ::interPop()
+{
+	vector <MapOBJ*> empty;
+	return empty;
+}
 
 
 //	GETTERS
@@ -54,3 +69,4 @@ void MapOBJ::setVehicle(TransportMode* motor)
 {
 	this->motor = motor;
 }
+

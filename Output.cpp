@@ -1,4 +1,3 @@
-#pragma once
 #include "Includes.h"
 #include "Vehicle.h"
 
