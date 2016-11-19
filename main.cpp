@@ -20,7 +20,7 @@ which translates to approximately 7 to 9 mph/s
 */
 
 
-
+#pragma once
 #include "Includes.h"
 #include "MapOBJ.h"
 #include "main.h"
@@ -126,15 +126,7 @@ void moveCarsWaiting(vector <TransportMode*> icw, MapOBJ *map[MAX_CITY_Y][MAX_CI
 		}
 	}
 }
-/*********************************************************************************************************************************/
-//need to set old values to nullptr VERY IMPORTANT
-void updateMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], vector <TransportMode*> transportList)
-{
-	for (int i = 0; i < transportList.size(); i++)
-	{
-		map[transportList[i]->getY()][transportList[i]->getX()]->setVehicle(transportList[i]);
-	}
-}
+
 
 int TransportMode::id = 0;
 
@@ -150,13 +142,13 @@ int main()
 	vector <Intersection*> intersectionList;
 	vector <TransportMode*> intersectionCarsWaiting;
 
-	initializeMap(map, transportList);
+	initializeMap(map);
 	
-	intersectionList.push_back(new Intersection());
-	transportList.push_back(new TransportMode(6, 7));	//N,E,S,W
-	cout << transportList[0]->getX() << ", " << transportList[0]->getY();
-	transportList[0]->setCardinalD(NORTH);
-	transportList[0]->setDesieredD(NORTH);
+	//intersectionList.push_back(new Intersection());
+	//transportList.push_back(new TransportMode(6, 7));	//N,E,S,W
+	//cout << transportList[0]->getX() << ", " << transportList[0]->getY();
+	//transportList[0]->setCardinalD(NORTH);
+	//transportList[0]->setDesieredD(NORTH);
 	//transportList.push_back(new Vehicle(6, 4));
 	//transportList.push_back(new Vehicle(4, 5));
 	//transportList.push_back(new Vehicle(5, 7));
@@ -164,7 +156,7 @@ int main()
 	map[5][6] = intersectionList[0];
 	map[6][6] = intersectionList[0];
 	map[6][5] = intersectionList[0];*/
-	updateMap(map, transportList);
+	
 
 	while (simTime < SIM_DURATION)
 	{
@@ -183,7 +175,7 @@ int main()
 		simTime++;
 	}
 
-	cout << transportList[0]->getX() << ", " << transportList[0]->getY();
+
 
 
 
@@ -260,7 +252,7 @@ vector<TransportMode*> fillVector()
 	}
 	return tempList;
 }
-void initializeMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], vector<TransportMode*> tempList)
+void initializeMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 {
 	for (int i = 0; i < MAX_CITY_Y; i++)
 	{
@@ -268,11 +260,6 @@ void initializeMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], vector<TransportMode*> t
 		{
 			map[i][j] = nullptr;
 		}
-	}
-
-	for (int i = 0; i < tempList.size(); i++)
-	{
-		map[tempList[i]->getX()][tempList[i]->getY()]->setVehicle(tempList[i]);
 	}
 }
 void initializeDirection(vector<TransportMode*> tempList)

@@ -1,3 +1,4 @@
+#pragma once
 #include "Includes.h"
 #include "MapOBJ.h"
 
@@ -29,7 +30,7 @@ Intersection* MapOBJ::getIntersection()
 {
 	return inter;
 }
-Vehicle* MapOBJ::getVehicle()
+TransportMode* MapOBJ::getVehicle()
 {
 	return motor;
 }

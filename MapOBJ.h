@@ -1,7 +1,8 @@
 #pragma once
 #include "includes.h"
 #include "Intersection.h"	
-#include "Vehicle.h"
+#include "TransportMode.h"
+
 
 class MapOBJ
 {
@@ -23,7 +24,7 @@ public:
 	bool getRoad1();
 	bool getRoad2(); 
 	Intersection* getIntersection();
-	Vehicle* getVehicle();
+	TransportMode* getVehicle();
 
 	void setRoad1(bool road1);
 	void setRoad2(bool road2);
