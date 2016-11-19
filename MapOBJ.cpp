@@ -13,15 +13,6 @@ MapOBJ::MapOBJ()
 
 }
 
-void MapOBJ::interPush(MapOBJ* modes)
-{
-
-}
-vector <MapOBJ*> MapOBJ::interPop()
-{
-	vector <MapOBJ*> empty;
-	return empty;
-}
 
 
 //	GETTERS
@@ -58,7 +49,7 @@ void MapOBJ::setIntersection(Intersection* inter)
 {
 	this->inter = inter;
 }
-void MapOBJ::setVehicle(Vehicle* motor)
+void MapOBJ::setVehicle(TransportMode* motor)
 {
 	this->motor = motor;
 }

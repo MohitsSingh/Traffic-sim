@@ -41,7 +41,7 @@ const int SIM_DURATION = 10;						// this could also be it's own data type. type
 
 
 
-void moveCarsWaiting(vector <MapOBJ*> icw, MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
+void moveCarsWaiting(vector <TransportMode*> icw, MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 {
 	for (int i = 0; i < icw.size(); i++)
 	{
@@ -126,11 +126,13 @@ void moveCarsWaiting(vector <MapOBJ*> icw, MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 		}
 	}
 }
+/*********************************************************************************************************************************/
+//need to set old values to nullptr VERY IMPORTANT
 void updateMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], vector <TransportMode*> transportList)
 {
 	for (int i = 0; i < transportList.size(); i++)
 	{
-		map[transportList[i]->getY()][transportList[i]->getX()] = transportList[i];
+		map[transportList[i]->getY()][transportList[i]->getX()]->setVehicle(transportList[i]);
 	}
 }
 
@@ -146,7 +148,7 @@ int main()
 	MapOBJ *map[MAX_CITY_Y][MAX_CITY_X];
 	vector <TransportMode*> transportList;
 	vector <Intersection*> intersectionList;
-	vector <MapOBJ*> intersectionCarsWaiting;
+	vector <TransportMode*> intersectionCarsWaiting;
 
 	initializeMap(map, transportList);
 	
@@ -158,10 +160,10 @@ int main()
 	//transportList.push_back(new Vehicle(6, 4));
 	//transportList.push_back(new Vehicle(4, 5));
 	//transportList.push_back(new Vehicle(5, 7));
-	map[5][5] = intersectionList[0];
+	/*map[5][5] = intersectionList[0];
 	map[5][6] = intersectionList[0];
 	map[6][6] = intersectionList[0];
-	map[6][5] = intersectionList[0];
+	map[6][5] = intersectionList[0];*/
 	updateMap(map, transportList);
 
 	while (simTime < SIM_DURATION)
@@ -270,7 +272,7 @@ void initializeMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], vector<TransportMode*> t
 
 	for (int i = 0; i < tempList.size(); i++)
 	{
-		map[tempList[i]->getX()][tempList[i]->getY()] = tempList[i];
+		map[tempList[i]->getX()][tempList[i]->getY()]->setVehicle(tempList[i]);
 	}
 }
 void initializeDirection(vector<TransportMode*> tempList)
@@ -333,7 +335,7 @@ void printVector(vector<TransportMode*> tempList)
 {
 	for (int i = 0; i < tempList.size(); i++)
 	{
-		cout << "model num: " << tempList[i]->getModel();
+		cout << "model num: " << tempList[i]->getId();
 		cout << "\tDIRECTION: " << tempList[i]->getDirection() * 180 / PI;
 		cout << "\tACCELERATION: " << tempList[i]->getAcceleration();
 		cout << "\tCURRENT SPEED: " << tempList[i]->getCurrentSpeed();

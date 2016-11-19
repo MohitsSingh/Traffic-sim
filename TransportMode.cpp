@@ -111,6 +111,14 @@ int TransportMode::getId()
 //************************************************
 //Setters
 //************************************************
+void TransportMode::setX(int x)
+{
+	xPos = x;
+}
+void TransportMode::setY(int y)
+{
+	yPos = y;
+}
 void TransportMode::setLength(int inputLength)
 {
 	length = inputLength;

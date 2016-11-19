@@ -8,27 +8,13 @@ Intersection::Intersection()     // the default constructer that makes an inters
 	sLanes = 1;
 	eLanes = 1;
 	wLanes = 1;
-	intersectionSize = nLanes + sLanes + eLanes + wLanes;
-	classType = INTERSECTION;
+	intersectionSize = 4;
 }
 
-Intersection::Intersection(int xLoc, int yLoc)  // overloaded constructer that makes a specific intersection based on location
-{
-	nLanes = 1;
-	sLanes = 1;
-	eLanes = 1;
-	wLanes = 1;
-	xPos = xLoc;
-	yPos = yLoc;
-	intersectionSize = nLanes + sLanes + eLanes + wLanes;
-	classType = INTERSECTION;
-}
 
 Intersection::Intersection(int id, int xLoc, int yLoc, int northL, int southL, int eastL, int westL)
 {
 	intersectionID = id;
-	xPos = xLoc;
-	yPos = yLoc;
 	nLanes = northL;
 	sLanes = southL;
 	eLanes = eastL;
@@ -67,6 +53,15 @@ int Intersection::getNumberOfLanes(CARDINAL inputCARDINAL)
 		return -1;
 		break;
 	}
+}
+
+vector<TransportMode*> Intersection::interPop()
+{
+	return vector<TransportMode*>();
+}
+
+void Intersection::interPush(TransportMode *modes)
+{
 }
 
 void Intersection::setIntersectionID(int value)

@@ -1,7 +1,8 @@
 #pragma once
 #include "Includes.h"
 #include "MapOBJ.h"
-
+class MapOBJ;
+class Intersection;
 
 class TransportMode
 {
@@ -50,8 +51,8 @@ public:
 	
 
 	//SETTERS
-	void setX();
-	void setY();
+	void setX(int x);
+	void setY(int y);
 	void setLength(int inputLength);
 	void setWidth(int inputWidth);
 	void setWeight(int inputWeight);
@@ -65,17 +66,19 @@ public:
 	void setDesieredD(CARDINAL value);
 	void setDirection(double inputDirection);
 	void setHazardRating(int inputHazardRating);
+
 	MapOBJ* findClosest(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], int &distance)
 	{
 		switch (cardinalD)
 		{
 		case NORTH:
-			for (int i = yPos - 1; i > 0; i--)
+			for (int i = yPos - 1; i > 0 && distance < 50; i--)
 			{
 				distance++;
-				if (map[i][xPos] != nullptr && yPos > 0)
+				MapOBJ* temp = map[i][xPos];
+				if (temp != nullptr && temp->getIntersection() != nullptr || temp->getVehicle() != nullptr && yPos > 0)
 				{
-					return map[i][xPos];
+					return temp;
 				}
 			}
 			break;
@@ -83,9 +86,10 @@ public:
 			for (int i = yPos + 1; i < MAX_CITY_Y; i++)
 			{
 				distance++;
-				if (map[i][xPos] != nullptr && yPos < MAX_CITY_Y)
+				MapOBJ* temp = map[i][xPos];
+				if (temp != nullptr && temp->getIntersection() != nullptr || temp->getVehicle() != nullptr && yPos < MAX_CITY_Y)
 				{
-					return map[i][xPos];
+					return temp;
 				}
 			}
 			break;
@@ -93,9 +97,10 @@ public:
 			for (int i = xPos + 1; i < MAX_CITY_X; i++)
 			{
 				distance++;
-				if (map[yPos][i] != nullptr && xPos < MAX_CITY_X)
+				MapOBJ* temp = map[i][xPos];
+				if (temp != nullptr && temp->getIntersection() != nullptr || temp->getVehicle() != nullptr && xPos < MAX_CITY_X)
 				{
-					return map[yPos][i];
+					return temp;
 				}
 			}
 			break;
@@ -103,9 +108,10 @@ public:
 			for (int i = xPos - 1; i > 0; i--)
 			{
 				distance++;
-				if (map[yPos][i] != nullptr && xPos > 0)
+				MapOBJ* temp = map[i][xPos];
+				if (temp != nullptr && temp->getIntersection() != nullptr || temp->getVehicle() != nullptr && xPos > 0)
 				{
-					return map[yPos][i];
+					return temp;
 				}
 			}
 			break;
@@ -114,10 +120,6 @@ public:
 			break;
 		}
 		return nullptr;
-	}
-	int calcDistance(MapOBJ *map[MAX_CITY_X][MAX_CITY_Y], MapOBJ *closest)
-	{
-		
 	}
 
 	//changed the names of the functions to what I thought was more clear as to what they do -Mike
@@ -169,6 +171,8 @@ public:
 	{
 		int distance = 0;
 		MapOBJ *closest = findClosest(map, distance);
+		TransportMode* tempCar = closest->getVehicle();
+		Intersection* tempInter = closest->getIntersection();
 		
 		if (closest == nullptr || distance >= 50)	//if nothing is in front of you for 50 meters then just do simple movement
 		{
@@ -176,38 +180,38 @@ public:
 		}
 		else
 		{
-			if (closest->getClassType() == TRANSPORTMODE)
+			if (tempCar != nullptr)
 			{
-				if (closest->getAcceleration() < 0 && closest->getCurrentSpeed() < this->currentSpeed)	//if person in front of you is slowing and they are going slower then you slow down at 1.5 the rate they are
+				if (tempCar->getAcceleration() < 0 && tempCar->getCurrentSpeed() < this->currentSpeed)	//if person in front of you is slowing and they are going slower then you slow down at 1.5 the rate they are
 				{
-					acceleration = closest->getAcceleration() * 1.5;
+					acceleration = tempCar->getAcceleration() * 1.5;
 				}
-				else if (closest->getAcceleration() < 0 && closest->getCurrentSpeed() > this->currentSpeed) //if person in front of you is slowing and they are going faster then you slow down at half the rate they are slowing
+				else if (tempCar->getAcceleration() < 0 && tempCar->getCurrentSpeed() > this->currentSpeed) //if person in front of you is slowing and they are going faster then you slow down at half the rate they are slowing
 				{
-					acceleration = closest->getAcceleration() / 2;
+					acceleration = tempCar->getAcceleration() / 2;
 				}
-				else if (closest->getAcceleration() == 0 && closest->getCurrentSpeed() > this->currentSpeed) //if the person in front of you is not accelerating and they are going faster then you just simple move
+				else if (tempCar->getAcceleration() == 0 && tempCar->getCurrentSpeed() > this->currentSpeed) //if the person in front of you is not accelerating and they are going faster then you just simple move
 				{
 					simpleMove();	//this will prolly have to change, for example both cars just started moving from a intersection. So in simple move you would be slaming you gas pedal which might be to fast and thus rear ending the car in front of you
 				}
-				else if (closest->getAcceleration() == 0 && closest->getCurrentSpeed() < this->currentSpeed) //if the person in front of you is not accelerating and their speed is less then your start slowing down but only a bit
+				else if (tempCar->getAcceleration() == 0 && tempCar->getCurrentSpeed() < this->currentSpeed) //if the person in front of you is not accelerating and their speed is less then your start slowing down but only a bit
 				{
 					acceleration = -1;
 				}
-				else if (closest->getAcceleration() > 0 && closest->getCurrentSpeed() > this->currentSpeed) //if the person in front of you is accelerating and they are going faster just simple move
+				else if (tempCar->getAcceleration() > 0 && tempCar->getCurrentSpeed() > this->currentSpeed) //if the person in front of you is accelerating and they are going faster just simple move
 				{
 					simpleMove();	//will also prolly change
 				}
-				else if (closest->getAcceleration() > 0 && closest->getCurrentSpeed() < this->currentSpeed) //if the person in front of you is accelerating and they are going slower then you start coasting
+				else if (tempCar->getAcceleration() > 0 && tempCar->getCurrentSpeed() < this->currentSpeed) //if the person in front of you is accelerating and they are going slower then you start coasting
 				{
 					acceleration = 0;
 				}
 			}
-			else if (closest->getClassType() == INTERSECTION)
+			else if (tempInter != nullptr)
 			{
 				if (distance == 1)
 				{
-					closest->interPush(this);
+					tempInter->interPush(this);
 				}
 				else if (distance <= 10)
 				{
