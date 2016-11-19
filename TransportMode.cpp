@@ -1,9 +1,9 @@
 #include "Includes.h"
+#include "TransportMode.h"
 
 
 TransportMode::TransportMode()
 {
-	classType = TRANSPORTMODE;
 	minSpeed = 0;
 	maxSpeed = 0;
 	currentSpeed = 0;
@@ -13,11 +13,11 @@ TransportMode::TransportMode()
 	xPos = 0.0;
 	yPos = 0.0;
 	direction = PI / 2;
+	id++;
 }
 
 TransportMode::TransportMode(int xStartCoordinate, int yStartCoordinate)
 {
-	classType = TRANSPORTMODE;
 	xPos = xStartCoordinate;
 	yPos = yStartCoordinate;
 	minSpeed = 0;
@@ -28,10 +28,11 @@ TransportMode::TransportMode(int xStartCoordinate, int yStartCoordinate)
 	length = 0;
 	width = 0;
 	hazardRating = 0;
-	latitude = 0.0;
-	longitude = 0.0;
+	/*latitude = 0.0;
+	longitude = 0.0;*/
 	acceleration = 0.0;
 	direction = 0;
+	id++;
 }
 
 TransportMode::~TransportMode()
@@ -41,6 +42,14 @@ TransportMode::~TransportMode()
 //************************************************
 //Getters
 //************************************************
+int TransportMode::getX()
+{
+	return xPos;
+}
+int TransportMode::getY()
+{
+	return yPos;
+}
 int TransportMode::getMinSpeed()
 {
 	return minSpeed;
@@ -73,6 +82,10 @@ enum CARDINAL TransportMode::getCardinalD()
 {
 	return cardinalD;
 }
+CARDINAL TransportMode::getDesieredD()
+{
+	return desiredD;
+}
 int TransportMode::getLength()
 {
 	return length;
@@ -88,6 +101,10 @@ int TransportMode::getHazardRating()
 int TransportMode::getWeight()
 {
 	return weight;
+}
+int TransportMode::getId()
+{
+	return id;
 }
 
 
@@ -137,6 +154,10 @@ void TransportMode::setAcceleration(double inputAcceleration)
 void TransportMode::setCardinalD(enum CARDINAL inputCardinalD)
 {
 	cardinalD = inputCardinalD;
+}
+void TransportMode::setDesieredD(CARDINAL value)
+{
+	desiredD = value;
 }
 void TransportMode::setDirection(double inputDirection)
 {

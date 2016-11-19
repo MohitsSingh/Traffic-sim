@@ -22,66 +22,119 @@ which translates to approximately 7 to 9 mph/s
 
 
 #include "Includes.h"
+#include "MapOBJ.h"
+#include "main.h"
+#include "TransportMode.h"
+#include "Vehicle.h"
+#include "Bus.h"
+#include "Car.h"
+#include "Semi.h"
+#include "Sportscar.h"
+#include "Truck.h"
+#include "Van.h"
+#include "Intersection.h"
 
-int simTime = 0;	// I think this should be inside of "includes.h", but it's not working for me
+
+
+int simTime = 9;	// I think this should be inside of "includes.h", but it's not working for me
 const int SIM_DURATION = 10;						// this could also be it's own data type. typedef int simTime;
 
 
-//leaving these up here because changes will prolly need to be made. -Mike
-MapOBJ* findClosest(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], int x, int y, CARDINAL direction)
+
+void moveCarsWaiting(vector <MapOBJ*> icw, MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 {
-	switch (direction)
+	for (int i = 0; i < icw.size(); i++)
 	{
-	case NORTH:
-		for (int i = y - 1; i > 0; i--)
+		int tempX = icw[i]->getX();
+		int tempY = icw[i]->getY();
+
+		switch (icw[i]->getCardinalD())
 		{
-			if (y > 0 && map[i][x]->getClassType() == TRANSPORTMODE)
+		case NORTH:
+			switch (icw[i]->getDesieredD())
 			{
-				return map[i][x];
+			case NORTH:
+				icw[i]->setY(tempY - 3);
+				break;
+			case WEST:
+				icw[i]->setX(tempX - 2);
+				icw[i]->setY(tempY - 2);
+				break;
+			case EAST:
+				icw[i]->setX(tempX + 1);
+				icw[i]->setY(tempY - 1);
+				break;
+			default:
+				break;
 			}
-		}
-		break;
-	case SOUTH:
-		for (int i = y + 1; i < MAX_CITY_Y; i++)
-		{
-			if (y < MAX_CITY_Y && map[i][x]->getClassType() == TRANSPORTMODE)
+			break;
+		case SOUTH:
+			switch (icw[i]->getDesieredD())
 			{
-				return map[i][x];
+			case SOUTH:
+				icw[i]->setY(tempY + 3);
+				break;
+			case WEST:
+				icw[i]->setX(tempX - 1);
+				icw[i]->setY(tempY + 1);
+				break;
+			case EAST:
+				icw[i]->setX(tempX + 2);
+				icw[i]->setY(tempY + 2);
+				break;
+			default:
+				break;
 			}
-		}
-		break;
-	case EAST:
-		for (int i = x + 1; i < MAX_CITY_X; i++)
-		{
-			if (x < MAX_CITY_X && map[y][i]->getClassType() == TRANSPORTMODE)
+			break;
+		case EAST:
+			switch (icw[i]->getDesieredD())
 			{
-				return map[y][i];
+			case SOUTH:
+				icw[i]->setY(tempY + 1);
+				icw[i]->setX(tempX + 1);
+				break;
+			case NORTH:
+				icw[i]->setX(tempX + 2);
+				icw[i]->setY(tempY - 2);
+				break;
+			case EAST:
+				icw[i]->setX(tempX + 3);
+				break;
+			default:
+				break;
 			}
-		}
-		break;
-	case WEST:
-		for (int i = x - 1; i > 0; i--)
-		{
-			if (x > 0 && map[y][i]->getClassType() == TRANSPORTMODE)
+			break;
+		case WEST:
+			switch (icw[i]->getDesieredD())
 			{
-				return map[y][i];
+			case SOUTH:
+				icw[i]->setY(tempY + 2);
+				icw[i]->setX(tempX - 2);
+				break;
+			case NORTH:
+				icw[i]->setX(tempX - 1);
+				icw[i]->setY(tempY - 1);
+				break;
+			case WEST:
+				icw[i]->setX(tempX - 3);
+				break;
+			default:
+				break;
 			}
+		default:
+			break;
 		}
-		break;
-	default:
-		cout << "\nError in defualt of findClosest\n";
-		break;
 	}
-	return nullptr;
 }
-int calcDistance(MapOBJ *start, MapOBJ *end)
+void updateMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], vector <TransportMode*> transportList)
 {
-	int totalDis;
-	totalDis += start->getX() - end->getX();
-	totalDis += start->getY() - end->getY();
-	totalDis = abs(totalDis);
-	return totalDis;
+	for (int i = 0; i < transportList.size(); i++)
+	{
+		map[transportList[i]->getY()][transportList[i]->getX()] = transportList[i];
+	}
 }
+
+int TransportMode::id = 0;
 
 int main()
 {
@@ -92,12 +145,53 @@ int main()
 
 	MapOBJ *map[MAX_CITY_Y][MAX_CITY_X];
 	vector <TransportMode*> transportList;
-	transportList.push_back(new Vehicle(0, 0));
-	transportList.push_back(new Vehicle(0, 20));
+	vector <Intersection*> intersectionList;
+	vector <MapOBJ*> intersectionCarsWaiting;
+
 	initializeMap(map, transportList);
-	initializeDirection(transportList);
+	
+	intersectionList.push_back(new Intersection());
+	transportList.push_back(new TransportMode(6, 7));	//N,E,S,W
+	cout << transportList[0]->getX() << ", " << transportList[0]->getY();
+	transportList[0]->setCardinalD(NORTH);
+	transportList[0]->setDesieredD(NORTH);
+	//transportList.push_back(new Vehicle(6, 4));
+	//transportList.push_back(new Vehicle(4, 5));
+	//transportList.push_back(new Vehicle(5, 7));
+	map[5][5] = intersectionList[0];
+	map[5][6] = intersectionList[0];
+	map[6][6] = intersectionList[0];
+	map[6][5] = intersectionList[0];
+	updateMap(map, transportList);
+
+	while (simTime < SIM_DURATION)
+	{
+		//update cars
+		for (int i = 0; i < transportList.size(); i++)
+		{
+			transportList[i]->smartMove(map);
+		}
+		//update intersections
+		for (int i = 0; i < intersectionList.size(); i++)
+		{
+			intersectionCarsWaiting = intersectionList[i]->interPop();
+		}
+		//update intersectionCarsWaiting
+		moveCarsWaiting(intersectionCarsWaiting, map);
+		simTime++;
+	}
+
+	cout << transportList[0]->getX() << ", " << transportList[0]->getY();
+
+
+
+
+
+
+
+	/*initializeDirection(transportList);
 	initializeAcceleration(transportList);
-	initializeCurrentSpeed(transportList);
+	initializeCurrentSpeed(transportList);*/
 
 
 	

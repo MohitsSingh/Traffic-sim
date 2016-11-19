@@ -6,13 +6,15 @@
 #include <vector>
 #include <fstream>
 #include <cmath>	//added by Isaac Haas
+#include <queue>
 using namespace std;
 
 
 
 enum CARTYPES { UNDEFINED, MIDSIZE, VAN, TRUCK, SEMI, BUS, SPORT };
-enum CARDINAL { ERROR, NORTH, SOUTH, EAST, WEST };
+enum CARDINAL { NORTH, SOUTH, EAST, WEST, ERROR};
 enum CLASSTYPES { MAPOBJ, TRANSPORTMODE, ROAD, INTERSECTION};
+enum LIGHTCOLOR { GREEN, YELLOW, RED };
 const double PI = 3.14159265359;
 const int TIME_INCREMENT = 1;
 
@@ -28,16 +30,6 @@ const double DELTA_METERS_TO_GPS = 0.00001;  //when the meters change 1.1 the lo
 const int MAX_CITY_X = 50;
 const int MAX_CITY_Y = 50;
 
+
 //typedef int myTime;
 
-#include "MapOBJ.h"
-#include "TransportMode.h"
-#include "Vehicle.h"
-#include "Pedestrian.h"
-#include "Car.h"
-#include "Van.h"
-#include "Sportscar.h"
-#include "Bus.h"
-#include "Truck.h"
-#include "Semi.h"
-#include "main.h"

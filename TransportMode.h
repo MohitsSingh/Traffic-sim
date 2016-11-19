@@ -1,11 +1,14 @@
 #pragma once
 #include "Includes.h"
+#include "MapOBJ.h"
 
 
-
-class TransportMode : public MapOBJ
+class TransportMode
 {
 protected:
+	static int id;
+	int xPos;
+	int yPos;
 	int minSpeed;				//minimum speed the car is allowed to go
 	int maxSpeed;				//maximum speed the car can go (speed limit on current rode)
 	int length;					//not being used at the moment
@@ -17,15 +20,19 @@ protected:
 	double brakingPower;		//Vehicle spec of breaking power
 	double currentSpeed;		//the current speed of vehicle
 	double direction;			//radians: east is zero
-	enum CARDINAL cardinalD;	//direction of car for simple cardinal directions
+	CARDINAL cardinalD;	//direction of car for simple cardinal directions
+	CARDINAL desiredD; //what direction the car wants to go at an intersection
 	
 
 public:
+
 	TransportMode();
 	~TransportMode();
 	TransportMode(int xStartCoordinate, int yStartCoordinate);
 
 	//GETTERS
+	int getX();
+	int getY();
 	int getLength();
 	int getWidth();
 	int getHazardRating();
@@ -38,9 +45,13 @@ public:
 	double getAcceleration();
 	double getDirection();
 	enum CARDINAL getCardinalD();
+	CARDINAL getDesieredD();
+	int getId();
 	
 
 	//SETTERS
+	void setX();
+	void setY();
 	void setLength(int inputLength);
 	void setWidth(int inputWidth);
 	void setWeight(int inputWeight);
@@ -51,8 +62,63 @@ public:
 	void setbrakingPower(double inputbrakingPower);
 	void setAcceleration(double inputAcceleration);
 	void setCardinalD(enum CARDINAL inputCardinalD);
+	void setDesieredD(CARDINAL value);
 	void setDirection(double inputDirection);
 	void setHazardRating(int inputHazardRating);
+	MapOBJ* findClosest(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], int &distance)
+	{
+		switch (cardinalD)
+		{
+		case NORTH:
+			for (int i = yPos - 1; i > 0; i--)
+			{
+				distance++;
+				if (map[i][xPos] != nullptr && yPos > 0)
+				{
+					return map[i][xPos];
+				}
+			}
+			break;
+		case SOUTH:
+			for (int i = yPos + 1; i < MAX_CITY_Y; i++)
+			{
+				distance++;
+				if (map[i][xPos] != nullptr && yPos < MAX_CITY_Y)
+				{
+					return map[i][xPos];
+				}
+			}
+			break;
+		case EAST:
+			for (int i = xPos + 1; i < MAX_CITY_X; i++)
+			{
+				distance++;
+				if (map[yPos][i] != nullptr && xPos < MAX_CITY_X)
+				{
+					return map[yPos][i];
+				}
+			}
+			break;
+		case WEST:
+			for (int i = xPos - 1; i > 0; i--)
+			{
+				distance++;
+				if (map[yPos][i] != nullptr && xPos > 0)
+				{
+					return map[yPos][i];
+				}
+			}
+			break;
+		default:
+			cout << "\nError in defualt of findClosest\n";
+			break;
+		}
+		return nullptr;
+	}
+	int calcDistance(MapOBJ *map[MAX_CITY_X][MAX_CITY_Y], MapOBJ *closest)
+	{
+		
+	}
 
 	//changed the names of the functions to what I thought was more clear as to what they do -Mike
 	void updateXY()		//changed so that is works off the 4 cardinals instead of off of the double distance. -Mike
@@ -101,8 +167,9 @@ public:
 	
 	void smartMove(MapOBJ *map[MAX_CITY_X][MAX_CITY_Y])	//still needs alot of work going to need to bounce ideas off you guys some time - Mike
 	{
-		MapOBJ *closest = findClosest(map, xPos, yPos, cardinalD);
-		int distance = calcDistance(this, closest);
+		int distance = 0;
+		MapOBJ *closest = findClosest(map, distance);
+		
 		if (closest == nullptr || distance >= 50)	//if nothing is in front of you for 50 meters then just do simple movement
 		{
 			simpleMove();
@@ -136,7 +203,22 @@ public:
 					acceleration = 0;
 				}
 			}
+			else if (closest->getClassType() == INTERSECTION)
+			{
+				if (distance == 1)
+				{
+					closest->interPush(this);
+				}
+				else if (distance <= 10)
+				{
+					acceleration = 0;
+					currentSpeed = distance-1;
+				}
+				
+			}
 		}
 	}
 };
+
+
 
