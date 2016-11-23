@@ -133,8 +133,6 @@ void IntersectionData::setPointers()
 }
 IntersectionData::~IntersectionData()
 {
-	delete[]myDataReader;	
-
 	delete []nameNB;			//Name of northbound street
 	delete []nameSB;			//Name of southbound street
 	delete []nameEB;			//Name of eastbound street
