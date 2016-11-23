@@ -1,3 +1,4 @@
+#pragma once
 #include "Van.h"
 
 Van::Van(bool emergency) //JG bool input optional, set to false if default constructor called

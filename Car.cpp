@@ -1,3 +1,4 @@
+#pragma once
 #include "Car.h"
 
 Car::Car(bool emergency)		//JG bool input optional, defaults to false if default constructor called

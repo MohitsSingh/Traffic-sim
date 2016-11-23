@@ -15,12 +15,13 @@ Creates a vector of TransportMode, and then moves them around
 35 mph (approx)= 15 m/s
 
 an average acceleration is 3 to 4 m/s,
+lets say that braking speed is just triple that just to be easy
 which translates to approximately 7 to 9 mph/s
 
 */
 
 
-
+#pragma once
 #include "Includes.h"
 #include "MapOBJ.h"
 #include "main.h"
@@ -41,7 +42,7 @@ const int SIM_DURATION = 10;						// this could also be it's own data type. type
 
 
 
-void moveCarsWaiting(vector <MapOBJ*> icw, MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
+void moveCarsWaiting(vector <TransportMode*> icw, MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 {
 	for (int i = 0; i < icw.size(); i++)
 	{
@@ -126,13 +127,7 @@ void moveCarsWaiting(vector <MapOBJ*> icw, MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 		}
 	}
 }
-void updateMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], vector <TransportMode*> transportList)
-{
-	for (int i = 0; i < transportList.size(); i++)
-	{
-		map[transportList[i]->getY()][transportList[i]->getX()] = transportList[i];
-	}
-}
+
 
 int TransportMode::id = 0;
 
@@ -146,23 +141,23 @@ int main()
 	MapOBJ *map[MAX_CITY_Y][MAX_CITY_X];
 	vector <TransportMode*> transportList;
 	vector <Intersection*> intersectionList;
-	vector <MapOBJ*> intersectionCarsWaiting;
+	vector <TransportMode*> intersectionCarsWaiting;
 
-	initializeMap(map, transportList);
+	initializeMap(map);
 	
-	intersectionList.push_back(new Intersection());
-	transportList.push_back(new TransportMode(6, 7));	//N,E,S,W
-	cout << transportList[0]->getX() << ", " << transportList[0]->getY();
-	transportList[0]->setCardinalD(NORTH);
-	transportList[0]->setDesieredD(NORTH);
+	//intersectionList.push_back(new Intersection());
+	//transportList.push_back(new TransportMode(6, 7));	//N,E,S,W
+	//cout << transportList[0]->getX() << ", " << transportList[0]->getY();
+	//transportList[0]->setCardinalD(NORTH);
+	//transportList[0]->setDesieredD(NORTH);
 	//transportList.push_back(new Vehicle(6, 4));
 	//transportList.push_back(new Vehicle(4, 5));
 	//transportList.push_back(new Vehicle(5, 7));
-	map[5][5] = intersectionList[0];
+	/*map[5][5] = intersectionList[0];
 	map[5][6] = intersectionList[0];
 	map[6][6] = intersectionList[0];
-	map[6][5] = intersectionList[0];
-	updateMap(map, transportList);
+	map[6][5] = intersectionList[0];*/
+	
 
 	while (simTime < SIM_DURATION)
 	{
@@ -181,36 +176,6 @@ int main()
 		simTime++;
 	}
 
-	cout << transportList[0]->getX() << ", " << transportList[0]->getY();
-
-
-
-
-
-
-
-	/*initializeDirection(transportList);
-	initializeAcceleration(transportList);
-	initializeCurrentSpeed(transportList);*/
-
-
-	
-	//cout << "\n\nBefore updates:\n--------------------------------------------"
-	//	<<"-------------------------------------------------------------\n";
-	//printVector(transportList);
-	//cout << "--------------------------------------------"
-	//	<< "-------------------------------------------------------------\n";
-
-	//while (simTime < 5)
-	//{
-	//	simTime += TIME_INCREMENT;
-
-	//	for (int i = 0; i < transportList.size(); i++)
-	//	{
-	//		transportList[i]->update();	// changes speed and location
-	//	}
-	//	printVector(transportList);
-	//}
 	cout << endl << endl;
 	system("pause");
 	return 0;
@@ -258,19 +223,14 @@ vector<TransportMode*> fillVector()
 	}
 	return tempList;
 }
-void initializeMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], vector<TransportMode*> tempList)
+void initializeMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 {
 	for (int i = 0; i < MAX_CITY_Y; i++)
 	{
 		for (int j = 0; j < MAX_CITY_X; j++)
 		{
-			map[i][j] = nullptr;
+			map[i][j] = new MapOBJ();
 		}
-	}
-
-	for (int i = 0; i < tempList.size(); i++)
-	{
-		map[tempList[i]->getX()][tempList[i]->getY()] = tempList[i];
 	}
 }
 void initializeDirection(vector<TransportMode*> tempList)
@@ -333,7 +293,7 @@ void printVector(vector<TransportMode*> tempList)
 {
 	for (int i = 0; i < tempList.size(); i++)
 	{
-		cout << "model num: " << tempList[i]->getModel();
+		cout << "model num: " << tempList[i]->getId();
 		cout << "\tDIRECTION: " << tempList[i]->getDirection() * 180 / PI;
 		cout << "\tACCELERATION: " << tempList[i]->getAcceleration();
 		cout << "\tCURRENT SPEED: " << tempList[i]->getCurrentSpeed();
@@ -341,7 +301,10 @@ void printVector(vector<TransportMode*> tempList)
 	}
 	cout << endl << endl;
 }
-
+void deleteMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
+{
+	
+}
 
 
 /*

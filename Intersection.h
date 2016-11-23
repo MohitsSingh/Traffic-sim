@@ -2,8 +2,9 @@
 #include "Includes.h"
 #include "MapOBJ.h"
 #include "TransportMode.h"
+class TransportMode;
 
-class Intersection : public MapOBJ
+class Intersection
 {
 protected:
 	
@@ -15,19 +16,19 @@ protected:
 	int eLanes;
 	int wLanes;
 
-
 public:
 	
 	
 	Intersection();
-	Intersection(int xLoc, int yLoc);
 	Intersection(int id, int xLoc, int yLoc, int northL, int southL, int eastL, int westL);
 
 	int getIntersectionID();
 	int getIntersectionSize();
 	virtual int getNumberOfLanes(CARDINAL inputCARDINAL);
+	virtual vector <TransportMode*> interPop();
+
+	virtual void interPush(TransportMode* modes);
+	
 
 	void setIntersectionID(int value);
 };
-
-

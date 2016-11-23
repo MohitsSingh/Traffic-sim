@@ -2,7 +2,7 @@
 #include "Includes.h"
 #include "TransportMode.h"
 
-
+class TransportMode;
 
 class Vehicle : public TransportMode
 {
