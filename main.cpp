@@ -1,52 +1,106 @@
+
 #include "Includes.h"
 
-void print(Road[], int); //Prints the array.(array, sizeOFArray)
+void print(Road);//Prints a road object. KC
 
 int main() {
+	
+	DataReader DataNS;
+	DataNS.readData("NS.csv");  //Reads in Data from csv KC
+	
+	DataReader DataEW;
+	DataEW.readData("EW.csv");  
+	
+	/*cout << "NS Rows: " << DataNS.getRowSize() << endl;
+	cout << "NS Columns: " << DataNS.getColumnSize() << endl;
+	
+	//Test to check row number KC
 
-   DataReader myDataReader;													
-	myDataReader.readData("road-info1.csv");
-	cout << "Rows:\t\t" << myDataReader.getRowSize() << endl;			
-	cout << "Columns:\t" << myDataReader.getColumnSize() << endl;
+	cout << "EW Rows: " << DataEW.getRowSize() << endl;
+	cout << "EW Columns: " << DataEW.getColumnSize() << endl;*/
 
+	Road *NSroads;
+	Road *EWroads;
+	NSroads = new Road[DataNS.getRowSize()]; //Array of North and South Bound Roads KC
+	EWroads = new Road[DataEW.getRowSize()]; //Array of East and West Bound Roads KC
 
 	int count;  //Counter KC
-	int width;
-	Road roads[10];  //Array of Roads  KC
-	Lane lane; bikeLane bikelane; turnLane turnlane;
 
-	//streets[1].setSpeedLimit(65);
-	
-	for (count = 1; count < myDataReader.getRowSize(); count++) {    //Fills The array from the .csv file   KC
-                                                                    //and sets values to the class variables.	   KC	
- 		roads[count].setS(myDataReader.getDataCell(count, 1));        //Sets Street Name  KC
-		                                                                         //Sets the number of lanes by converting  KC
-		                                                                         //it from a string to a integer
+	RightLane Rightlane; LeftLane LeftLane; // They all have a width of 3 however these lanes are regular lanes. KC
+
+	RightBikeLane RightBikeLane; LeftBikeLane LeftBikeLane; //Various lanes for different widths KC
+
+	RightTurnLane RightTurnlane; LeftTurnLane LeftTurnLane;
+
+
+	for (count = 1; count <  DataNS.getRowSize(); count++) { //Fills the array of roads with data KC
+
+		NSroads[count].setNameNB(DataNS.getDataCell(count, 1));
+		NSroads[count].setNameSB(DataNS.getDataCell(count, 1));
+
+		NSroads[count].setSpeedLimitNB(atoi(DataNS.getDataCell(count, 2).c_str()));
+		NSroads[count].setSpeedLimitSB(atoi(DataNS.getDataCell(count, 2).c_str()));
+
+		NSroads[count].setNS(true);
+		NSroads[count].setEW(false);
 		
- 		roads[count].setlanes(atoi(myDataReader.getDataCell(count, 2).c_str()) );//Normal Lanes 2
-		roads[count].setblanes(atoi(myDataReader.getDataCell(count, 3).c_str()));//Bike Lanes 3
-		roads[count].settlanes(atoi(myDataReader.getDataCell(count, 4).c_str()));//Turn Lanes KC 4
-
-      width = (lane.getWidth()*roads[count].getlanes()) + (bikelane.getWidth()*roads[count].getblanes()) + 
-		(turnlane.getWidth()*roads[count].gettlanes());
-		roads[count].setRoadWidth(width);                //Calculates and sets Road width based off of how many/ which type of lanes.
-
 	}
-
 	
-   
-	cout << roads[2].getRoadWidth() << "\n\n\n";
+	for (count = 1; count <  DataEW.getRowSize(); count++) {
 
-	print(roads, myDataReader.getRowSize());  
+		EWroads[count].setNameEB(DataEW.getDataCell(count, 1));
+		EWroads[count].setNameWB(DataEW.getDataCell(count, 1));
 
-	return 0;
+		EWroads[count].setSpeedLimitEB(atoi(DataEW.getDataCell(count, 2).c_str()));
+		EWroads[count].setSpeedLimitWB(atoi(DataEW.getDataCell(count, 2).c_str()));
 
-}
-
-void print(Road p[],int x) { 
-	for (int i = 1; i < x; i++) {
-		cout << p[i].getS() << '\n';
-		cout << p[i].getlanes() << '\n';
+		EWroads[count].setEW(true);
+		EWroads[count].setNS(false);
 	}
+
+	for (int i = 1; i < DataNS.getRowSize(); i++) { //Prints each road object out KC
+		print(NSroads[i]);
+	}
+	system("pause");
+
+	cout << endl << endl;
+
+	for (int i = 1; i < DataEW.getRowSize(); i++) {
+		print(EWroads[i]);
+	}
+	
+	system("pause");
+	cout << endl;
+	cout << "Example Right Lane Width: " << Rightlane.getWidth() << endl; // Example of Lane Width KC
+	cout << endl;
+	return 0;
 }
+
+void print(Road p) {
+	
+	if (p.getEW() == true) {  //If its a East/West Road then it will print the EB and WB Data Values KC
+		cout << "NAME East Bound: " << " " << p.getNameEB() << endl;
+		cout << "NAME West Bound: " << " " << p.getNameWB() << endl << endl;
+
+
+		cout << "SpeedLimit East Bound: " << " " << p.getSpeedLimitEB() << endl;
+		cout << "SpeedLimit West Bound: " << " " << p.getSpeedLimitWB() << endl << endl;
+
+	}
+	else if (p.getNS() == true) {  //If its a North/South Road then it will print the NB and SB Data Values
+		cout << "NAME North Bound: " << " " << p.getNameNB() << endl;
+		cout << "NAME South Bound: " << " " << p.getNameSB() << endl << endl;
+
+
+		cout << "SpeedLimit North Bound: " << " " << p.getSpeedLimitNB() << endl;
+		cout << "SpeedLimit South Bound: " << " " << p.getSpeedLimitSB() << endl << endl;
+
+	}
+
+	else
+		cout << "error" << endl; //If the road isnt NS or EW then its an error KC
+	
+}
+
+
 
