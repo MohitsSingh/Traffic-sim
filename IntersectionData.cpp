@@ -17,6 +17,7 @@ IntersectionData::IntersectionData()
 	myDataReader->readData("traficData.csv");
 	setLinkData();
 	setPhasingData();
+	delete myDataReader;
 }
 void IntersectionData::setPointers()
 {
@@ -133,6 +134,8 @@ void IntersectionData::setPointers()
 }
 IntersectionData::~IntersectionData()
 {
+	
+
 	delete []nameNB;			//Name of northbound street
 	delete []nameSB;			//Name of southbound street
 	delete []nameEB;			//Name of eastbound street

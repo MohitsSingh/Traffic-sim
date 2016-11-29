@@ -18,7 +18,8 @@ DataReader::DataReader(string inFileName)
 }
 DataReader::~DataReader()
 {
-	delete []data;
+	
+		delete []data;
 }
 //get data from an y/x cell
 //will not take numbers less then zero and the max size of the grid
@@ -62,8 +63,7 @@ void DataReader::readData(string inFileName)
 		curRow++;									//move to the next row
 	}
 	inFile.close();									//always close the file when you are done
-	cout << "Finished Reading Data" << endl;
-}
+	}
 //creates a 2d array of the spread sheat storing each item as a string
 void DataReader::createArray(string inFileName)
 {
@@ -85,4 +85,5 @@ void DataReader::createArray(string inFileName)
 	for (int i = 0; i < row; i++)					//define each row as the column length
 		data[i] = new string[column];				//define data[i][y];
 	inFile.close();									//make sure to close the file when you are done
-}
+
+	}
