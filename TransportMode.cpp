@@ -11,8 +11,8 @@ TransportMode::TransportMode()
 	length = 0;
 	width = 0;
 	hazardRating = 0;
-	xPos = 0.0;
-	yPos = 0.0;
+	xPos = 0;
+	yPos = 0;
 	direction = PI / 2;
 	id++;
 }
@@ -98,7 +98,6 @@ void TransportMode::smartMove(MapOBJ *map[MAX_CITY_X][MAX_CITY_Y])	//still needs
 {
 	int distance = 0;
 	MapOBJ *closest = findClosest(map, distance);
-	//int timeCycles = calcTimeCycles(distance); might be used later
 	TransportMode* tempCar = closest->getVehicle();
 	Intersection* tempInter = closest->getIntersection();
 
@@ -108,103 +107,48 @@ void TransportMode::smartMove(MapOBJ *map[MAX_CITY_X][MAX_CITY_Y])	//still needs
 	}
 	else
 	{
-		if (distance == 1) // full stop waiting on car or intersection to go
+		if (tempCar != nullptr)
 		{
-			currentSpeed = 0;
-			acceleration = 0;
-		}
-		else if (currentSpeed == distance - 1)	// if we are on track to be at the spot right behind the object in front, keep speed
-		{
-			acceleration = 0;
-		}
-		else if (currentSpeed > distance) //over taking / crashing avoidance
-		{
-			acceleration = (distance - currentSpeed) - 1;
-		}
-
-			// car in front of you
-		else if (tempCar != nullptr)
-		{
-			if (tempCar->getCurrentSpeed() == 0) //handeling stops
+			if (tempCar->getAcceleration() < 0 && tempCar->getCurrentSpeed() < this->currentSpeed)	//if person in front of you is slowing and they are going slower then you slow down at 1.5 the rate they are
 			{
-				if (acceleration > 0)	//if not slowing down yet
-				{
-					acceleration = -2;
-				}
-				else					//keep slowing down more and more
-				{
-					acceleration += acceleration;
-				}
+				acceleration = tempCar->getAcceleration() * 1.5;
 			}
-			else if (tempCar->getAcceleration() > 0)	//handeling acceleration
+			else if (tempCar->getAcceleration() < 0 && tempCar->getCurrentSpeed() > this->currentSpeed) //if person in front of you is slowing and they are going faster then you slow down at half the rate they are slowing
 			{
-				if (tempCar->getCurrentSpeed() > this->currentSpeed)	//going faster then you
-				{
-					if (this->acceleration <= 0)	//you are not accelerating already
-					{
-						acceleration = 2;
-					}
-					else							//you were accelerating already
-					{
-						acceleration += acceleration;
-					}
-				}
-				else										//going slower then you
-				{
-					acceleration = 0;
-				}
+				acceleration = tempCar->getAcceleration() / 2;
 			}
-			else if (tempCar->getAcceleration() < 0) //handling decceleration
+			else if (tempCar->getAcceleration() == 0 && tempCar->getCurrentSpeed() > this->currentSpeed) //if the person in front of you is not accelerating and they are going faster then you just simple move
 			{
-				if (tempCar->getCurrentSpeed() > this->currentSpeed)	//going faster then you
-				{
-					acceleration = 0;
-				}
-				else										//going slower then you
-				{
-					if (this->acceleration >= 0)		//you were costing/accelerating last time cycle
-					{
-						acceleration = -2;
-					}
-					else								//you were starting to slow down last time cycle
-					{
-						acceleration += acceleration;
-					}
-				}
+				acceleration = 1;	//this will prolly have to change, for example both cars just started moving from a intersection. So in simple move you would be slaming you gas pedal which might be to fast and thus rear ending the car in front of you
+			}
+			else if (tempCar->getAcceleration() == 0 && tempCar->getCurrentSpeed() < this->currentSpeed) //if the person in front of you is not accelerating and their speed is less then your start slowing down but only a bit
+			{
+				acceleration = -1;
+			}
+			else if (tempCar->getAcceleration() > 0 && tempCar->getCurrentSpeed() > this->currentSpeed) //if the person in front of you is accelerating and they are going faster just simple move
+			{
+				simpleMove(map);	//will also prolly change
+			}
+			else if (tempCar->getAcceleration() > 0 && tempCar->getCurrentSpeed() < this->currentSpeed) //if the person in front of you is accelerating and they are going slower then you start coasting
+			{
+				acceleration = 0;
+			}
+			updateXY(map);
+		}
+		else if (tempInter != nullptr)
+		{
+			if (distance == 1)
+			{
+				tempInter->interPush(this);
+			}
+			else if (distance <= 10)
+			{
+				acceleration = 0;
+				currentSpeed = distance - 1;
 			}
 
-				//intersection in front of you
-			else if (tempInter != nullptr)
-			{
-				if (distance == 1)
-				{
-					tempInter->interPush(this);
-				}
-				else if (distance <= 10)
-				{
-					acceleration = 0;
-					currentSpeed = distance - 1;
-				}
-			}
 		}
 	}
-
-	if (acceleration > maxAcceleration)
-	{
-		acceleration = maxAcceleration;
-	}
-
-	currentSpeed += acceleration;
-
-	if (currentSpeed > maxSpeed)
-	{
-		currentSpeed = maxSpeed;
-	}
-	if (currentSpeed < 0)
-	{
-		currentSpeed = 0;
-	}
-	updateXY(map);
 }
 void TransportMode::updateXY(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])		//changed so that is works off the 4 cardinals instead of off of the double distance. -Mike
 {
@@ -227,13 +171,7 @@ void TransportMode::updateXY(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])		//changed so 
 		cout << "\nError in move\n";
 		break;
 	}
-
-	if (yPos > MAX_CITY_Y || yPos < 0 || xPos > MAX_CITY_X || xPos < 0)	// car off map, delete it
-	{
-		delete this;
-		map[yPos][xPos]->setVehicle(nullptr);
-	}
-	else if (map[yPos][xPos]->getVehicle() != nullptr) //CRASH
+	if (map[yPos][xPos]->getVehicle() != nullptr) //CRASH
 	{
 		cout << "************************************************************************\n\t\tCRASH AT x= " << xPos << " y= " << yPos << endl;
 		cout << "************************************************************************\n";
@@ -309,7 +247,7 @@ double TransportMode::getDirection()
 {
 	return direction;
 }
-CARDINAL TransportMode::getCardinalD()
+enum CARDINAL TransportMode::getCardinalD()
 {
 	return cardinalD;
 }
@@ -390,7 +328,7 @@ void TransportMode::setAcceleration(double inputAcceleration)
 {
 	acceleration = inputAcceleration;
 }
-void TransportMode::setCardinalD(CARDINAL inputCardinalD)
+void TransportMode::setCardinalD(enum CARDINAL inputCardinalD)
 {
 	cardinalD = inputCardinalD;
 }
@@ -401,20 +339,4 @@ void TransportMode::setDesieredD(CARDINAL value)
 void TransportMode::setDirection(double inputDirection)
 {
 	direction = inputDirection;
-}
-
-//might be used later
-int TransportMode::calcTimeCycles(int distance)
-{
-	int i = 0;
-	int tempDis = distance;
-	int tempSpeed = currentSpeed;
-	int tempAcc = acceleration;
-
-	for (; tempDis > 0; i++)
-	{
-		tempSpeed += tempAcc;
-		tempDis -= tempSpeed;
-	}
-	return i;
 }

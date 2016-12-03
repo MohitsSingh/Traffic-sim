@@ -1,6 +1,6 @@
 #pragma once
-#include "Includes.h"
 #include "TransportMode.h"
+#include "Includes.h"
 
 class TransportMode;
 
@@ -12,7 +12,7 @@ protected:
 	bool activeEmergency;			//JG: whether the vehicle is currently in an emergency (e.g. an ambulance, with its lights on)
 	bool oversized;
 	int traction;
-	
+
 public:
 	//constructers
 	Vehicle();
@@ -20,7 +20,7 @@ public:
 
 	//operator overloads
 	friend ostream &operator<<(ostream &output, Vehicle inputCar);
-	
+
 
 	//GETTERS
 	CARTYPES getModel();
@@ -36,7 +36,7 @@ public:
 	void setActiveEmergency(bool);			//JG
 	void setTraction(int inputTraction);
 	void setOversized(bool inputOversized);
-	
+
 };
 
 
@@ -46,5 +46,4 @@ CHANGE LOG
 *************************************************************/
 /*
 Jack Grebb 10/11 changes:
-
 */

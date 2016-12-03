@@ -13,7 +13,7 @@ using namespace std;
 
 enum CARTYPES { UNDEFINED, MIDSIZE, VAN, TRUCK, SEMI, BUS, SPORT };
 enum CARDINAL { NORTH, SOUTH, EAST, WEST, ERROR};
-enum INTERSECTION_TYPES { STOPSIGN, LIGHT};
+enum CLASSTYPES { MAPOBJ, TRANSPORTMODE, ROAD, INTERSECTION};
 enum LIGHTCOLOR { GREEN, YELLOW, RED };
 const double PI = 3.14159265359;
 const int TIME_INCREMENT = 1;
@@ -27,8 +27,8 @@ const int COMPASSMIN = 1;             //North 360, East 090, South 180, West 270
 const int COMPASSMAX = 360;            //North 360, East 090, South 180, West 270 (avoids 0 being used as North)
 const double DELTA_GPS_TO_METERS = 1.1;   //when the GPS long lat position has changed 0.00001 the item has moved 1.1meters
 const double DELTA_METERS_TO_GPS = 0.00001;  //when the meters change 1.1 the long lat position has changed 0.00001
-const int MAX_CITY_X = 50;
-const int MAX_CITY_Y = 50;
+const int MAX_CITY_X = 70;				//array max columns		spencemw 11/19/16 - array size
+const int MAX_CITY_Y = 70;				//array max rows		spencemw 11/19/16
 
 
 //typedef int myTime;

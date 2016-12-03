@@ -17,7 +17,7 @@ protected:
 	int length;					//not being used at the moment
 	int width;					//not being used at the moment
 	int hazardRating;			//not being used at the moment
-	int weight;					
+	int weight;
 	double acceleration;		//current acceleration 
 	double maxAcceleration;		//maximum acceleration
 	double brakingPower;		//Vehicle spec of breaking power
@@ -25,7 +25,7 @@ protected:
 	double direction;			//radians: east is zero
 	CARDINAL cardinalD;	//direction of car for simple cardinal directions
 	CARDINAL desiredD; //what direction the car wants to go at an intersection
-	
+
 
 public:
 
@@ -50,7 +50,7 @@ public:
 	enum CARDINAL getCardinalD();
 	CARDINAL getDesieredD();
 	int getId();
-	
+
 
 	//SETTERS
 	void setX(int x);
@@ -69,18 +69,13 @@ public:
 	void setDirection(double inputDirection);
 	void setHazardRating(int inputHazardRating);
 
-	int calcTimeCycles(int distance);
-
 	MapOBJ* findClosest(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], int &distance);
 	void smartMove(MapOBJ *map[MAX_CITY_X][MAX_CITY_Y]);
-	
+
 	void updateXY(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X]);
 	void simpleMove(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X]);
-	
-	
-	
-	
+
+
+
+
 };
-
-
-
