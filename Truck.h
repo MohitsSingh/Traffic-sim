@@ -9,5 +9,6 @@ public:
 	Truck();
 	Truck(bool emergency);
 	~Truck();
+	Truck(double x, double y);
 };
 
