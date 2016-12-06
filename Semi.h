@@ -8,5 +8,6 @@ private:
 public:
 	Semi();
 	~Semi();
+	Semi(double x, double y);
 };
 
