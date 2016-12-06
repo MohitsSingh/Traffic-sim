@@ -30,7 +30,7 @@ Truck::~Truck()
 {
 }
 
-Truck::Truck(double x, double y)
+Truck::Truck(double x, double y, bool emergency)
 {
 	cout << "Default constructor for Truck called.\n";
 
@@ -40,6 +40,7 @@ Truck::Truck(double x, double y)
 	setLength(6); 			// meters
 	setWidth(2); 			// meters
 	setOversized(false);
+	setEmergencyVehicle(((emergency = true) ? true : false));
 
 	setX(x);
 	setY(y);
