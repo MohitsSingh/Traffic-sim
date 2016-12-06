@@ -20,3 +20,23 @@ Bus::~Bus()
 {
 
 }
+
+//Constructor where you can set the x and y values.
+Bus::Bus(double x, double y)
+
+{
+
+	model = BUS;
+	acceleration = 59;
+	maxSpeed = 74;
+	weight = 24000;
+	length = 4;
+	width = 4;
+	oversized = true;
+	emergencyVehicle = false;
+	activeEmergency = false;
+
+	setX(x);
+	setY(y);
+
+}
