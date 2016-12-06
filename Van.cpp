@@ -11,23 +11,23 @@ Van::Van(bool emergency) //JG bool input optional, set to false if default const
 		cout << "Default constructor for Van called.\n";
 #endif
 
-	//JG ambulance specs
+	// ambulance specs
 	if (emergency)
 	{
-		acceleration = 5.5;  // seconds to 60 mph
-		maxSpeed = 100;
-		weight = 4700;
-		length = 180;			//inches
-		width = 80;				//inches
+		acceleration = 5.5;  		// seconds to 97kph (or 60mph)
+		maxSpeed = 164;			// kph
+		weight = 4700;			// pounds
+		length = 5;			// rounded meters
+		width = 2;			// rounded meters
 	}
-	//JG normal van specs
+	// normal van specs
 	else
 	{
-		acceleration = 10.2;
-		maxSpeed = 94;
-		weight = 4700;
-		length = 200;			//inches
-		width = 80;				//inches
+		acceleration = 10.2;  		// seconds to 97kph (or 60mph)
+		maxSpeed = 151;			// kph
+		weight = 4700;			// pounds
+		length = 5;			// rounded meters
+		width = 2;			// rounded meters
 	}
 
 	model = VAN;
