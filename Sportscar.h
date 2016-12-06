@@ -7,4 +7,5 @@ protected:
 public:
 	Sportscar();
 	~Sportscar();
+	Sportscar(double x, double y);
 };
