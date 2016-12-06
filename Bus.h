@@ -7,4 +7,5 @@ protected:
 public:
 	Bus();
 	~Bus();
+	Bus(double x, double y);
 };
