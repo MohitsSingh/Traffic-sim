@@ -1,5 +1,5 @@
 #include "Includes.h"
-
+// comments by Adam Gunnell, Jack Grebb
 
 TransportMode::TransportMode()
 {
@@ -7,15 +7,15 @@ TransportMode::TransportMode()
 #if TSIM_CONSTRUCTOR_OUTPUT == 1
 	cout << "Default constructor for Transportation Mode called.\n";
 #endif
-	minSpeed = 0;
-	maxSpeed = 0;
-	currentSpeed = 0;
-	length = 0;
-	width = 0;
+	minSpeed = 0;			// Kilometers per hour
+	maxSpeed = 0;			// kph
+	currentSpeed = 0;		// kph
+	length = 0;			// rounded meters
+	width = 0;			// rounded meters
 	hazardRating = 0;
-	xPos = 0.0;
-	yPos = 0.0;
-	direction = PI / 2;
+	xPos = 0.0;			// location on grid (x-axis)
+	yPos = 0.0;			// location on grid (y-axis)
+	direction = PI / 2;		// direction with defaut setting of pi/2 radians (90 degrees) 
 }
 
 
