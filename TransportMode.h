@@ -4,7 +4,10 @@
 class Location;
 
 /***********************************************************************
-Commented by: Michael Ritter
+Code for TransportMode and its subclasses by (in alphabetical order of first name): 
+Adam Gunnell, Christine Sobolewski, Jack Grebb, Michael Ritter
+
+Commented by: Michael Ritter, Jack Grebb, Adam Gunnell
 Change Log Location: bottom of this file.
 ************************************************************************/
 
@@ -12,16 +15,16 @@ Change Log Location: bottom of this file.
 class TransportMode
 {
 protected:
-	int minSpeed;				//minimum speed mode is allowed to go
-	int maxSpeed;				//maximum speed mode can go (speed limit on current rode)
-	double currentSpeed;		//the current speed of mode
-	double xPos;				//meters eastward from southwest corner
-	double yPos;				//meters northward from southwest corner
-	double direction;			//radians east is zero
+	int minSpeed;				// minimum speed mode is allowed to go
+	int maxSpeed;				// maximum speed mode can go (speed limit on current rode)
+	double currentSpeed;			// the current speed of mode
+	double xPos;				// meters eastward from southwest corner
+	double yPos;				// meters northward from southwest corner
+	double direction;			// radians east is zero
 	
-	int length;					//not being used at the moment
-	int width;					//not being used at the moment
-	int hazardRating;			//not being used at the moment
+	int length;				// rounded to nearest meter
+	int width;				// rounded to nearest meter
+	int hazardRating;			// not being used at the moment
 public:
 	TransportMode();
 	~TransportMode();
