@@ -7,7 +7,7 @@
 Vehicle::Vehicle()
 {
 	TransportMode();
-	model = UNDEFINED;		
+	model = UNDEFINED;
 	traction = 0;
 	oversized = false;
 	activeEmergency = false;
@@ -34,9 +34,9 @@ ostream &operator<<(ostream &output, Vehicle inputVehicle)
 	output << "Acceleration:\t\t" << inputVehicle.getAcceleration() << endl;
 	output << "Maximum Speed:\t\t" << inputVehicle.getMaxSpeed() << endl;
 	output << "Weight:\t\t\t" << inputVehicle.getWeight() << endl;
-	output << "Length:\t\t\t" << inputVehicle.getLength() << endl; 
-	output << "Width:\t\t\t" << inputVehicle.getWidth() << endl; 
-	output << "Oversized:\t\t" << ((inputVehicle.getOversized()) == 1 ? "True":"False")  << endl;
+	output << "Length:\t\t\t" << inputVehicle.getLength() << endl;
+	output << "Width:\t\t\t" << inputVehicle.getWidth() << endl;
+	output << "Oversized:\t\t" << ((inputVehicle.getOversized()) == 1 ? "True" : "False") << endl;
 	output << "Emergency Vehicle:\t" << ((inputVehicle.getEmergencyVehicle()) == 1 ? "True" : "False") << endl;
 	output << endl << endl;
 	return output;

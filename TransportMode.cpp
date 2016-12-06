@@ -11,8 +11,8 @@ TransportMode::TransportMode()
 	length = 0;
 	width = 0;
 	hazardRating = 0;
-	xPos = 0.0;
-	yPos = 0.0;
+	xPos = 0;
+	yPos = 0;
 	direction = PI / 2;
 	id++;
 }
