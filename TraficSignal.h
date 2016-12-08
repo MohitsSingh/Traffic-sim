@@ -9,19 +9,18 @@ WORK IN PROGRESS!!
 class TraficSignal : public Intersection
 {
 public:
+	
+
+	TraficSignal();
+	void updateSignal();
+	LIGHTCOLOR getLightColor(CARDINAL dir);
+
+private:
+	int strightTimeCycles[3];						//straight light color times
+	int turnArrowTimeCycles[2][4];				//turn arrow times
+	int curTime[4];
 	LIGHTCOLOR curStraightColor[4];			//current straight color
 	LIGHTCOLOR curArrowColor[4];			//current turn arrow color
-	
-private:
-	int lightTimes[3];						//straight light color times
-	int turnArrowTimes[2][4];				//turn arrow times
-	int internalTime;						
-
-	void updateSignal()
-	{
-
-	}
-
 
 	
 	

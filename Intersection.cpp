@@ -60,7 +60,16 @@ vector<TransportMode*> Intersection::interPop()
 	return vector<TransportMode*>();
 }
 
+LIGHTCOLOR Intersection::getLightColor(CARDINAL dir)
+{
+	return NOTHING;
+}
+
 void Intersection::interPush(TransportMode *modes)
+{
+}
+
+void Intersection::updateSignal()
 {
 }
 

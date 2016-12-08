@@ -13,6 +13,9 @@ void initializeCurrentSpeed(vector<TransportMode*> tempList);	// sets every obje
 void initializeMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X]);	//puts all the vehicles on the map
 void printVector(vector<TransportMode*> tempList);	// just a temporary output function
 
+void makeRoads(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X]);	//This function puts roads on the array between intersections after	
+														//intersections are installed.  spencemw 11 - 19 - 16
+void printArray(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X]);	//This function crudely prints the array for testing purposes. spencemw 11-19-16
 
 
 	//leaving these up here because changes will prolly need to be made. -Mike

@@ -11,8 +11,8 @@ TransportMode::TransportMode()
 	length = 0;
 	width = 0;
 	hazardRating = 0;
-	xPos = 0.0;
-	yPos = 0.0;
+	xPos = 0;
+	yPos = 0;
 	direction = PI / 2;
 	id++;
 }
@@ -49,7 +49,7 @@ MapOBJ* TransportMode::findClosest(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], int &dis
 		{
 			distance++;
 			MapOBJ* temp = map[i][xPos];
-			if (temp != nullptr && temp->getIntersection() != nullptr || temp->getVehicle() != nullptr && yPos > 0)
+			if (temp != nullptr && (temp->getIntersection() != nullptr || temp->getVehicle() != nullptr) && yPos > 0)
 			{
 				return temp;
 			}
@@ -60,7 +60,7 @@ MapOBJ* TransportMode::findClosest(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], int &dis
 		{
 			distance++;
 			MapOBJ* temp = map[i][xPos];
-			if (temp != nullptr && temp->getIntersection() != nullptr || temp->getVehicle() != nullptr && yPos < MAX_CITY_Y)
+			if (temp != nullptr && (temp->getIntersection() != nullptr || temp->getVehicle() != nullptr) && yPos < MAX_CITY_Y)
 			{
 				return temp;
 			}
@@ -71,7 +71,7 @@ MapOBJ* TransportMode::findClosest(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], int &dis
 		{
 			distance++;
 			MapOBJ* temp = map[i][xPos];
-			if (temp != nullptr && temp->getIntersection() != nullptr || temp->getVehicle() != nullptr && xPos < MAX_CITY_X)
+			if (temp != nullptr && (temp->getIntersection() != nullptr || temp->getVehicle() != nullptr) && xPos < MAX_CITY_X)
 			{
 				return temp;
 			}
@@ -82,7 +82,7 @@ MapOBJ* TransportMode::findClosest(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], int &dis
 		{
 			distance++;
 			MapOBJ* temp = map[i][xPos];
-			if (temp != nullptr && temp->getIntersection() != nullptr || temp->getVehicle() != nullptr && xPos > 0)
+			if (temp != nullptr && (temp->getIntersection() != nullptr || temp->getVehicle() != nullptr) && xPos > 0)
 			{
 				return temp;
 			}
@@ -94,13 +94,107 @@ MapOBJ* TransportMode::findClosest(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], int &dis
 	}
 	return nullptr;
 }
+
+void TransportMode::moveThroughIntersection(int distance)
+{
+	int tempSpeed = currentSpeed;
+	tempSpeed -= distance;
+
+	switch (cardinalD)
+	{
+	case NORTH:
+		switch (desiredD)
+		{
+		case NORTH:
+			yPos = (yPos - 3 - tempSpeed);
+			break;
+		case WEST:
+			xPos = (xPos - 2 - tempSpeed);
+			yPos = (yPos - 2);
+			break;
+		case EAST:
+			xPos = (xPos + 1 + tempSpeed);
+			yPos = (yPos - 1);
+			break;
+		default:
+			break;
+		}
+		break;
+	case SOUTH:
+		switch (desiredD)
+		{
+		case SOUTH:
+			yPos = (yPos + 3 + tempSpeed);
+			break;
+		case WEST:
+			xPos = (xPos - 1 - tempSpeed);
+			yPos = (yPos + 1);
+			break;
+		case EAST:
+			xPos = (xPos + 2 + tempSpeed);
+			yPos = (yPos + 2);
+			break;
+		default:
+			break;
+		}
+		break;
+	case EAST:
+		switch (desiredD)
+		{
+		case SOUTH:
+			yPos = (yPos + 1 + tempSpeed);
+			xPos = (xPos + 1);
+			break;
+		case NORTH:
+			xPos = (xPos + 2);
+			yPos = (yPos - 2 - tempSpeed);
+			break;
+		case EAST:
+			xPos = (xPos + 3 + tempSpeed);
+			break;
+		default:
+			break;
+		}
+		break;
+	case WEST:
+		switch (desiredD)
+		{
+		case SOUTH:
+			yPos = (yPos + 2 + tempSpeed);
+			xPos = (xPos - 2);
+			break;
+		case NORTH:
+			xPos = (xPos - 1);
+			yPos = (yPos - 1 - tempSpeed);
+			break;
+		case WEST:
+			xPos = (xPos - 3 - tempSpeed);
+			break;
+		default:
+			break;
+		}
+	default:
+		break;
+
+		cardinalD = desiredD;
+	}
+}
+
 void TransportMode::smartMove(MapOBJ *map[MAX_CITY_X][MAX_CITY_Y])	//still needs alot of work going to need to bounce ideas off you guys some time - Mike
 {
+	bool moved = false;
 	int distance = 0;
 	MapOBJ *closest = findClosest(map, distance);
 	//int timeCycles = calcTimeCycles(distance); might be used later
-	TransportMode* tempCar = closest->getVehicle();
-	Intersection* tempInter = closest->getIntersection();
+
+	TransportMode* tempCar = nullptr;
+	Intersection* tempInter = nullptr;
+
+	if (closest != nullptr)
+	{
+		tempCar = closest->getVehicle();
+		tempInter = closest->getIntersection();
+	}
 
 	if (closest == nullptr || distance >= 50)	//if nothing is in front of you for 50 meters then just do simple movement
 	{
@@ -108,24 +202,14 @@ void TransportMode::smartMove(MapOBJ *map[MAX_CITY_X][MAX_CITY_Y])	//still needs
 	}
 	else
 	{
-		if (distance == 1) // full stop waiting on car or intersection to go
-		{
-			currentSpeed = 0;
-			acceleration = 0;
-		}
-		else if (currentSpeed == distance - 1)	// if we are on track to be at the spot right behind the object in front, keep speed
-		{
-			acceleration = 0;
-		}
-		else if (currentSpeed > distance) //over taking / crashing avoidance
-		{
-			acceleration = (distance - currentSpeed) - 1;
-		}
-
 			// car in front of you
-		else if (tempCar != nullptr)
+		if (tempCar != nullptr)
 		{
-			if (tempCar->getCurrentSpeed() == 0) //handeling stops
+			if (currentSpeed > distance)
+			{
+				acceleration = distance - currentSpeed - 1;
+			}
+			else if (tempCar->getCurrentSpeed() == 0) //handeling stops
 			{
 				if (acceleration > 0)	//if not slowing down yet
 				{
@@ -164,7 +248,7 @@ void TransportMode::smartMove(MapOBJ *map[MAX_CITY_X][MAX_CITY_Y])	//still needs
 				{
 					if (this->acceleration >= 0)		//you were costing/accelerating last time cycle
 					{
-						acceleration = -2;
+						acceleration = -1;
 					}
 					else								//you were starting to slow down last time cycle
 					{
@@ -176,14 +260,88 @@ void TransportMode::smartMove(MapOBJ *map[MAX_CITY_X][MAX_CITY_Y])	//still needs
 				//intersection in front of you
 			else if (tempInter != nullptr)
 			{
-				if (distance == 1)
+				if (tempInter->interType == STOPSIGN)
 				{
-					tempInter->interPush(this);
+					if (distance == 1)
+					{
+						tempInter->interPush(this);
+						currentSpeed = 0;
+						acceleration = 0;
+					}
+					else if(currentSpeed > distance)
+					{
+						acceleration = distance - currentSpeed - 1;
+					}
+					
 				}
-				else if (distance <= 10)
+				else	//signal
 				{
-					acceleration = 0;
-					currentSpeed = distance - 1;
+					switch (tempInter->getLightColor(cardinalD))
+					{
+					case RED:
+						if (distance == 1)
+						{
+							currentSpeed = 0;
+							acceleration = 0;
+						}
+						else if (currentSpeed > distance)
+						{
+							acceleration = distance - currentSpeed - 1;
+						}
+						else if (this->acceleration >= 0)		//you were costing/accelerating last time cycle
+						{
+							acceleration = -1;
+						}
+						else								//you were starting to slow down last time cycle
+						{
+							acceleration += acceleration;
+						}
+
+						if (currentSpeed + acceleration < 1)
+						{
+							acceleration = 0;
+						}
+						break;
+
+					case YELLOW:
+						if (currentSpeed > distance)
+						{
+							moved = true;
+							moveThroughIntersection(distance);
+							acceleration = 0;
+						}
+
+						else if (this->acceleration >= 0)		//you were costing/accelerating last time cycle
+						{
+							acceleration = -1;
+						}
+						else								//you were starting to slow down last time cycle
+						{
+							acceleration += acceleration;
+						}
+
+						if (currentSpeed + acceleration < 1)
+						{
+							acceleration = 0;
+						}
+						break;
+
+					case GREEN:
+						if (currentSpeed > distance)
+						{
+							moved = true;
+							moveThroughIntersection(distance);
+							acceleration = 0;
+						}
+						else
+						{
+							simpleMove(map);
+						}
+						break;
+
+					default:
+						break;
+					}
 				}
 			}
 		}
@@ -204,7 +362,10 @@ void TransportMode::smartMove(MapOBJ *map[MAX_CITY_X][MAX_CITY_Y])	//still needs
 	{
 		currentSpeed = 0;
 	}
-	updateXY(map);
+	if (!moved)
+	{
+		updateXY(map);
+	}
 }
 void TransportMode::updateXY(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])		//changed so that is works off the 4 cardinals instead of off of the double distance. -Mike
 {
@@ -255,19 +416,12 @@ void TransportMode::simpleMove(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 	}
 	else if (currentSpeed < maxSpeed / 2)	//if you are going half your speed accelerate at a decent rate
 	{
-		acceleration = 3;
+		acceleration = maxAcceleration / 2;
 	}
 	else if (currentSpeed < maxSpeed)	//if you got here that means your above half your max speed so chill out on the gas now
 	{
 		acceleration = 1;
 	}
-
-	currentSpeed += acceleration * TIME_INCREMENT;
-	if (currentSpeed > maxSpeed)	//if you went over your max speed, cheat and go back down to it
-	{
-		currentSpeed = maxSpeed;
-	}
-	updateXY(map);
 }
 
 //************************************************

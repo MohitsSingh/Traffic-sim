@@ -76,6 +76,7 @@ public:
 	
 	void updateXY(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X]);
 	void simpleMove(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X]);
+	void moveThroughIntersection(int distance);
 	
 	
 	
