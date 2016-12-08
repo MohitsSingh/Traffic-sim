@@ -35,11 +35,12 @@ which translates to approximately 7 to 9 mph/s
 #include "Van.h"
 #include "Intersection.h"
 #include "Road.h"
+#include "TraficSignal.h"
 #include <Windows.h>
 #include <typeinfo>
 
-int simTime = 9;	// I think this should be inside of "includes.h", but it's not working for me
-const int SIM_DURATION = 10;						// this could also be it's own data type. typedef int simTime;
+int simTime = 0;	// I think this should be inside of "includes.h", but it's not working for me
+const int SIM_DURATION = 8;						// this could also be it's own data type. typedef int simTime;
 
 void createCars(vector <TransportMode*> &list, MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 {
@@ -52,6 +53,7 @@ void createCars(vector <TransportMode*> &list, MapOBJ *map[MAX_CITY_Y][MAX_CITY_
 			//++y;
 			temp = new Vehicle(0, (y + 1));
 			temp->setCardinalD(EAST);
+			temp->setDesieredD(EAST);
 			list.push_back(temp);
 			map[y + 1][0]->setVehicle(temp);
 			count++;
@@ -59,8 +61,10 @@ void createCars(vector <TransportMode*> &list, MapOBJ *map[MAX_CITY_Y][MAX_CITY_
 		if (map[y][MAX_CITY_X - 1] != nullptr && map[y + 1][MAX_CITY_X - 1] != nullptr)
 		{
 			//++y;
-			temp = new Vehicle(MAX_CITY_X-1, (y + 1));
+			temp = new Vehicle(MAX_CITY_X-1, (y));
 			temp->setCardinalD(WEST);
+			temp->setDesieredD(WEST);
+
 			list.push_back(temp);
 			map[y][MAX_CITY_X -1]->setVehicle(temp);
 			count++;
@@ -72,16 +76,19 @@ void createCars(vector <TransportMode*> &list, MapOBJ *map[MAX_CITY_Y][MAX_CITY_
 		{
 			temp = new Vehicle(x, 0);
 			temp->setCardinalD(SOUTH);
+			temp->setDesieredD(SOUTH);
+
 			list.push_back(temp);
 			map[0][x]->setVehicle(temp);
 			count++;
 		}
 		if (map[MAX_CITY_Y - 1][x] != nullptr && map[MAX_CITY_Y - 1][x + 1] != nullptr)
 		{
-			temp = new Vehicle(x, MAX_CITY_Y-1);
+			temp = new Vehicle(x+1, MAX_CITY_Y-1);
 			temp->setCardinalD(NORTH);
+			temp->setDesieredD(NORTH);
 			list.push_back(temp);
-			map[MAX_CITY_Y - 1][x]->setVehicle(temp);
+			map[MAX_CITY_Y - 1][x+1]->setVehicle(temp);
 			count++;
 		}
 	}
@@ -197,7 +204,7 @@ void addIntersections(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 		for (k = 10; k < 30; k = k + distance)
 		{
 			map[j][k] = new MapOBJ;
-			map[j][k]->setIntersection(new Intersection());
+			map[j][k]->setIntersection(new TraficSignal);
 			map[j][k]->getIntersection()->setIntersectionID(intersectionToPlot[next]);
 			map[j][k + 1] = map[j][k];
 			map[j + 1][k] = map[j][k];
@@ -469,6 +476,7 @@ int main()
 		//update intersectionCarsWaiting
 		moveCarsWaiting(intersectionCarsWaiting, map);
 		printArray(map);
+		system("pause");
 		simTime++;
 	}
 

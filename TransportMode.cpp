@@ -70,7 +70,7 @@ MapOBJ* TransportMode::findClosest(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], int &dis
 		for (int i = xPos + 1; i < MAX_CITY_X; i++)
 		{
 			distance++;
-			MapOBJ* temp = map[i][xPos];
+			MapOBJ* temp = map[yPos][i];
 			if (temp != nullptr && (temp->getIntersection() != nullptr || temp->getVehicle() != nullptr) && xPos < MAX_CITY_X)
 			{
 				return temp;
@@ -81,7 +81,7 @@ MapOBJ* TransportMode::findClosest(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], int &dis
 		for (int i = xPos - 1; i > 0; i--)
 		{
 			distance++;
-			MapOBJ* temp = map[i][xPos];
+			MapOBJ* temp = map[yPos][i];
 			if (temp != nullptr && (temp->getIntersection() != nullptr || temp->getVehicle() != nullptr) && xPos > 0)
 			{
 				return temp;
@@ -256,92 +256,92 @@ void TransportMode::smartMove(MapOBJ *map[MAX_CITY_X][MAX_CITY_Y])	//still needs
 					}
 				}
 			}
+		}
 
-				//intersection in front of you
-			else if (tempInter != nullptr)
+			//intersection in front of you
+		else if (tempInter != nullptr)
+		{
+			if (tempInter->interType == STOPSIGN)
 			{
-				if (tempInter->interType == STOPSIGN)
+				if (distance == 1)
 				{
+					tempInter->interPush(this);
+					currentSpeed = 0;
+					acceleration = 0;
+				}
+				else if(currentSpeed > distance)
+				{
+					acceleration = distance - currentSpeed - 1;
+				}
+					
+			}
+			else	//signal
+			{
+				switch (tempInter->getLightColor(cardinalD))
+				{
+				case RED:
 					if (distance == 1)
 					{
-						tempInter->interPush(this);
 						currentSpeed = 0;
 						acceleration = 0;
 					}
-					else if(currentSpeed > distance)
+					else if (currentSpeed > distance)
 					{
 						acceleration = distance - currentSpeed - 1;
 					}
-					
-				}
-				else	//signal
-				{
-					switch (tempInter->getLightColor(cardinalD))
+					else if (this->acceleration >= 0)		//you were costing/accelerating last time cycle
 					{
-					case RED:
-						if (distance == 1)
-						{
-							currentSpeed = 0;
-							acceleration = 0;
-						}
-						else if (currentSpeed > distance)
-						{
-							acceleration = distance - currentSpeed - 1;
-						}
-						else if (this->acceleration >= 0)		//you were costing/accelerating last time cycle
-						{
-							acceleration = -1;
-						}
-						else								//you were starting to slow down last time cycle
-						{
-							acceleration += acceleration;
-						}
-
-						if (currentSpeed + acceleration < 1)
-						{
-							acceleration = 0;
-						}
-						break;
-
-					case YELLOW:
-						if (currentSpeed > distance)
-						{
-							moved = true;
-							moveThroughIntersection(distance);
-							acceleration = 0;
-						}
-
-						else if (this->acceleration >= 0)		//you were costing/accelerating last time cycle
-						{
-							acceleration = -1;
-						}
-						else								//you were starting to slow down last time cycle
-						{
-							acceleration += acceleration;
-						}
-
-						if (currentSpeed + acceleration < 1)
-						{
-							acceleration = 0;
-						}
-						break;
-
-					case GREEN:
-						if (currentSpeed > distance)
-						{
-							moved = true;
-							moveThroughIntersection(distance);
-							acceleration = 0;
-						}
-						else
-						{
-							simpleMove(map);
-						}
-						break;
-
-					default:
-						break;
+						acceleration = -1;
 					}
+					else								//you were starting to slow down last time cycle
+					{
+						acceleration += acceleration;
+					}
+
+					if (currentSpeed + acceleration < 1)
+					{
+						acceleration = 0;
+					}
+					break;
+
+				case YELLOW:
+					if (currentSpeed > distance)
+					{
+						moved = true;
+						moveThroughIntersection(distance);
+						acceleration = 0;
+					}
+
+					else if (this->acceleration >= 0)		//you were costing/accelerating last time cycle
+					{
+						acceleration = -1;
+					}
+					else								//you were starting to slow down last time cycle
+					{
+						acceleration += acceleration;
+					}
+
+					if (currentSpeed + acceleration < 1)
+					{
+						acceleration = 0;
+					}
+					break;
+
+				case GREEN:
+					if (currentSpeed > distance)
+					{
+						moved = true;
+						moveThroughIntersection(distance);
+						acceleration = 0;
+					}
+					else
+					{
+						simpleMove(map);
+					}
+					break;
+
+				default:
+					break;
 				}
 			}
 		}
@@ -392,7 +392,7 @@ void TransportMode::updateXY(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])		//changed so 
 	if (yPos > MAX_CITY_Y || yPos < 0 || xPos > MAX_CITY_X || xPos < 0)	// car off map, delete it
 	{
 		delete this;
-		map[yPos][xPos]->setVehicle(nullptr);
+		//map[yPos][xPos]->setVehicle(nullptr);
 	}
 	else if (map[yPos][xPos]->getVehicle() != nullptr) //CRASH
 	{

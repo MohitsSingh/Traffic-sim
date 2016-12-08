@@ -34,9 +34,9 @@ TraficSignal::TraficSignal()
 	curStraightColor[EAST] = RED;
 	curStraightColor[WEST] = RED;
 
-	strightTimeCycles[GREEN] = 7;
+	strightTimeCycles[GREEN] = 5;
 	strightTimeCycles[YELLOW] = 3;
-	strightTimeCycles[RED] = 10;
+	strightTimeCycles[RED] = 8;
 }
 
 void TraficSignal::updateSignal()

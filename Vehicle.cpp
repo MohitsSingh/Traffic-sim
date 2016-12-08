@@ -16,8 +16,12 @@ Vehicle::Vehicle()
 
 Vehicle::Vehicle(int inputX, int inputY)
 {
-	TransportMode(inputX, inputY);
-	model = CARTYPES::UNDEFINED;
+	xPos = inputX;
+	yPos = inputY;
+	acceleration = 5;
+	currentSpeed = 8;
+	maxAcceleration = 5;
+	maxSpeed = 8;
 	emergencyVehicle = false;
 	activeEmergency = false;
 	oversized = false;
