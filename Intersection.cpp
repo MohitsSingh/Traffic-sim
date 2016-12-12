@@ -1,7 +1,15 @@
+//Intersection Group
+//12-12-2016
+//Israel Muro
+//Jeremy Moad
+//Greg Martinek
+
+
 #pragma once
 #include "Includes.h"
 
-Intersection::Intersection()     // the default constructer that makes an intersection with a stop sign
+ /******the default constructer that makes an intersection with a stop sign*******/
+Intersection::Intersection()    
 {
 	//typeSign = stop;
 	nLanes = 1;
@@ -12,7 +20,8 @@ Intersection::Intersection()     // the default constructer that makes an inters
 }
 
 
-Intersection::Intersection(double xLoc, double yLoc)  // overloaded constructer that makes a specific intersection based on location
+/*********overloaded constructer that makes a specific intersection based on location*********/
+Intersection::Intersection(double xLoc, double yLoc)  
 {
 	//sign signArray[2][2];
 	//signArray[0][0] = stop;
@@ -27,6 +36,8 @@ Intersection::Intersection(double xLoc, double yLoc)  // overloaded constructer 
 	createPointers();
 	waiting = true;
 }
+
+/*******Overloaded constructor that uses intersection ID to build an intersection**************/
 Intersection::Intersection(int inputIntersectionID, int nbLanes, int ebLanes, int sbLanes, int wbLanes)
 {
 	intersectionID = inputIntersectionID;
@@ -43,6 +54,8 @@ void Intersection::createPointers()
 	eLaneColor = new LIGHTCOLOR[eLanes];
 	wLaneColor = new LIGHTCOLOR[wLanes];
 }
+
+/*******This function returns the status of an intersection and whether a car can go*********/
 int Intersection::approachingCar(int xLoc, int yLoc) // returns stop or go for car
 {
 	//sign signArray[2][2];
@@ -60,7 +73,7 @@ int Intersection::approachingCar(int xLoc, int yLoc) // returns stop or go for c
 
 	return 0;
 }
-
+/*********This method will return the color of the light signal for the different lanes************/
 LIGHTCOLOR Intersection::checkLight(CARDINAL inputCARDINAL, int laneNumber)
 {
 	//int lightArray[3][2];
@@ -86,8 +99,8 @@ LIGHTCOLOR Intersection::checkLight(CARDINAL inputCARDINAL, int laneNumber)
 	return RED;
 }
 
-
-int *Intersection::turnChoice(int xLoc, int yLoc)  //based on location only permits allowable turns
+/**********The function is meant to resrict cars from going in certain directions**********/
+int *Intersection::turnChoice(int xLoc, int yLoc)  
 {
 	int turnArray[3] = {1,1,1};
 	return turnArray;
@@ -131,15 +144,16 @@ int Intersection::getNumberOfLanes(CARDINAL inputCARDINAL)
 	return 0;
 }
 
-void Intersection::interPush(TransportMode* modes)  // put on queue and 
+/************This method places all transport mode objects in a dqueue until released to proceed*********/ 
+void Intersection::interPush(TransportMode* modes)                   
 {
 	bool duplicate = false;
 	
-	if (cars.size() == 0)
+	if (cars.size() == 0)                                 //The dqueue that will hold transport mode objects
 	{
 		cars.push_back(modes);
 	}
-	if (cars.size() >= 1)
+	if (cars.size() >= 1)                                  //This loop ensures an object is not placed in the dqueue more than once
 	{
 		for (unsigned int i = 0; i < cars.size(); i++)
 		{
@@ -155,14 +169,15 @@ void Intersection::interPush(TransportMode* modes)  // put on queue and
 	}
 }
 
+/*********This method uses input from our direction method to release the appropriate number of cars from the dqueue*************/
 vector <TransportMode*> Intersection::interPop()
 {
 	int release = carDirection();
-	vector <TransportMode*> carGo;
+	vector <TransportMode*> carGo;                     //The vector that will provide the objects that may leave the dqueue
 	switch(release)
 	{
-		case 0:
-			TransportMode* hold = cars[0];
+		case 0:                                     //These cases allow a certain number of transport mode objects to be released 
+			TransportMode* hold = cars[0];      //as determined by the car direction method which returns the switch
 			cars.pop_front();
 			carGo.push_back(hold);
 		
@@ -208,7 +223,7 @@ vector <TransportMode*> Intersection::interPop()
 			cars.pop_front();
 			carGo.push_back(hold);
 			carGo.push_back(hold2);
-		case 5://not sure if i set this one up correctly jm
+		case 5:
 			TransportMode* hold = cars[0];
 			TransportMode* hold2 = cars[3];
 			cars[2] = cars[1];
@@ -217,7 +232,7 @@ vector <TransportMode*> Intersection::interPop()
 			cars.pop_front();
 			carGo.push_back(hold);
 			carGo.push_back(hold2);
-		case 6://not sure if i set this one up correctly jm
+		case 6:
 			TransportMode* hold = cars[0];
 			TransportMode* hold2 = cars[1];
 			TransportMode* hold3 = cars[3];
@@ -232,6 +247,7 @@ vector <TransportMode*> Intersection::interPop()
 	return carGo;
 }
 
+/**********This method uses the current direction and desired direction to release cars from the dqueue in a "smart" process***********/
 int Intersection::carDirection()
 {
 	int release = 0;
@@ -661,7 +677,7 @@ int Intersection::carDirection()
 					}
 				}
 			}
-		}														//if car 1 is going straight
+		}									      //if car 1 is going straight
 		else if (cars[0]->getCardinalD == 3 && cars[0]->getDesieredD == 3)
 		{
 			if (cars[1]->getCardinalD == 1 && cars[1]->getDesieredD == 1)
