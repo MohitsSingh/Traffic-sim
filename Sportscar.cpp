@@ -1,7 +1,9 @@
+//Christine Sobolewski, Adam Gunnell, Jack Grebb
 #pragma once
 #include "Includes.h"
 #include "Sportscar.h"
 
+//Jack Grebb
 Sportscar::Sportscar()
 {
 	model = SPORT;

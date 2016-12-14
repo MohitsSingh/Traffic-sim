@@ -1,6 +1,8 @@
+//Adam Gunnell, Christine Sobolewski, Jack Grebb
 #pragma once
 #include "Car.h"
 
+//Adam Gunnell
 Car::Car(bool emergency)		//JG bool input optional, defaults to false if default constructor called
 {
 	//JG police car specs (probably needs tweaking)

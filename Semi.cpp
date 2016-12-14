@@ -1,7 +1,8 @@
+//Christine Sobolewski, Adam Gunnell, Jack Grebb
 #pragma once
 #include "Semi.h"
 
-
+//Christine Sobolewski
 Semi::Semi()
 {
 	setAcceleration(59);  //units?

@@ -1,7 +1,8 @@
+//Christine Sobolewski, Adam Gunnell, Jack Grebb
 #pragma once
 #include "Truck.h"
 
-
+//Christine Sobolewski
 Truck::Truck()
 {
 	setAcceleration(8.4);  //units?

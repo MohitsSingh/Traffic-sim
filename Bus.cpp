@@ -1,7 +1,9 @@
+//Adam Gunnell, Christine Sobolewski, Jack Grebb
 #pragma once
 #include "Includes.h"
 #include "Bus.h"
 
+//Jack Grebb
 Bus::Bus()
 {
 	model = BUS;

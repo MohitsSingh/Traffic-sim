@@ -1,6 +1,7 @@
+//Christine Sobolewski, Adam Gunnell, Jack Grebb
 #pragma once
 #include "Van.h"
-
+//Adam Gunnell
 Van::Van(bool emergency) //JG bool input optional, set to false if default constructor called
 {
 	//JG ambulance specs

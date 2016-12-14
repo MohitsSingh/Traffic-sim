@@ -4,7 +4,7 @@ Spence Wilson
 Isaac Haas
 Last submitted on: 10/22/16
 Uses: all of the files
-Creates a vector of TransportMode, and then moves them around
+creates our "world" for the simulation of traffic 
 ***************************************************************************************/
 
 
@@ -42,6 +42,10 @@ which translates to approximately 7 to 9 mph/s
 int simTime = 0;	// I think this should be inside of "includes.h", but it's not working for me
 const int SIM_DURATION = 8;						// this could also be it's own data type. typedef int simTime;
 
+/**********************************************************************
+Author: Isaac Haas
+Description: crates cars on the edges of the map and sets their direction to the center of the map
+***********************************************************************/
 void createCars(vector <TransportMode*> &list, MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 {
 	int count = 0;
@@ -95,7 +99,10 @@ void createCars(vector <TransportMode*> &list, MapOBJ *map[MAX_CITY_Y][MAX_CITY_
 	cout << "Created " << count << " cars\n";
 }
 
-
+/**********************************************************************
+Author: Michael Ritter
+Description: moves cars through a intersection once they have been oked by the intersection for movement
+***********************************************************************/
 void moveCarsWaiting(vector <TransportMode*> icw, MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 {
 	for (int i = 0; i < icw.size(); i++)
@@ -182,6 +189,10 @@ void moveCarsWaiting(vector <TransportMode*> icw, MapOBJ *map[MAX_CITY_Y][MAX_CI
 	}
 }
 
+/**********************************************************************
+Author: data group
+Description: adds intersections to the map currently only making traffic signals
+***********************************************************************/
 void addIntersections(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 {
 
@@ -332,6 +343,10 @@ void addIntersections(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 	//	//return;
 }
 
+/**********************************************************************
+Author: Spence
+Description: adds roads to the map based on where intersections are on the map already.
+***********************************************************************/
 void makeRoads(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 {
 
@@ -381,8 +396,8 @@ void makeRoads(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 }
 
 /********************************************************************************************************************
-This function crudely prints the array for testing purposes.
-spencemw 11-19-16, updated 12-2-16
+Author: Spence, David
+Description: Prints the map with colors based on if their is a road/intersection/car at the location.
 *********************************************************************************************************************/
 void printArray(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 {
@@ -485,7 +500,10 @@ int main()
 	return 0;
 }
 
-
+/********************************************************************************************************************
+Author: Spence, David, Isaac
+Description: Randomly creates cars and puts them in a vector to be returned
+*********************************************************************************************************************/
 vector<TransportMode*> fillVector()
 {
 	vector <TransportMode*> tempList;
@@ -527,6 +545,11 @@ vector<TransportMode*> fillVector()
 	}
 	return tempList;
 }
+
+/********************************************************************************************************************
+Author: Michael
+Description: simply sets all locations on the map to nullptr
+*********************************************************************************************************************/
 void initializeMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 {
 	for (int i = 0; i < MAX_CITY_Y; i++)
@@ -537,6 +560,11 @@ void initializeMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 		}
 	}
 }
+
+/********************************************************************************************************************
+Author: Spence, David, Isaac
+Description: sets the direction of the cars to a random cardinal direction
+*********************************************************************************************************************/
 void initializeDirection(vector<TransportMode*> tempList)
 {
 	double startDirection;
@@ -566,6 +594,11 @@ void initializeDirection(vector<TransportMode*> tempList)
 		tempList[i]->setDirection(startDirection);
 	}
 }
+
+/********************************************************************************************************************
+Author: Spence, David, Isaac
+Description: sets cars acceleration to a number between 0-4
+*********************************************************************************************************************/
 void initializeAcceleration(vector<TransportMode*> tempList)
 {
 	int randType;
@@ -585,6 +618,11 @@ void initializeAcceleration(vector<TransportMode*> tempList)
 	}
 
 }
+
+/********************************************************************************************************************
+Author: Spence, David, Isaac
+Description: sets cars current speed to a constant 10
+*********************************************************************************************************************/
 void initializeCurrentSpeed(vector<TransportMode*> tempList)
 {
 	int randType;
@@ -593,6 +631,11 @@ void initializeCurrentSpeed(vector<TransportMode*> tempList)
 		tempList[i]->setCurrentSpeed(10);
 	}
 }
+
+/********************************************************************************************************************
+Author: Spence, David, Isaac
+Description: prints some information of every car in the list for simple debugging purposes
+*********************************************************************************************************************/
 void printVector(vector<TransportMode*> tempList)
 {
 	for (int i = 0; i < tempList.size(); i++)
@@ -605,19 +648,3 @@ void printVector(vector<TransportMode*> tempList)
 	}
 	cout << endl << endl;
 }
-void deleteMap(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
-{
-	
-}
-
-
-/*
-I would like to add a way to stop acceleration, start acceleration, change direction,
-and apply brakes for all of the vehicles during the simulation.
-
-For starting out pretty sure we are just going to have our "world" be able to have instantaneous changes in acceleration and velocity so
-screw physics for now. And for changing direction we can just have a simple random funtion that passes the car into a random lane in the intersection OBJ.
-So like the car is 1 square down from the intersection and then it wants to move so it gets passed into the "through", "left", or "right" lane. -Mike
-
-
-*/

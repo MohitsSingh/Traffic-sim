@@ -1,3 +1,7 @@
+//Isaac, David, Spence, Michael
+//This class is used as the data type that our map will be made out of, it will allow us to have
+//a car, intersection, and roads all at the same array location
+
 #pragma once
 #include "includes.h"
 #include "Intersection.h"	

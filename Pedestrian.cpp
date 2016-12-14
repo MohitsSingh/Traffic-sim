@@ -1,7 +1,8 @@
+//Christine Sobolewski, Adam Gunnell, Jack Grebb
 #pragma once
 #include "Pedestrian.h"
 
-
+//Adam Gunnell
 Pedestrian::Pedestrian()
 {
 	width = 12;		//inches

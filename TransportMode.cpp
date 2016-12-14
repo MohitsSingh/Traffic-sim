@@ -1,3 +1,4 @@
+//Jack Grebb, Adam Gunnell, Christine Sobolewski
 #pragma once
 #include "Includes.h"
 #include "TransportMode.h"
@@ -40,6 +41,10 @@ TransportMode::~TransportMode()
 {
 }
 
+/********************************************************************************************************************
+Author: Michael
+Description: finds the first car or intersection in the direction of travel
+*********************************************************************************************************************/
 MapOBJ* TransportMode::findClosest(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], int &distance)
 {
 	switch (cardinalD)
@@ -95,6 +100,10 @@ MapOBJ* TransportMode::findClosest(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X], int &dis
 	return nullptr;
 }
 
+/********************************************************************************************************************
+Author: Michael
+Description: turns/moves a car through a traffic signal intersection
+*********************************************************************************************************************/
 void TransportMode::moveThroughIntersection(int distance)
 {
 	int tempSpeed = currentSpeed;
@@ -180,6 +189,10 @@ void TransportMode::moveThroughIntersection(int distance)
 	}
 }
 
+/********************************************************************************************************************
+Author: Michael
+Description: A.I movement for cars looks at what the closest car or intersection in front of it is doing and makes choices based on that
+*********************************************************************************************************************/
 void TransportMode::smartMove(MapOBJ *map[MAX_CITY_X][MAX_CITY_Y])	//still needs alot of work going to need to bounce ideas off you guys some time - Mike
 {
 	bool moved = false;
@@ -367,6 +380,11 @@ void TransportMode::smartMove(MapOBJ *map[MAX_CITY_X][MAX_CITY_Y])	//still needs
 		updateXY(map);
 	}
 }
+
+/********************************************************************************************************************
+Author: Michael
+Description: takes current speed and direction and moves the cars x/y postion accordingly
+*********************************************************************************************************************/
 void TransportMode::updateXY(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])		//changed so that is works off the 4 cardinals instead of off of the double distance. -Mike
 {
 	map[yPos][xPos]->setVehicle(nullptr);
@@ -408,6 +426,11 @@ void TransportMode::updateXY(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])		//changed so 
 	}
 
 }
+
+/********************************************************************************************************************
+Author: Michael
+Description: Just keeps uping the speed of the car until it hits max speed
+*********************************************************************************************************************/
 void TransportMode::simpleMove(MapOBJ *map[MAX_CITY_Y][MAX_CITY_X])
 {
 	if (currentSpeed < maxSpeed * .25)	//if you are going 1/4 of your max speed, slam that pedal into the floor
